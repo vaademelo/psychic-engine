@@ -2,30 +2,39 @@ package utils;
 
 import Random;
 
+import utils.Constants;
 import gameData.UserData;
-
-enum ZoneKind {
-  starter;
-  normal;
-  intense;
-}
 
 class MapMaker {
 
-  private var _zoneWidth:Int = 7;
-  private var _zoneHeight:Int = 7;
+  private static var _zoneWidth:Int = 7;
+  private static var _zoneHeight:Int = 7;
 
-  public function createMap() {
+  private static var _tiles:Array<Array<Int>>;
+
+  public static function getMap():Array<Array<Int>> {
+    if(_tiles == null) createMap();
+    return _tiles;
+  }
+
+  public static function createMap():Void {
 
     var nZones = Random.int(2, 3);
 
-    var tiles:Array<Array<Int>> = new Array<Array<Int>>();
+    var tiles:Array<Array<Int>> = createZone(ZoneKind.starter);
 
-    //TODO: finish creating map
+    var kinds = [ZoneKind.normal, ZoneKind.intense];
+    for (i in 0...nZones) {
+      var zone = createZone(Random.fromArray(kinds));
+      for(j in 0...zone.length) {
+        tiles[j] = tiles[j].concat(zone[j]);
+      }
+    }
 
+    _tiles = tiles;
   }
 
-  public function createZone(kind:ZoneKind):Array<Array<Int>> {
+  private static function createZone(kind:ZoneKind):Array<Array<Int>> {
     var nFood:Int = 0;
     var nTreasures:Int = 0;
     var nMonsters:Int = 0;
@@ -48,16 +57,15 @@ class MapMaker {
         nWalls = Random.int(0, 6);
     }
 
-
     var tiles = populateZone(nFood, nTreasures, nMonsters, nWalls);
 
     if (kind == ZoneKind.starter) {
       tiles[0][0] = 2;
       UserData.loadUserData();
 
-      for(i in 0...UserData.heroes.lenght + 1) {
-        var c = Random.int(0, _zoneWidth);
-        var l = Random.int(0, _zoneHeight);
+      for(i in 0...UserData.heroes.length + 1) {
+        var c = Random.int(0, _zoneWidth - 1);
+        var l = Random.int(0, _zoneHeight - 1);
         tiles[l][c] = 6;
       }
     }
@@ -65,7 +73,7 @@ class MapMaker {
     return tiles;
   }
 
-  public function populateZone(nFood:Int, nTreasures:Int, nMonsters:Int, nWalls:Int):Array<Array<Int>> {
+  public static function populateZone(nFood:Int, nTreasures:Int, nMonsters:Int, nWalls:Int):Array<Array<Int>> {
     var tiles:Array<Array<Int>> = new Array<Array<Int>>();
 
     var tilesArray:Array<Int> = new Array<Int>();
@@ -85,17 +93,17 @@ class MapMaker {
       tilesArray.push(5);
       nMonsters --;
     }
-    while (tilesArray.lenght < _zoneWidth * _zoneHeight) {
+    while (tilesArray.length < _zoneWidth * _zoneHeight) {
       tilesArray.push(0);
     }
     tilesArray = Random.shuffle(tilesArray);
 
-    for (line in _zoneHeight) {
+    for (line in 0..._zoneHeight) {
       var tilesLine = new Array<Int>();
-      for (collumn in _zoneWidth) {
+      for (collumn in 0..._zoneWidth) {
         tilesLine.push(tilesArray.pop());
       }
-      tiles.push(tiles);
+      tiles.push(tilesLine);
     }
 
     return tiles;

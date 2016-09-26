@@ -1,9 +1,6 @@
 package gameData;
 
-enum Trait {
-  traitOne;
-  traitTwo;
-}
+import utils.Constants;
 
 class PersonalityTrait {
 

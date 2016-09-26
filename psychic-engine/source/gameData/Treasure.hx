@@ -1,9 +1,6 @@
 package gameData;
 
-enum TreasureKind {
-  food;
-  item;
-}
+import utils.Constants;
 
 class Treasure {
 

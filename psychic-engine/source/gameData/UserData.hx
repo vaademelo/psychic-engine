@@ -2,6 +2,7 @@ package gameData;
 
 import Random;
 
+import utils.Constants;
 import gameData.Character;
 
 class UserData {

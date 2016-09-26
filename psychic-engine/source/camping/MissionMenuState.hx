@@ -30,7 +30,6 @@ class MissionMenuState extends FlxState {
     var i = 0;
     UserData.loadUserData();
     for (char in UserData.heroes) {
-      trace(char.imageSource);
       var sprite = new FlxSprite(0, i, char.imageSource);
       i += 50;
       add(sprite);
