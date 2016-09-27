@@ -12,7 +12,7 @@ class HeroMind implements Mind {
 
   public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
     //TODO: TCC
-    return [0,0];
+    return unit.getCoordinate();
   }
 
 }

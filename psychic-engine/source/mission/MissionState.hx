@@ -7,8 +7,9 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 
 import utils.MapMaker;
-import mission.world.WorldMap;
 import mission.ui.Camera;
+import mission.world.Unit;
+import mission.world.WorldMap;
 
 class MissionState extends FlxState {
 
@@ -29,20 +30,22 @@ class MissionState extends FlxState {
     add(worldMap.heroes);
     add(cam);
 
-    startTurn();
+    startNewTurn();
   }
 
-  private function startTurn() {
-    for (hero in worldMap.heroes) {
-      var action:Array<Int> = hero.character.mind.analyseAction(worldMap, hero);
-      hero.executeAction(worldMap, action[0], action[1]);
+  public function startNewTurn() {
+    var list = worldMap.heroes.members.concat(worldMap.monsters.members);
+    unitAction(list);
+  }
+
+  public function unitAction(list:Array<Unit>):Void {
+    if (list.length == 0) {
+      startNewTurn();
+      return;
     }
-    for (monster in worldMap.monsters) {
-      var action:Array<Int> = monster.character.mind.analyseAction(worldMap, monster);
-      trace(action);
-      monster.executeAction(worldMap, action[0], action[1]);
-    }
-    //TODO: verify if game ended, and startNewTurn or endGame
+    var unit = list.shift();
+    var action:Array<Int> = unit.character.mind.analyseAction(worldMap, unit);
+    unit.executeAction(worldMap, action[0], action[1], unitAction, list);
   }
 
 }

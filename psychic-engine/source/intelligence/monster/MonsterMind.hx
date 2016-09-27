@@ -36,6 +36,7 @@ class MonsterMind implements Mind {
 
   public function chooseRandomTileToWalk(worldMap:WorldMap, unit:Unit):Array<Int> {
     var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit);
-    return Random.fromArray(validTiles);
+    var tile = Random.fromArray(validTiles);
+    return tile;
   }
 }

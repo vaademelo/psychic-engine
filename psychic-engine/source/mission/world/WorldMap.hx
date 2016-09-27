@@ -56,22 +56,23 @@ class WorldMap extends FlxTilemap {
     }
   }
 
-  public function getPath(start:Array<Int>, destination:Array<Int>) {
-    var startPt = new FlxPoint(start[0], start[1]);
-    var endPt = new FlxPoint(destination[0], destination[1]);
+  public function getPath(start:Array<Int>, destination:Array<Int>):Array<FlxPoint> {
+    var startPt = this.getTileCoordsByIndex(start[1] + start[0] * this.widthInTiles);
+    var endPt = this.getTileCoordsByIndex(destination[1] + destination[0] * this.widthInTiles);
     return this.findPath(startPt, endPt, false, false, FlxTilemapDiagonalPolicy.NONE);
 	}
 
   public function isTileWalkable(i:Int, j:Int):Bool {
-		return this.getTileCollisions(this.getTile(j, i)) == FlxObject.ANY;
+    return this.getTileCollisions(this.getTile(j, i)) == FlxObject.NONE;
 	}
 
   public function setTileAsWalkable(i:Int, j:Int, walkable = true) {
 		var value = (walkable) ? 0 : 5;
-		this.setTile(j, i, value, true);
+		this.setTile(j, i, value, false);
 	}
 
   public function isTileValid(i:Int, j:Int):Bool {
+    if(i < 0 || j< 0 || i >= this.heightInTiles || j >= this.widthInTiles) return false;
     var index = this.getTile(j, i);
     return index!= null && index != 1 && index < 7 && index >= 0;
   }

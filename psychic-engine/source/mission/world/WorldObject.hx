@@ -15,7 +15,7 @@ class WorldObject extends FlxSprite {
   }
 
   public function getCoordinate():Array<Int> {
-    return [this.j, this.i];
+    return [this.i, this.j];
   }
   public function getPos():Array<Float> {
     return [this.x, this.y];
@@ -29,7 +29,11 @@ class WorldObject extends FlxSprite {
   public function setPos(x:Float, y:Float) {
     this.x = x;
     this.y = y;
-    this.i = Math.floor(Constants.TILESIZE / y);
-    this.j = Math.floor(Constants.TILESIZE / x);
+    this.i = Math.floor(this.y / Constants.TILESIZE);
+    this.j = Math.floor(this.x / Constants.TILESIZE);
+  }
+  public function updateCoordinate() {
+    this.i = Math.floor(this.y / Constants.TILESIZE);
+    this.j = Math.floor(this.x / Constants.TILESIZE);
   }
 }
