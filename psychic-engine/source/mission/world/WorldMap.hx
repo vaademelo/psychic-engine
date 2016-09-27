@@ -1,12 +1,12 @@
-package mission;
+package mission.world;
 
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup;
 import flixel.FlxObject;
 
 import utils.Constants;
-import mission.Unit;
-import mission.Collectable;
+import mission.world.Unit;
+import mission.world.Collectable;
 import gameData.Character;
 
 class WorldMap extends FlxTilemap {
@@ -46,10 +46,10 @@ class WorldMap extends FlxTilemap {
             var monster = new Unit(new Character(TeamSide.monsters), i, j);
             monsters.add(monster);
           case 6:
+            //TODO: get the real heroes, and not some random ones
             var hero = new Unit(new Character(TeamSide.heroes), i, j);
             heroes.add(hero);
         }
-
       }
     }
   }

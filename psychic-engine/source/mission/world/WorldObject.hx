@@ -1,4 +1,4 @@
-package mission;
+package mission.world;
 
 import flixel.FlxSprite;
 

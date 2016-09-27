@@ -4,6 +4,10 @@ import Random;
 
 import utils.Constants;
 
+import intelligence.Mind;
+import intelligence.hero.HeroMind;
+import intelligence.monster.MonsterMind;
+
 class Character {
 
   public var team:TeamSide;
@@ -19,6 +23,7 @@ class Character {
   public var imageSource:String;
   public var relationList:Map<Character, Int>;
   public var personality:Array<PersonalityTrait>;
+  public var mind:Mind;
 
   public function new(team:TeamSide) {
     this.team = team;
@@ -37,6 +42,7 @@ class Character {
         this.hitChance[body] = Random.float(0.3, 0.7);
         this.critChance[body] = Random.float(0.0, 0.3);
       }
+      this.mind = new HeroMind();
     } else {
       this.hpMax = Random.int(1, 3);
       this.injuryMax = Random.int(1, 2);
@@ -52,6 +58,7 @@ class Character {
         this.hitChance[body] = Random.float(0.1, 0.4);
         this.critChance[body] = Random.float(0.0, 0.1);
       }
+      this.mind = new MonsterMind();
     }
 
   }

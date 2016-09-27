@@ -1,6 +1,6 @@
-package mission;
+package mission.world;
 
-import mission.WorldObject;
+import mission.world.WorldObject;
 
 import utils.Constants;
 
