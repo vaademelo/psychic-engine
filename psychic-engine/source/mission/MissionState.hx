@@ -33,14 +33,15 @@ class MissionState extends FlxState {
   }
 
   private function startTurn() {
-    // for (hero in worldMap.heroes) {
-    //   var action:Array<Int> = hero.character.mind.analyseAction(worldMap);
-    //   hero.executeAction(worldMap, action[0], action[1]);
-    // }
-    // for (monster in worldMap.monsters) {
-    //   var action:Array<Int> = monster.character.mind.analyseAction(worldMap);
-    //   monster.executeAction(worldMap, action[0], action[1]);
-    // }
+    for (hero in worldMap.heroes) {
+      var action:Array<Int> = hero.character.mind.analyseAction(worldMap, hero);
+      hero.executeAction(worldMap, action[0], action[1]);
+    }
+    for (monster in worldMap.monsters) {
+      var action:Array<Int> = monster.character.mind.analyseAction(worldMap, monster);
+      trace(action);
+      monster.executeAction(worldMap, action[0], action[1]);
+    }
     //TODO: verify if game ended, and startNewTurn or endGame
   }
 

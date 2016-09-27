@@ -17,8 +17,8 @@ class Unit extends WorldObject {
   }
 
   public function executeAction(worldMap:WorldMap, i:Int, j:Int) {
-    //TODO: execute action:
     // 1st: verify target tile
+    var tile = worldMap.getTile(j, i);
     // 2nd: walk to tile/closest tile available
     // 3rd: if possible, do the action on the tile
   }

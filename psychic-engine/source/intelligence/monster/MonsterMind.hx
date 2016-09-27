@@ -1,18 +1,41 @@
 package intelligence.monster;
 
+import Random;
+
+import flixel.group.FlxGroup;
+
 import intelligence.Mind;
+import intelligence.tools.PositionTool;
+
+import mission.world.Unit;
 import mission.world.WorldMap;
+import mission.world.WorldObject;
+
+import utils.Constants;
 
 class MonsterMind implements Mind {
 
   public function new() {
   }
 
-  public function analyseAction(worldMap:WorldMap):Array<Int> {
-    //TODO: create basic logic for dummy enemy
+  public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
+    var opponents = (unit.character.team == TeamSide.heroes) ? worldMap.monsters : worldMap.heroes;
+    var opponentsInRange = PositionTool.getObjectsInRange(unit, opponents);
 
-    
+    if (opponentsInRange.length > 0) {
+      return chooseOpponentToAtack(opponentsInRange);
+    } else {
+      return chooseRandomTileToWalk(worldMap, unit);
+    }
+  }
 
-    return [0,0];
+  public function chooseOpponentToAtack(opponents:Array<Unit>):Array<Int> {
+    //TODO: choose easiest opponent
+    return Random.fromArray(opponents).getCoordinate();
+  }
+
+  public function chooseRandomTileToWalk(worldMap:WorldMap, unit:Unit):Array<Int> {
+    var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit);
+    return Random.fromArray(validTiles);
   }
 }

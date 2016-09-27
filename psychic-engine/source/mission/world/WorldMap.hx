@@ -63,12 +63,17 @@ class WorldMap extends FlxTilemap {
 	}
 
   public function isTileWalkable(i:Int, j:Int):Bool {
-		return false;//return this.getTile(i, j).allowCollisions == FlxObject.ANY;
+		return this.getTileCollisions(this.getTile(j, i)) == FlxObject.ANY;
 	}
 
   public function setTileAsWalkable(i:Int, j:Int, walkable = true) {
 		var value = (walkable) ? 0 : 5;
-		this.setTile(i, j, value, true);
+		this.setTile(j, i, value, true);
 	}
+
+  public function isTileValid(i:Int, j:Int):Bool {
+    var index = this.getTile(j, i);
+    return index!= null && index != 1 && index < 7 && index >= 0;
+  }
 
 }
