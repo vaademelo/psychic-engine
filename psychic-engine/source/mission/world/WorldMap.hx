@@ -1,7 +1,9 @@
 package mission.world;
 
+import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup;
+import flixel.math.FlxPoint;
 import flixel.FlxObject;
 
 import utils.Constants;
@@ -53,5 +55,20 @@ class WorldMap extends FlxTilemap {
       }
     }
   }
+
+  public function getPath(start:Array<Int>, destination:Array<Int>) {
+    var startPt = new FlxPoint(start[0], start[1]);
+    var endPt = new FlxPoint(destination[0], destination[1]);
+    return this.findPath(startPt, endPt, false, false, FlxTilemapDiagonalPolicy.NONE);
+	}
+
+  public function isTileWalkable(i:Int, j:Int):Bool {
+		return false;//return this.getTile(i, j).allowCollisions == FlxObject.ANY;
+	}
+
+  public function setTileAsWalkable(i:Int, j:Int, walkable = true) {
+		var value = (walkable) ? 0 : 5;
+		this.setTile(i, j, value, true);
+	}
 
 }

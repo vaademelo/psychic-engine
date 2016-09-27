@@ -10,6 +10,9 @@ class MonsterMind implements Mind {
 
   public function analyseAction(worldMap:WorldMap):Array<Int> {
     //TODO: create basic logic for dummy enemy
+
+    
+
     return [0,0];
   }
 }
