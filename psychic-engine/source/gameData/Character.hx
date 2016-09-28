@@ -15,6 +15,7 @@ class Character {
   public var hpMax:Int;
   public var injuryMax:Int;
   public var movement:Int;
+  public var atackRange:Int;
   public var bodyKind:BodyKind;
   public var hitChance:Map<BodyKind, Float>;
   public var critChance:Map<BodyKind, Float>;
@@ -27,6 +28,8 @@ class Character {
 
   public function new(team:TeamSide) {
     this.team = team;
+
+    this.atackRange = 1;
     if(team == heroes) {
       this.hpMax = Random.int(3, 4);
       this.injuryMax = Random.int(3, 5);

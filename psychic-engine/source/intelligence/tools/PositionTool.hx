@@ -11,22 +11,22 @@ import mission.world.WorldObject;
 
 class PositionTool {
 
-  public static function getObjectsInRange(unit:Unit, list:FlxTypedGroup<OneOfTwo<Unit, Collectable>>):Array<OneOfTwo<Unit, Collectable>> {
+  public static function getObjectsInRange(list:FlxTypedGroup<OneOfTwo<Unit, Collectable>>, target:Array<Int>, range:Int):Array<OneOfTwo<Unit, Collectable>> {
     var objectsInRange:Array<OneOfTwo<Unit, Collectable>> = new Array<OneOfTwo<Unit, Collectable>>();
     for (obj in list.members) {
       var ob = cast(obj, WorldObject);
-      if (Math.abs(unit.i - ob.i) + Math.abs(unit.j + ob.j) <= unit.character.vision) objectsInRange.push(obj);
+      if (Math.abs(target[0] - ob.i) + Math.abs(target[1] + ob.j) <= range) objectsInRange.push(obj);
     }
     return objectsInRange;
   }
 
-  public static function getValidTilesInRange(worldMap:WorldMap, unit:Unit):Array<Array<Int>> {
+  public static function getValidTilesInRange(worldMap:WorldMap, target:Array<Int>, range:Int):Array<Array<Int>> {
     var tiles:Array<Array<Int>> = new Array<Array<Int>>();
-    for (i in -unit.character.vision...unit.character.vision+1) {
-      var limits:Int = Std.int(unit.character.vision - Math.abs(i));
+    for (i in -range...range+1) {
+      var limits:Int = Std.int(range - Math.abs(i));
       for (j in -limits...limits+1) {
-        if(worldMap.isTileValid(unit.i + i, unit.j + j)) {
-          tiles.push([unit.i + i, unit.j + j]);
+        if(worldMap.isTileValid(target[0] + i, target[1] + j)) {
+          tiles.push([target[0] + i, target[1] + j]);
         }
       }
     }

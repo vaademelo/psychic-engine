@@ -20,7 +20,7 @@ class MonsterMind implements Mind {
 
   public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
     var opponents = (unit.character.team == TeamSide.heroes) ? worldMap.monsters : worldMap.heroes;
-    var opponentsInRange = PositionTool.getObjectsInRange(unit, opponents);
+    var opponentsInRange = PositionTool.getObjectsInRange(opponents, unit.getCoordinate(), unit.character.vision);
 
     if (opponentsInRange.length > 0) {
       return chooseOpponentToAtack(opponentsInRange);
@@ -35,7 +35,7 @@ class MonsterMind implements Mind {
   }
 
   public function chooseRandomTileToWalk(worldMap:WorldMap, unit:Unit):Array<Int> {
-    var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit);
+    var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.character.vision);
     var tile = Random.fromArray(validTiles);
     return tile;
   }

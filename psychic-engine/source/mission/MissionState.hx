@@ -9,6 +9,7 @@ import flixel.ui.FlxButton;
 import utils.MapMaker;
 import mission.ui.Camera;
 import mission.world.Unit;
+import mission.ActionExecuter;
 import mission.world.WorldMap;
 
 class MissionState extends FlxState {
@@ -45,7 +46,7 @@ class MissionState extends FlxState {
     }
     var unit = list.shift();
     var action:Array<Int> = unit.character.mind.analyseAction(worldMap, unit);
-    unit.executeAction(worldMap, action[0], action[1], unitAction, list);
+    ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
   }
 
 }
