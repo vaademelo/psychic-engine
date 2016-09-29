@@ -2,6 +2,8 @@ package utils;
 
 import Random;
 
+import flixel.util.typeLimit.OneOfTwo;
+
 import utils.Constants;
 import gameData.UserData;
 
@@ -12,12 +14,20 @@ class MapMaker {
 
   private static var _tiles:Array<Array<Int>>;
 
+  private static var _zones:Array<Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>>;
+
   public static function getMap():Array<Array<Int>> {
     if(_tiles == null) createMap();
     return _tiles;
   }
 
+  public static function getMapZones():Array<Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>> {
+    if(_zones == null) createMap();
+    return _zones;
+  }
+
   public static function createMap():Void {
+    _zones = new Array<Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>>();
 
     var nZones = Random.int(2, 3);
 
@@ -43,23 +53,30 @@ class MapMaker {
     switch (kind) {
       case ZoneKind.starter:
         nFood = Random.int(2, 3);
-        nMonsters = Random.int(0, 1);
+        nMonsters = Random.int(1, 2);
         nWalls = Random.int(0, 4);
       case ZoneKind.normal:
         nFood = Random.int(2, 4);
         nTreasures = Random.int(0, 2);
-        nMonsters = Random.int(0, 6);
+        nMonsters = Random.int(1, 5);
         nWalls = Random.int(3, 6);
       case ZoneKind.intense:
         nFood = Random.int(3, 5);
         nTreasures = Random.int(0, 4);
-        nMonsters = Random.int(6, 9);
+        nMonsters = Random.int(5, 8);
         nWalls = Random.int(0, 6);
     }
 
     var tiles = populateZone(nFood, nTreasures, nMonsters, nWalls);
 
     if (kind == ZoneKind.starter) tiles[0][0] = 2;
+
+    var zoneInfo = new Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>();
+    zoneInfo[ZoneInfo.nTreasures] = nTreasures;
+    zoneInfo[ZoneInfo.nMonsters] = nMonsters;
+    zoneInfo[ZoneInfo.nFood] = nFood;
+    zoneInfo[ZoneInfo.kind] = kind;
+    _zones.push(zoneInfo);
 
     return tiles;
   }

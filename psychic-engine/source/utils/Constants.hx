@@ -36,6 +36,13 @@ enum ZoneKind {
   intense;
 }
 
+enum ZoneInfo {
+  kind;
+  nMonsters;
+  nTreasures;
+  nFood;
+}
+
 // Visual Effects enums //
 //////////////////////////
 
