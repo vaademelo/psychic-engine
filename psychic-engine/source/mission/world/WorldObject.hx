@@ -23,17 +23,17 @@ class WorldObject extends FlxSprite {
   public function setCoordinate(i:Int, j:Int) {
     this.i = i;
     this.j = j;
-    this.x = (j + 0.5) * Constants.TILESIZE - this.width/2;
-    this.y = (i + 0.5) * Constants.TILESIZE - this.height/2;
+    this.x = (j + 0.5) * Constants.TILE_SIZE - this.width/2;
+    this.y = (i + 0.5) * Constants.TILE_SIZE - this.height/2;
   }
   public function setPos(x:Float, y:Float) {
     this.x = x;
     this.y = y;
-    this.i = Math.floor(this.y / Constants.TILESIZE);
-    this.j = Math.floor(this.x / Constants.TILESIZE);
+    this.i = Math.floor(this.y / Constants.TILE_SIZE);
+    this.j = Math.floor(this.x / Constants.TILE_SIZE);
   }
   public function updateCoordinate() {
-    this.i = Math.floor(this.y / Constants.TILESIZE);
-    this.j = Math.floor(this.x / Constants.TILESIZE);
+    this.i = Math.floor(this.y / Constants.TILE_SIZE);
+    this.j = Math.floor(this.x / Constants.TILE_SIZE);
   }
 }

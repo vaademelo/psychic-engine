@@ -29,6 +29,7 @@ class MissionState extends FlxState {
     add(worldMap.treasures);
     add(worldMap.monsters);
     add(worldMap.heroes);
+    add(worldMap.effects);
     add(cam);
 
     startNewTurn();

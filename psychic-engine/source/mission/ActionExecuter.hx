@@ -39,15 +39,18 @@ class ActionExecuter {
     return goToTargetTile(target);
   }
 
-  public static function atackAction(opponent:Unit) {
-    if (_unit.character.team == opponent.character.team) return;
+  public static function atackAction(opponent:Unit, callbackAfterAtack:Void->Bool):Bool {
+    if (_unit.character.team == opponent.character.team) return callbackAfterAtack();
     if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) <= _unit.character.atackRange) {
-      BattleExecuter.atackOpponent(_unit, opponent);
+      return BattleExecuter.atackOpponent(_worldMap, _unit, opponent, callbackAfterAtack);
+    } else {
+      return callbackAfterAtack();
     }
   }
 
   public static function collectAction(collectable:Collectable) {
     //TODO: Collect!
+    if(_unit.character.team == TeamSide.monsters) return;
   }
 
   public static function setTargetTile(target:Array<Int>):Array<Int> {
@@ -82,7 +85,7 @@ class ActionExecuter {
       endAction();
     };
     _unit.path = path;
-    _unit.path.start(nodes, Constants.UNITSPEED);
+    _unit.path.start(nodes, Constants.UNIT_SPEED);
     return true;
   }
 
@@ -115,16 +118,25 @@ class ActionExecuter {
     if (_targetObject != null) {
       if (Type.getClass(_targetObject) == Unit) {
         var targetUnit:Unit = cast(_targetObject, Unit);
-        atackAction(targetUnit);
+        var callbackAfterAtack = function () {
+          _callBack(_list);
+          return true;
+        }
+        atackAction(targetUnit, callbackAfterAtack);
+        _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
+        return true;
       } else {
         var targetCollectable:Collectable = cast(_targetObject, Collectable);
         collectAction(targetCollectable);
+        _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
+        _callBack(_list);
+        return true;
       }
+    } else {
+      _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
+      _callBack(_list);
+      return true;
     }
-
-    _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
-    _callBack(_list);
-    return true;
   }
 
 }

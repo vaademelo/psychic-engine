@@ -36,10 +36,20 @@ enum ZoneKind {
   intense;
 }
 
+// Visual Effects enums //
+//////////////////////////
+
+enum BattleEffectKind {
+  hit;
+  crit;
+  fail;
+  kill;
+}
+
 class Constants {
 
-  public static var TILESIZE:Int = 48;
-
-  public static var UNITSPEED:Int = 1000;
+  public static var TILE_SIZE:Int = 48;
+  public static var UNIT_SPEED:Int = 1000;
+  public static var BATTLE_EFFECT_TIME:Int = 1;
 
 }

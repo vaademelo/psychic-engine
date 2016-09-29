@@ -5,14 +5,15 @@ import Random;
 import mission.world.Unit;
 import mission.world.WorldMap;
 
+import mission.visualFX.BattleFX;
+
 import utils.Constants;
 
 class BattleExecuter {
 
-  public static function atackOpponent(unit:Unit, opponent:Unit) {
+  public static function atackOpponent(worldMap:WorldMap, unit:Unit, opponent:Unit, callBack:Void->Bool):Bool {
     var damage = getAtackDamage(unit, opponent);
-    trace('damage:' + damage);
-    applyDamage(opponent, damage);
+    return applyDamage(worldMap, opponent, damage, callBack);
   }
 
   public static function getAtackDamage(unit:Unit, opponent:Unit):Int {
@@ -30,12 +31,26 @@ class BattleExecuter {
     return damage;
   }
 
-  public static function applyDamage(opponent:Unit, damage:Int) {
+  public static function applyDamage(worldMap:WorldMap, opponent:Unit, damage:Int, callBack:Void->Bool):Bool {
     opponent.hp -= damage;
 
     if (opponent.hp <= 0) {
-      opponent.kill();
+      var func = function () {
+        opponent.kill();
+        callBack();
+      }
+      var effect = new BattleFX(BattleEffectKind.kill, opponent.x, opponent.y - opponent.height/2, func);
+      worldMap.effects.add(effect);
+    } else {
+      var kind = BattleEffectKind.fail;
+      if (damage == 1) kind = BattleEffectKind.hit;
+      else if (damage == 2) kind = BattleEffectKind.crit;
+      var func = function () {
+        callBack();
+      }
+      var effect = new BattleFX(kind, opponent.x, opponent.y - opponent.height/2, func);
+      worldMap.effects.add(effect);
     }
-
+    return true;
   }
 }

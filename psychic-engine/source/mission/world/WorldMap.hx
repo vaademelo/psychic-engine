@@ -7,9 +7,12 @@ import flixel.math.FlxPoint;
 import flixel.FlxObject;
 
 import utils.Constants;
+
 import mission.world.Unit;
 import mission.world.Collectable;
 import gameData.Character;
+
+import mission.visualFX.BattleFX;
 
 class WorldMap extends FlxTilemap {
 
@@ -17,11 +20,12 @@ class WorldMap extends FlxTilemap {
   public var treasures:FlxTypedGroup<Collectable>;
   public var monsters:FlxTypedGroup<Unit>;
   public var heroes:FlxTypedGroup<Unit>;
+  public var effects:FlxTypedGroup<BattleFX>;
 
   public function new(tiles:Array<Array<Int>>) {
     super();
 
-    this.loadMapFrom2DArray(tiles, "assets/images/tileset.png", Constants.TILESIZE, Constants.TILESIZE, 0, -1);
+    this.loadMapFrom2DArray(tiles, "assets/images/tileset.png", Constants.TILE_SIZE, Constants.TILE_SIZE, 0, -1);
     setTileProperties(0, FlxObject.NONE);
     setTileProperties(1, FlxObject.ANY);
     setTileProperties(2, FlxObject.NONE);
@@ -35,6 +39,7 @@ class WorldMap extends FlxTilemap {
     treasures = new FlxTypedGroup<Collectable>();
     monsters = new FlxTypedGroup<Unit>();
     heroes = new FlxTypedGroup<Unit>();
+    effects = new FlxTypedGroup<BattleFX>();
     for (i in 0...tiles.length) {
       for (j in 0...tiles[i].length) {
         switch (tiles[i][j]) {
