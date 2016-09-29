@@ -40,6 +40,6 @@ class Constants {
 
   public static var TILESIZE:Int = 48;
 
-  public static var UNITSPEED:Int = 100;//1000;
+  public static var UNITSPEED:Int = 1000;
 
 }

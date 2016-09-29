@@ -19,7 +19,7 @@ class MapMaker {
 
   public static function createMap():Void {
 
-    var nZones = 1;//Random.int(2, 3);
+    var nZones = Random.int(2, 3);
 
     var tiles:Array<Array<Int>> = createZone(ZoneKind.starter);
 
@@ -63,9 +63,9 @@ class MapMaker {
       tiles[0][0] = 2;
       UserData.loadUserData();
 
-      for(i in 0...UserData.heroes.length + 1) {
-        var c = Random.int(0, _zoneWidth - 1);
-        var l = Random.int(0, _zoneHeight - 1);
+      for(i in 0...UserData.heroes.length) {
+        var c = Random.int(1, _zoneWidth - 1);
+        var l = Random.int(1, _zoneHeight - 1);
         tiles[l][c] = 6;
       }
     }

@@ -41,8 +41,9 @@ class ActionExecuter {
 
   public static function atackAction(opponent:Unit) {
     if (_unit.character.team == opponent.character.team) return;
-    //TODO: Verify distance
-    BattleExecuter.atackOpponent(_unit, opponent);
+    if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) <= _unit.character.atackRange) {
+      BattleExecuter.atackOpponent(_unit, opponent);
+    }
   }
 
   public static function collectAction(collectable:Collectable) {
@@ -51,12 +52,11 @@ class ActionExecuter {
 
   public static function setTargetTile(target:Array<Int>):Array<Int> {
     if (_worldMap.isTileWalkable(target[0],target[1])) return target;
-
     var tiles = PositionTool.getValidTilesInRange(_worldMap, target, _unit.character.atackRange);
     var closestDistance:Int = null;
     var closestTile:Array<Int> = null;
     for (tile in tiles) {
-      if (tile == target) continue;
+      if (tile[0] == target[0] && tile[1] == target[1]) continue;
       var distance = PositionTool.getDistance(_worldMap, _unit.getCoordinate(), tile);
       if (closestDistance == null || closestDistance > distance) {
         closestDistance = distance;

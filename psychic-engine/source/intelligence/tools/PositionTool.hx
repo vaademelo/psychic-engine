@@ -14,8 +14,7 @@ class PositionTool {
   public static function getObjectsInRange(list:FlxTypedGroup<OneOfTwo<Unit, Collectable>>, target:Array<Int>, range:Int):Array<OneOfTwo<Unit, Collectable>> {
     var objectsInRange:Array<OneOfTwo<Unit, Collectable>> = new Array<OneOfTwo<Unit, Collectable>>();
     for (obj in list.members) {
-      var ob = cast(obj, WorldObject);
-      if (getDistanceFromObject(ob, target, ob.getCoordinate()) <= range) objectsInRange.push(obj);
+      if (getDistanceFromObject(obj, target) <= range) objectsInRange.push(obj);
     }
     return objectsInRange;
   }
@@ -33,8 +32,9 @@ class PositionTool {
     return tiles;
   }
 
-  public static function getDistanceFromObject(target:WorldObject ,start:Array<Int>, destination:Array<Int>):Int {
-    if(!target.alive) return 100;
+  public static function getDistanceFromObject(target:OneOfTwo<Unit, Collectable> ,start:Array<Int>):Int {
+    if(!cast(target, WorldObject).alive) return 100;
+    var destination = cast(target, WorldObject).getCoordinate();
     return Std.int(Math.abs(start[0] - destination[0]) + Math.abs(start[1] - destination[1]));
   }
 
