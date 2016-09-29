@@ -5,6 +5,7 @@ import Random;
 import mission.world.Unit;
 import mission.world.WorldMap;
 
+import mission.ui.Hud;
 import mission.visualFX.BattleFX;
 
 import utils.Constants;
@@ -33,6 +34,7 @@ class BattleExecuter {
 
   public static function applyDamage(worldMap:WorldMap, opponent:Unit, damage:Int, callBack:Void->Bool):Bool {
     opponent.hp -= damage;
+    if(opponent.character.team == TeamSide.heroes) worldMap.hud.updateUnitHud(opponent);
 
     if (opponent.hp <= 0) {
       var func = function () {

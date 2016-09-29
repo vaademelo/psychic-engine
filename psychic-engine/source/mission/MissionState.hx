@@ -7,10 +7,13 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 
 import utils.MapMaker;
+
 import mission.ui.Camera;
+
 import mission.world.Unit;
-import mission.ActionExecuter;
 import mission.world.WorldMap;
+
+import mission.ActionExecuter;
 
 class MissionState extends FlxState {
 
@@ -21,15 +24,17 @@ class MissionState extends FlxState {
     super.create();
 
     var _map = MapMaker.getMap();
-    cam = new Camera();
 
     worldMap = new WorldMap(_map);
+    cam = new Camera();
+
     add(worldMap);
     add(worldMap.foods);
     add(worldMap.treasures);
     add(worldMap.monsters);
     add(worldMap.heroes);
     add(worldMap.effects);
+    add(worldMap.hud);
     add(cam);
 
     startNewTurn();

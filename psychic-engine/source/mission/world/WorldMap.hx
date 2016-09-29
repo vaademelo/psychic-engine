@@ -12,6 +12,7 @@ import mission.world.Unit;
 import mission.world.Collectable;
 import gameData.Character;
 
+import mission.ui.Hud;
 import mission.visualFX.BattleFX;
 
 class WorldMap extends FlxTilemap {
@@ -21,6 +22,7 @@ class WorldMap extends FlxTilemap {
   public var monsters:FlxTypedGroup<Unit>;
   public var heroes:FlxTypedGroup<Unit>;
   public var effects:FlxTypedGroup<BattleFX>;
+  public var hud:Hud;
 
   public function new(tiles:Array<Array<Int>>) {
     super();
@@ -59,6 +61,7 @@ class WorldMap extends FlxTilemap {
         }
       }
     }
+    hud = new Hud(this.heroes.members);
   }
 
   public function getPath(start:Array<Int>, destination:Array<Int>):Array<FlxPoint> {

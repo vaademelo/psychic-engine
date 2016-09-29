@@ -48,6 +48,7 @@ enum BattleEffectKind {
 
 class Constants {
 
+  public static var HUD_BORDER:Int = 15;
   public static var TILE_SIZE:Int = 48;
   public static var UNIT_SPEED:Int = 1000;
   public static var BATTLE_EFFECT_TIME:Int = 1;
