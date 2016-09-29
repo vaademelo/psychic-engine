@@ -48,10 +48,7 @@ class BattleExecuter {
       var kind = BattleEffectKind.fail;
       if (damage == 1) kind = BattleEffectKind.hit;
       else if (damage == 2) kind = BattleEffectKind.crit;
-      var func = function () {
-        callBack();
-      }
-      var effect = new BattleFX(kind, opponent.x, opponent.y - opponent.height/2, func);
+      var effect = new BattleFX(kind, opponent.x, opponent.y - opponent.height/2, callBack);
       worldMap.effects.add(effect);
     }
     return true;

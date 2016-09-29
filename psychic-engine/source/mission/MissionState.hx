@@ -20,6 +20,8 @@ class MissionState extends FlxState {
   public var worldMap:WorldMap;
   public var cam:Camera;
 
+  public var turn:Int = 0;
+
   override public function create():Void {
     super.create();
 
@@ -46,6 +48,8 @@ class MissionState extends FlxState {
   }
 
   public function unitAction(list:Array<Unit>):Void {
+    trace('turn: ' + turn);
+    turn = (turn + 1) % list.length;
     var unit = list.shift();
     if (!unit.alive) unitAction(list);
     list.push(unit);
