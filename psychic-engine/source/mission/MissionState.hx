@@ -45,7 +45,12 @@ class MissionState extends FlxState {
       return;
     }
     var unit = list.shift();
+    if (!unit.alive) unitAction(list);
+    //1st: heal unit if needed
+    unit.healIfNeeded();
+    //2nd: unit think next action
     var action:Array<Int> = unit.character.mind.analyseAction(worldMap, unit);
+    //3rd: execute unit action
     ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
   }
 

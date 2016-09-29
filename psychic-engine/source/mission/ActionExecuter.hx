@@ -11,6 +11,7 @@ import mission.world.Collectable;
 import mission.world.WorldMap;
 
 import intelligence.tools.PositionTool;
+import mission.BattleExecuter;
 
 class ActionExecuter {
 
@@ -39,9 +40,9 @@ class ActionExecuter {
   }
 
   public static function atackAction(opponent:Unit) {
-    trace(_unit.character.team == opponent.character.team, _unit.character.team, opponent.character.team);
     if (_unit.character.team == opponent.character.team) return;
-    trace('atack');
+    //TODO: Verify distance
+    BattleExecuter.atackOpponent(_unit, opponent);
   }
 
   public static function collectAction(collectable:Collectable) {
@@ -69,7 +70,6 @@ class ActionExecuter {
     var nodes = _worldMap.getPath(_unit.getCoordinate(), target);
 
     if (nodes == null || nodes.length == 0) {
-      if (target != _unit.getCoordinate()) trace('fail');
       return endAction();
     }
 

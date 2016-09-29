@@ -30,7 +30,7 @@ class Character {
     this.team = team;
 
     this.atackRange = 1;
-    if(team == heroes) {
+    if(team == TeamSide.heroes) {
       this.hpMax = Random.int(3, 4);
       this.injuryMax = Random.int(3, 5);
       this.movement = Random.int(3, 4);

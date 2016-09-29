@@ -19,7 +19,7 @@ class MapMaker {
 
   public static function createMap():Void {
 
-    var nZones = Random.int(2, 3);
+    var nZones = 1;//Random.int(2, 3);
 
     var tiles:Array<Array<Int>> = createZone(ZoneKind.starter);
 
