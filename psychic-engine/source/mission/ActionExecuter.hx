@@ -39,18 +39,27 @@ class ActionExecuter {
     return goToTargetTile(target);
   }
 
-  public static function atackAction(opponent:Unit, callbackAfterAtack:Void->Bool):Bool {
-    if (_unit.character.team == opponent.character.team) return callbackAfterAtack();
-    if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) <= _unit.character.atackRange) {
-      return BattleExecuter.atackOpponent(_worldMap, _unit, opponent, callbackAfterAtack);
-    } else {
-      return callbackAfterAtack();
+  public static function setTargetObject(target:Array<Int>) {
+    var obs = PositionTool.getObjectsInRange(_worldMap.heroes, target, 0);
+    if (obs.length > 0) {
+      _targetObject = obs[0];
+      return;
     }
-  }
-
-  public static function collectAction(collectable:Collectable) {
-    //TODO: Collect!
-    if(_unit.character.team == TeamSide.monsters) return;
+    obs = PositionTool.getObjectsInRange(_worldMap.monsters, target, 0);
+    if (obs.length > 0) {
+      _targetObject = obs[0];
+      return;
+    }
+    obs = PositionTool.getObjectsInRange(_worldMap.foods, target, 0);
+    if (obs.length > 0) {
+      _targetObject = obs[0];
+      return;
+    }
+    obs = PositionTool.getObjectsInRange(_worldMap.treasures, target, 0);
+    if (obs.length > 0) {
+      _targetObject = obs[0];
+      return;
+    }
   }
 
   public static function setTargetTile(target:Array<Int>):Array<Int> {
@@ -91,29 +100,6 @@ class ActionExecuter {
     return true;
   }
 
-  public static function setTargetObject(target:Array<Int>) {
-    var obs = PositionTool.getObjectsInRange(_worldMap.heroes, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
-    obs = PositionTool.getObjectsInRange(_worldMap.monsters, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
-    obs = PositionTool.getObjectsInRange(_worldMap.foods, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
-    obs = PositionTool.getObjectsInRange(_worldMap.treasures, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
-  }
-
   public static function endAction():Bool {
     _unit.updateCoordinate();
     _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
@@ -121,22 +107,34 @@ class ActionExecuter {
     if (_targetObject != null) {
       if (Type.getClass(_targetObject) == Unit) {
         var targetUnit:Unit = cast(_targetObject, Unit);
-        var callbackAfterAtack = function () {
-          _callBack(_list);
-          return true;
-        }
-        atackAction(targetUnit, callbackAfterAtack);
-        return true;
+        return atackAction(targetUnit, nextUnit);
       } else {
         var targetCollectable:Collectable = cast(_targetObject, Collectable);
         collectAction(targetCollectable);
-        _callBack(_list);
-        return true;
+        return nextUnit();
       }
     } else {
-      _callBack(_list);
-      return true;
+      return nextUnit();
     }
+  }
+
+  public static function atackAction(opponent:Unit, callbackAfterAtack:Void->Bool):Bool {
+    if (_unit.character.team == opponent.character.team) return callbackAfterAtack();
+    if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) <= _unit.character.atackRange) {
+      return BattleExecuter.atackOpponent(_worldMap, _unit, opponent, callbackAfterAtack);
+    } else {
+      return callbackAfterAtack();
+    }
+  }
+
+  public static function collectAction(collectable:Collectable) {
+    //TODO: Collect!
+    if(_unit.character.team == TeamSide.monsters) return;
+  }
+
+  public static function nextUnit():Bool {
+    _callBack(_list);
+    return true;
   }
 
 }
