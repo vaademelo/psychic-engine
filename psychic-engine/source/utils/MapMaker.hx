@@ -7,8 +7,8 @@ import gameData.UserData;
 
 class MapMaker {
 
-  private static var _zoneWidth:Int = 7;
-  private static var _zoneHeight:Int = 7;
+  private static var _zoneWidth:Int = Constants.ZONE_SIZE;
+  private static var _zoneHeight:Int = Constants.ZONE_SIZE;
 
   private static var _tiles:Array<Array<Int>>;
 
@@ -59,16 +59,7 @@ class MapMaker {
 
     var tiles = populateZone(nFood, nTreasures, nMonsters, nWalls);
 
-    if (kind == ZoneKind.starter) {
-      tiles[0][0] = 2;
-      UserData.loadUserData();
-
-      for(i in 0...UserData.heroes.length) {
-        var c = Random.int(1, _zoneWidth - 1);
-        var l = Random.int(1, _zoneHeight - 1);
-        tiles[l][c] = 6;
-      }
-    }
+    if (kind == ZoneKind.starter) tiles[0][0] = 2;
 
     return tiles;
   }

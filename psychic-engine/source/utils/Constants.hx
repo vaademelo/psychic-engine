@@ -52,5 +52,6 @@ class Constants {
   public static var TILE_SIZE:Int = 48;
   public static var UNIT_SPEED:Int = 1000;
   public static var BATTLE_EFFECT_TIME:Int = 1;
+  public static var ZONE_SIZE:Int = 7;
 
 }

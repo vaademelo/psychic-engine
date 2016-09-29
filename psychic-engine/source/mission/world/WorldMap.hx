@@ -8,9 +8,11 @@ import flixel.FlxObject;
 
 import utils.Constants;
 
+import gameData.Character;
+import gameData.UserData;
+
 import mission.world.Unit;
 import mission.world.Collectable;
-import gameData.Character;
 
 import mission.ui.Hud;
 import mission.visualFX.BattleFX;
@@ -42,6 +44,7 @@ class WorldMap extends FlxTilemap {
     monsters = new FlxTypedGroup<Unit>();
     heroes = new FlxTypedGroup<Unit>();
     effects = new FlxTypedGroup<BattleFX>();
+
     for (i in 0...tiles.length) {
       for (j in 0...tiles[i].length) {
         switch (tiles[i][j]) {
@@ -54,13 +57,19 @@ class WorldMap extends FlxTilemap {
           case 5:
             var monster = new Unit(new Character(TeamSide.monsters), i, j);
             monsters.add(monster);
-          case 6:
-            //TODO: get the real heroes, and not some random ones
-            var hero = new Unit(new Character(TeamSide.heroes), i, j);
-            heroes.add(hero);
         }
       }
     }
+
+    UserData.loadUserData();
+    for(i in 0...UserData.heroes.length) {
+      var line = (i + 1) % this.heightInTiles;
+      var collumn = Math.floor((i + 1)/this.heightInTiles);
+      var hero = new Unit(UserData.heroes[i], line, collumn);
+      heroes.add(hero);
+      this.setTile(collumn, line, 6, true);
+    }
+
     hud = new Hud(this.heroes.members);
   }
 
