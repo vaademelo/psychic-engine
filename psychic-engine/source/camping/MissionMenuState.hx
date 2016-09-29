@@ -103,7 +103,7 @@ class MissionMenuState extends FlxState {
           icon.y = posY + zoneBG.height - 30 - (nKeys * 30);
           text = new FlxText(posX + zoneBG.width - 60, posY + zoneBG.height - 30 - (nKeys * 30), 25);
           text.setFormat("assets/fonts/SheepingDogs.ttf", 16, FlxColor.BLACK, FlxTextAlign.RIGHT);
-          text.text = Std.string(cast(zone[key], Int));
+          text.text = Std.string(zone[key]);
           nKeys++;
         }
         if (icon != null) zoneHub.add(icon);

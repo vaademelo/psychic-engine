@@ -46,12 +46,9 @@ class MissionState extends FlxState {
   }
 
   public function unitAction(list:Array<Unit>):Void {
-    if (list.length == 0) {
-      startNewTurn();
-      return;
-    }
     var unit = list.shift();
     if (!unit.alive) unitAction(list);
+    list.push(unit);
     //1st: heal unit if needed
     unit.healIfNeeded();
     //2nd: unit think next action

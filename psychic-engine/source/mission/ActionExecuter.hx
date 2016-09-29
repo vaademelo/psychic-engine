@@ -60,6 +60,7 @@ class ActionExecuter {
     var closestTile:Array<Int> = null;
     for (tile in tiles) {
       if (tile[0] == target[0] && tile[1] == target[1]) continue;
+      if (!_worldMap.isTileWalkable(tile[0], tile[1])) continue;
       var distance = PositionTool.getDistance(_worldMap, _unit.getCoordinate(), tile);
       if (closestDistance == null || closestDistance > distance) {
         closestDistance = distance;
@@ -70,6 +71,7 @@ class ActionExecuter {
   }
 
   public static function goToTargetTile(target:Array<Int>):Bool {
+    if (target == null) return endAction();
     var nodes = _worldMap.getPath(_unit.getCoordinate(), target);
 
     if (nodes == null || nodes.length == 0) {
@@ -114,6 +116,7 @@ class ActionExecuter {
 
   public static function endAction():Bool {
     _unit.updateCoordinate();
+    _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
 
     if (_targetObject != null) {
       if (Type.getClass(_targetObject) == Unit) {
@@ -123,17 +126,14 @@ class ActionExecuter {
           return true;
         }
         atackAction(targetUnit, callbackAfterAtack);
-        _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
         return true;
       } else {
         var targetCollectable:Collectable = cast(_targetObject, Collectable);
         collectAction(targetCollectable);
-        _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
         _callBack(_list);
         return true;
       }
     } else {
-      _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
       _callBack(_list);
       return true;
     }

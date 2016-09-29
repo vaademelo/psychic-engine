@@ -38,6 +38,7 @@ class BattleExecuter {
 
     if (opponent.hp <= 0) {
       var func = function () {
+        worldMap.setTileAsWalkable(opponent.i, opponent.j, true);
         opponent.kill();
         callBack();
       }

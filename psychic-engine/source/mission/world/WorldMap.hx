@@ -67,7 +67,7 @@ class WorldMap extends FlxTilemap {
       var collumn = Math.floor((i + 1)/this.heightInTiles);
       var hero = new Unit(UserData.heroes[i], line, collumn);
       heroes.add(hero);
-      this.setTile(collumn, line, 6, true);
+      this.setTile(collumn, line, 5);
     }
 
     hud = new Hud(this.heroes.members);
