@@ -6,6 +6,7 @@ import flixel.group.FlxGroup;
 
 import intelligence.Mind;
 import intelligence.tools.PositionTool;
+import intelligence.tools.BattleTool;
 
 import mission.world.Unit;
 import mission.world.WorldMap;
@@ -23,15 +24,10 @@ class MonsterMind implements Mind {
     var opponentsInRange = PositionTool.getObjectsInRange(opponents, unit.getCoordinate(), unit.character.vision);
 
     if (opponentsInRange.length > 0) {
-      return chooseOpponentToAtack(opponentsInRange);
+      return BattleTool.getWeakestOpponent(opponentsInRange, unit);
     } else {
       return chooseRandomTileToWalk(worldMap, unit);
     }
-  }
-
-  public function chooseOpponentToAtack(opponents:Array<Unit>):Array<Int> {
-    //TODO: choose easiest opponent
-    return Random.fromArray(opponents).getCoordinate();
   }
 
   public function chooseRandomTileToWalk(worldMap:WorldMap, unit:Unit):Array<Int> {
