@@ -1,6 +1,9 @@
 package mission.world;
 
+import mission.world.WorldMap;
 import mission.world.WorldObject;
+
+import utils.Constants;
 import gameData.Character;
 
 class Unit extends WorldObject {
@@ -20,7 +23,7 @@ class Unit extends WorldObject {
     this.injury = 0;
   }
 
-  public function healIfNeeded() {
+  public function healIfNeeded(worldMap:WorldMap) {
     var hurt = this.character.hpMax - this.hp;
     this.injury += hurt;
     if(this.injury > this.character.injuryMax) {
@@ -34,7 +37,7 @@ class Unit extends WorldObject {
         this.hp ++;
       }
     }
-
+    if(this.character.team == TeamSide.heroes) worldMap.hud.updateUnitHud(this);
   }
 
   public function applyInjuryEffect() {
