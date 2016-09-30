@@ -38,6 +38,8 @@ enum ZoneKind {
 
 enum ZoneInfo {
   kind;
+  coordX;
+  coordY;
   nMonsters;
   nTreasures;
   nFood;

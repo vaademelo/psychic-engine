@@ -25,6 +25,7 @@ class Character {
   public var relationList:Map<Character, Int>;
   public var personality:Array<PersonalityTrait>;
   public var mind:Mind;
+  public var goal:Array<Int>;
 
   public function new(team:TeamSide) {
     this.team = team;

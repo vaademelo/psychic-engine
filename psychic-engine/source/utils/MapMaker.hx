@@ -31,11 +31,14 @@ class MapMaker {
 
     var nZones = Random.int(2, 3);
 
-    var tiles:Array<Array<Int>> = createZone(ZoneKind.starter);
+    var zoneCoord = [0, 0];
+    var tiles:Array<Array<Int>> = createZone(ZoneKind.starter, zoneCoord);
 
     var kinds = [ZoneKind.normal, ZoneKind.intense];
+
     for (i in 0...nZones) {
-      var zone = createZone(Random.fromArray(kinds));
+      zoneCoord[0] ++;
+      var zone = createZone(Random.fromArray(kinds), zoneCoord);
       for(j in 0...zone.length) {
         tiles[j] = tiles[j].concat(zone[j]);
       }
@@ -44,7 +47,7 @@ class MapMaker {
     _tiles = tiles;
   }
 
-  private static function createZone(kind:ZoneKind):Array<Array<Int>> {
+  private static function createZone(kind:ZoneKind, zoneCoord:Array<Int>):Array<Array<Int>> {
     var nFood:Int = 0;
     var nTreasures:Int = 0;
     var nMonsters:Int = 0;
@@ -76,6 +79,8 @@ class MapMaker {
     zoneInfo[ZoneInfo.nMonsters] = nMonsters;
     zoneInfo[ZoneInfo.nFood] = nFood;
     zoneInfo[ZoneInfo.kind] = kind;
+    zoneInfo[ZoneInfo.coordX] = zoneCoord[0];
+    zoneInfo[ZoneInfo.coordY] = zoneCoord[1];
     _zones.push(zoneInfo);
 
     return tiles;

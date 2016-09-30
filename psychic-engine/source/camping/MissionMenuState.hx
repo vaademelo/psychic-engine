@@ -8,11 +8,15 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.typeLimit.OneOfTwo;
+import flixel.addons.plugin.FlxMouseControl;
 
 import utils.MapMaker;
 import utils.Constants;
 
 import mission.MissionState;
+
+import camping.missionMenu.ZoneHub;
+import camping.missionMenu.HeroDragButton;
 
 import gameData.UserData;
 
@@ -21,12 +25,18 @@ class MissionMenuState extends FlxState {
   private var _playBtn:FlxButton;
   private var _resetBtn:FlxButton;
 
+  public var spritesHolder:Array<OneOfTwo<ZoneHub, HeroDragButton>>;
+
   override public function create():Void {
     super.create();
 
-    printChars();
-    printZones();
+    FlxG.plugins.add(new FlxMouseControl());
+
+    spritesHolder = new Array<OneOfTwo<ZoneHub, HeroDragButton>>();
+
     printButtons();
+    printZones();
+    printChars();
   }
 
   override public function update(elapsed:Float):Void {
@@ -57,60 +67,21 @@ class MissionMenuState extends FlxState {
     var yy = 0;
     UserData.loadUserData();
     for (char in UserData.heroes) {
-      var sprite = new FlxSprite(0, yy, char.imageSource);
-      yy += 50;
+      var sprite = new HeroDragButton(0, yy, char, spritesHolder);
       add(sprite);
+      yy += 50;
+      spritesHolder.push(sprite);
     }
   }
 
   private function printZones() {
     var zonesMap = new FlxSpriteGroup();
 
-    var xx = 0;
     var zones = MapMaker.getMapZones();
     for (zone in zones) {
-      var zoneHub = new FlxSpriteGroup();
+      var zoneHub = new ZoneHub(zone);
       zonesMap.add(zoneHub);
-
-      var posX = xx;
-      var posY = 0;
-
-      var zoneBG = new FlxSprite();
-      zoneBG.x = posX;
-      zoneBG.y = posY;
-      zoneBG.makeGraphic(190, 190);
-      zoneHub.add(zoneBG);
-
-      var nKeys = 0;
-      for(key in zone.keys()) {
-        var icon:FlxSprite = new FlxSprite();
-        var text:FlxText = null;
-        switch (key) {
-        case ZoneInfo.kind:
-          if(cast(zone[key], ZoneKind) != ZoneKind.starter) continue;
-          icon.x = posX + 6;
-          icon.y = posY + 6;
-          icon.loadGraphic('assets/images/menu/zones/home.png');
-        case ZoneInfo.nMonsters:
-          icon.loadGraphic('assets/images/menu/zones/monster.png');
-        case ZoneInfo.nFood:
-          icon.loadGraphic('assets/images/menu/zones/food.png');
-        case ZoneInfo.nTreasures:
-          icon.loadGraphic('assets/images/menu/zones/item.png');
-        }
-        if (key != ZoneInfo.kind) {
-          icon.x = posX + zoneBG.width - 30;
-          icon.y = posY + zoneBG.height - 30 - (nKeys * 30);
-          text = new FlxText(posX + zoneBG.width - 60, posY + zoneBG.height - 30 - (nKeys * 30), 25);
-          text.setFormat("assets/fonts/SheepingDogs.ttf", 16, FlxColor.BLACK, FlxTextAlign.RIGHT);
-          text.text = Std.string(zone[key]);
-          nKeys++;
-        }
-        if (icon != null) zoneHub.add(icon);
-        if (text != null) zoneHub.add(text);
-      }
-
-      xx += 200;
+      spritesHolder.push(zoneHub);
     }
 
     zonesMap.x = FlxG.width/2 - 200 * zones.length/2;
