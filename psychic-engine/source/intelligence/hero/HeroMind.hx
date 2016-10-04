@@ -20,7 +20,7 @@ class HeroMind implements Mind {
     tilesWeights = lootAnalysis(worldMap, unit, tilesWeights);
     tilesWeights = friendsAnalysis(worldMap, unit, tilesWeights);
 
-    return getBestOption(tilesWeights);
+    return getBestOption(unit, tilesWeights);
   }
 
   public function createOptions(worldMap:WorldMap, unit:Unit):Map<Array<Int>, Int> {
@@ -40,6 +40,13 @@ class HeroMind implements Mind {
       - Nenhum, caso já esteja no quadrante destino designado.
     - Estando no quadrante designado durante a etapa ativa os pesos, para as casas, buscam:
       - Maximizar o número de casas (pertencentes ao quadrante destino) que passarão a ser conhecidas caso eu me movimente para aquela casa. */
+      var destination = unit.character.goal;
+      if (destination[0] == 0 && destination[1] == 0) {
+        //WANTS TO GO HOME
+      } else {
+        //WANTS TO GO SOMEWERE
+      }
+
     return tilesWeights;
   }
   public function survivingAnalysis(worldMap:WorldMap, unit:Unit, tilesWeights:Map<Array<Int>, Int>):Map<Array<Int>, Int> {
@@ -65,12 +72,12 @@ class HeroMind implements Mind {
     return tilesWeights;
   }
 
-  public function getBestOption(tilesWeights:Map<Array<Int>, Int>):Array<Int> {
-    var bestOption:Array<Int> = null;
+  public function getBestOption(unit:Unit, tilesWeights:Map<Array<Int>, Int>):Array<Int> {
+    var bestOption:Array<Int> = unit.getCoordinate();
     var bestOptionValue = 0;
 
     for(key in tilesWeights.keys()) {
-      if(tilesWeights[key] > bestOptionValue || bestOption == null) {
+      if(tilesWeights[key] > bestOptionValue) {
         bestOptionValue = tilesWeights[key];
         bestOption = key;
       }

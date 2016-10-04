@@ -38,6 +38,7 @@ class MapMaker {
 
     for (i in 0...nZones) {
       zoneCoord[0] ++;
+      //TODO: Use zoneCoord to make a map that is not always the same format
       var zone = createZone(Random.fromArray(kinds), zoneCoord);
       for(j in 0...zone.length) {
         tiles[j] = tiles[j].concat(zone[j]);
