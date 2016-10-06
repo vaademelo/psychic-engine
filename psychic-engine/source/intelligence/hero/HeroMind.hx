@@ -16,7 +16,7 @@ class HeroMind implements Mind {
     var tilesWeights = createOptions(worldMap, unit);
 
     tilesWeights = movingAnalysis(worldMap, unit, tilesWeights);
-    tilesWeights = survivorAnalysis(worldMap, unit, tilesWeights);
+    tilesWeights = survivingAnalysis(worldMap, unit, tilesWeights);
     tilesWeights = lootAnalysis(worldMap, unit, tilesWeights);
     tilesWeights = friendsAnalysis(worldMap, unit, tilesWeights);
 
@@ -42,7 +42,7 @@ class HeroMind implements Mind {
       - Maximizar o número de casas (pertencentes ao quadrante destino) que passarão a ser conhecidas caso eu me movimente para aquela casa. */
     return tilesWeights;
   }
-  public function survivorAnalysis(worldMap:WorldMap, unit:Unit, tilesWeights:Map<Array<Int>, Int>):Map<Array<Int>, Int> {
+  public function survivingAnalysis(worldMap:WorldMap, unit:Unit, tilesWeights:Map<Array<Int>, Int>):Map<Array<Int>, Int> {
     /* TODO:
     - Cada monstro (mais forte que o personagem) possui um raio de periculosidade em volta de si onde dentro dele cada casa possui um grau de perigo igual a soma dos graus de perigos individuais de cada monstro.
       - Cada monstro possui um grau de perigo (mais forte, igual ou mais fraco que o personagem).

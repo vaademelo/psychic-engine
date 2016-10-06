@@ -2,8 +2,8 @@ package mission.world;
 
 import mission.world.WorldMap;
 import mission.world.WorldObject;
-
 import utils.Constants;
+import mission.world.Collectable;
 import gameData.Character;
 
 class Unit extends WorldObject {
@@ -13,6 +13,7 @@ class Unit extends WorldObject {
   public var injury:Int;
   public var recoverHealthEveryXTurns:Int = 2;
   public var turnsHurtedCount:Int = 0;
+  public var collectables:Array<Collectable> = [];
 
   public function new(character:Character, i:Int, j:Int) {
     super(i,j);
@@ -37,12 +38,17 @@ class Unit extends WorldObject {
         this.hp ++;
       }
     }
+
     if(this.character.team == TeamSide.heroes) worldMap.hud.updateUnitHud(this);
   }
 
   public function applyInjuryEffect() {
     //TODO: Define injury effects
     this.recoverHealthEveryXTurns ++; //TEMPORARY SOLUTION
+  }
+
+  public function giveCollectable(collectable:Collectable) {
+    this.collectables.push(collectable);
   }
 
 }

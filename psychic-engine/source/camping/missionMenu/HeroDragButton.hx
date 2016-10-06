@@ -24,9 +24,9 @@ class HeroDragButton extends FlxExtendedSprite {
             obj.x = zone.x + zone.width - obj.width - 10;
             obj.y = zone.y + 10;
 
-            var goalX = Math.floor((zone.info[ZoneInfo.coordX] + 0.5) * Constants.ZONE_SIZE);
-            var goalY = Math.floor((zone.info[ZoneInfo.coordY] + 0.5) * Constants.ZONE_SIZE);
-            this.character.goal = [goalX, goalY];
+              var goalX = Math.floor((zone.info[ZoneInfo.coordX] + 0.5) * Constants.ZONE_SIZE);
+              var goalY = Math.floor((zone.info[ZoneInfo.coordY] + 0.5) * Constants.ZONE_SIZE);
+              this.character.goal = [goalX, goalY];
             return;
           }
         }

@@ -128,8 +128,14 @@ class ActionExecuter {
   }
 
   public static function collectAction(collectable:Collectable) {
-    //TODO: Collect!
-    if(_unit.character.team == TeamSide.monsters) return;
+    if(_unit.character.team == TeamSide.monsters) {
+      return;
+    } else {
+      if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) == 0) {
+        _unit.giveCollectable(collectable);
+        collectable.kill();
+      }
+    }
   }
 
   public static function nextUnit():Bool {
