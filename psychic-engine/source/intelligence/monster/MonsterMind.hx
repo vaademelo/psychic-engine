@@ -30,6 +30,10 @@ class MonsterMind implements Mind {
     }
   }
 
+  public function updateStatus(worldMap:WorldMap, unit:Unit):Void {
+    //ENEMY DOESNT HAVE NOTHING TO UPDATE
+  }
+
   public function chooseRandomTileToWalk(worldMap:WorldMap, unit:Unit):Array<Int> {
     var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.character.vision);
     var tile = Random.fromArray(validTiles);

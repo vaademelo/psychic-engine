@@ -28,7 +28,7 @@ class Character {
   public var personality:Array<PersonalityTrait>;
   public var mind:Mind;
   public var goalTile:Array<Int>;
-  public var goalObject:OneOfTwo<Unit, Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>>;
+  public var goalUnit:Character;
 
   public function new(team:TeamSide) {
     this.team = team;
@@ -68,14 +68,6 @@ class Character {
       this.mind = new MonsterMind();
     }
 
-  }
-
-  public function setGoal(goalObject:OneOfTwo<Unit, Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>>) {
-    if (Type.getClass(goalObject) == Unit) {
-
-    } else {
-      
-    }
   }
 
 }

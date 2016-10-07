@@ -45,6 +45,14 @@ enum ZoneInfo {
   nFood;
 }
 
+enum TileContentKind {
+  empty;
+  hero;
+  monster;
+  food;
+  treasure;
+}
+
 // Visual Effects enums //
 //////////////////////////
 

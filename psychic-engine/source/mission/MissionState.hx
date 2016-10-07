@@ -48,16 +48,17 @@ class MissionState extends FlxState {
   }
 
   public function unitAction(list:Array<Unit>):Bool {
-    trace('turn: ' + turn);
     turn = (turn + 1) % list.length;
     var unit = list.shift();
     if (!unit.alive) return unitAction(list);
     list.push(unit);
     //1st: heal unit if needed
     unit.healIfNeeded(worldMap);
-    //2nd: unit think next action
+    //2nd: update unit mindStatus
+    unit.character.mind.updateStatus(worldMap, unit);
+    //3nd: unit think next action
     var action:Array<Int> = unit.character.mind.analyseAction(worldMap, unit);
-    //3rd: execute unit action
+    //4rd: execute unit action
     ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
     return true;
   }

@@ -5,76 +5,164 @@ import intelligence.Mind;
 import mission.world.Unit;
 import mission.world.WorldMap;
 
+import intelligence.tools.BattleTool;
 import intelligence.tools.PositionTool;
 
+import utils.Constants;
+
 class HeroMind implements Mind {
+
+  private var unit:Unit;
 
   public function new() {
   }
 
-  public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
-    var tilesWeights = createOptions(worldMap, unit);
-
-    tilesWeights = movingAnalysis(worldMap, unit, tilesWeights);
-    tilesWeights = survivingAnalysis(worldMap, unit, tilesWeights);
-    tilesWeights = lootAnalysis(worldMap, unit, tilesWeights);
-    tilesWeights = friendsAnalysis(worldMap, unit, tilesWeights);
-
-    return getBestOption(unit, tilesWeights);
+  public function updateStatus(worldMap:WorldMap, unit:Unit):Void {
+    if (this.unit == null) this.unit = unit;
+    //TODO: UPDATE EMOTION, ANALYSE TRIGGERS
+    if(unit.character.goalUnit != null) {
+      var tile = [0, 0];
+      for(hero in worldMap.heroes.members) {
+        if(hero.character == unit.character.goalUnit) {
+          tile = hero.getCoordinate();
+          break;
+        }
+      }
+      unit.character.goalTile = tile;
+    }
   }
 
-  public function createOptions(worldMap:WorldMap, unit:Unit):Map<Array<Int>, Int> {
+  public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
+    if (this.unit == null) this.unit = unit;
+    var tilesWeights = createOptions(worldMap);
+
+    var movingWeights = movingAnalysis(worldMap);
+    var survivorWeights = survivorAnalysis(worldMap);
+    var lootWeights = lootAnalysis(worldMap);
+    var friendsWeights = friendsAnalysis(worldMap);
+
+    var tiles:Map<String, Float> = new Map<String, Float>();
+    for (key in tilesWeights.keys()) {
+      tiles[key.toString()] = tilesWeights[key];
+    }
+    for (key in movingWeights.keys()) {
+      if(tiles[key.toString()] == null) continue;
+      tiles[key.toString()] *= movingWeights[key];
+    }
+    for (key in survivorWeights.keys()) {
+      if(tiles[key.toString()] == null) continue;
+      tiles[key.toString()] *= survivorWeights[key];
+    }
+
+    return getBestOption(tiles);
+  }
+
+  public function createOptions(worldMap:WorldMap):Map<Array<Int>, Float> {
     var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.character.vision);
-    var tilesWeights:Map<Array<Int>, Int> = new Map<Array<Int>, Int>();
+    var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
     for (tile in validTiles) {
       tilesWeights.set(tile, 1);
     }
     return tilesWeights;
   }
 
-  public function movingAnalysis(worldMap:WorldMap, unit:Unit, tilesWeights:Map<Array<Int>, Int>):Map<Array<Int>, Int> {
-    /* TODO:
-    - Distância do ponto destino (quanto mais próximo, maior o peso), os pontos destino podem ser:
-      - Quadrante ao qual o personagem foi designado (durante a etapa ativa) ou posição do personagem que deve proteger.
-      - Acampamento
-      - Nenhum, caso já esteja no quadrante destino designado.
-    - Estando no quadrante designado durante a etapa ativa os pesos, para as casas, buscam:
-      - Maximizar o número de casas (pertencentes ao quadrante destino) que passarão a ser conhecidas caso eu me movimente para aquela casa. */
-      var destination = unit.character.goal;
-      if (destination[0] == 0 && destination[1] == 0) {
-        //WANTS TO GO HOME
+  public function movingAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
+    var tilesWeights = createOptions(worldMap);
+    var destination = unit.character.goalTile;
+    if (destination == null) return tilesWeights;
+    if (worldMap.isTheSameTile(destination, [0,0]) || (unit.character.goalUnit != null)) {
+      tilesWeights = weightsForDistance(worldMap);
+    } else {
+      var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
+      var desiredZone:Array<Int> = PositionTool.getZoneForTile(destination);
+      if(worldMap.isTheSameTile(currentZone, desiredZone)) {
+        //SAME ZONE
       } else {
-        //WANTS TO GO SOMEWERE
+        tilesWeights = weightsForDistance(worldMap);
       }
+    }
 
     return tilesWeights;
   }
-  public function survivingAnalysis(worldMap:WorldMap, unit:Unit, tilesWeights:Map<Array<Int>, Int>):Map<Array<Int>, Int> {
-    /* TODO:
-    - Cada monstro (mais forte que o personagem) possui um raio de periculosidade em volta de si onde dentro dele cada casa possui um grau de perigo igual a soma dos graus de perigos individuais de cada monstro.
-      - Cada monstro possui um grau de perigo (mais forte, igual ou mais fraco que o personagem).
-    - As casas onde se encontram os monstro possuem um peso próprio proporcional à chance de sucesso numa briga direta com o monstro.
-    */
+
+  private function weightsForDistance(worldMap:WorldMap):Map<Array<Int>, Float> {
+    var tilesWeights = createOptions(worldMap);
+    var destination = unit.character.goalTile;
+    if (destination == null) return tilesWeights;
+
+    var maxDistance = 1;
+    for (key in tilesWeights.keys()) {
+      var distance = PositionTool.getDistance(worldMap, key, destination);
+      tilesWeights[key] = distance;
+      if (distance > maxDistance) {
+        maxDistance = distance;
+      }
+    }
+    for (key in tilesWeights.keys()) {
+      if (tilesWeights[key] < 0) {
+        if (worldMap.getTileContentKind(key) == TileContentKind.hero) {
+          tilesWeights[key] = 0;
+        } else {
+          tilesWeights.remove(key);
+        }
+      } else {
+        tilesWeights[key] = 1 - tilesWeights[key]/maxDistance;
+      }
+    }
+
+    return  tilesWeights;
+  }
+
+  public function survivorAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
+    var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
+
+    var opponents = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
+
+    var opponentTiles = new Array<Array<Int>>();
+    for(opp in opponents) {
+      //CHANCE OF WINNING
+      var opponent = cast(opp, Unit);
+      var opponentTile = opponent.getCoordinate();
+      tilesWeights[opponentTile] = BattleTool.chanceOfWinning(opponent, unit);
+
+      //LEVEL OF DANGER
+      var tiles = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
+      var opponentDanger = BattleTool.hitRelevance(opponent, unit);
+
+      for (tile in tiles) {
+        if(PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
+        if(worldMap.getTileContentKind(tile) == TileContentKind.monster) continue;
+        if(tilesWeights[tile] == null) {
+          tilesWeights[tile] = 1 - opponentDanger;
+        } else {
+          var num = tilesWeights[tile] - opponentDanger;
+          tilesWeights[tile] = Math.max(0, Math.min(1, num));
+        }
+      }
+    }
     return tilesWeights;
   }
-  public function lootAnalysis(worldMap:WorldMap, unit:Unit, tilesWeights:Map<Array<Int>, Int>):Map<Array<Int>, Int> {
+
+  public function lootAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
     /* TODO:
     - Comida recebem um peso relativo a necessidade de carne do player. Para isso o player deve definir uma meta de carne a ser obtida durante a missão
     - Tesouros recebem um peso positivo
     */
+    var tilesWeights = createOptions(worldMap);
     return tilesWeights;
   }
-  public function friendsAnalysis(worldMap:WorldMap, unit:Unit, tilesWeights:Map<Array<Int>, Int>):Map<Array<Int>, Int> {
+  public function friendsAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
     /* TODO:
     - Peso na casa dos monstros (passíveis de atacar um amigo) relativo ao grau de perigo que ele exerce sobre o outro personagem levando em conta o grau de afinidade bem como a distância do monstro
     - Peso gradiente que irradia de outro personagem (dentro do campo de visão) diretamente proporcional a distância e ao grau de afinidade
     */
+    var tilesWeights = createOptions(worldMap);
     return tilesWeights;
   }
 
-  public function getBestOption(unit:Unit, tilesWeights:Map<Array<Int>, Int>):Array<Int> {
-    var bestOption:Array<Int> = unit.getCoordinate();
-    var bestOptionValue = 0;
+  public function getBestOption(tilesWeights:Map<String, Float>):Array<Int> {
+    var bestOption:String = unit.getCoordinate().toString();
+    var bestOptionValue:Float = 0;
 
     for(key in tilesWeights.keys()) {
       if(tilesWeights[key] > bestOptionValue) {
@@ -83,7 +171,10 @@ class HeroMind implements Mind {
       }
     }
 
-    return bestOption;
+    var tile = bestOption.substring(1, bestOption.length - 1).split(',');
+    var destination:Array<Int> = [Std.parseInt(tile[0]), Std.parseInt(tile[1])];
+
+    return destination;
   }
 
 }

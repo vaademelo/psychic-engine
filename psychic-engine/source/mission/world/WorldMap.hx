@@ -1,5 +1,6 @@
 package mission.world;
 
+import flixel.util.typeLimit.OneOfTwo;
 import flixel.tile.FlxBaseTilemap;
 import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup;
@@ -61,13 +62,16 @@ class WorldMap extends FlxTilemap {
       }
     }
 
+    var i = 0;
     UserData.loadUserData();
-    for(i in 0...UserData.heroes.length) {
+    for(char in UserData.heroes) {
+      if (char.goalUnit == null && char.goalTile == null) continue;
       var line = (i + 1) % this.heightInTiles;
       var collumn = Math.floor((i + 1)/this.heightInTiles);
-      var hero = new Unit(UserData.heroes[i], line, collumn);
+      var hero = new Unit(char, line, collumn);
       heroes.add(hero);
       this.setTile(collumn, line, 5);
+      i++;
     }
 
     hud = new Hud(this.heroes.members);
@@ -92,6 +96,42 @@ class WorldMap extends FlxTilemap {
     if(i < 0 || j< 0 || i >= this.heightInTiles || j >= this.widthInTiles) return false;
     var index = this.getTile(j, i);
     return index!= null && index != 1 && index < 7 && index >= 0;
+  }
+
+  public function isTheSameTile(tileOne:Array<Int>, tileTwo:Array<Int>):Bool {
+    return tileOne[0] == tileTwo[0] && tileOne[1] == tileTwo[1];
+  }
+
+  public function getTileContentKind(tile:Array<Int>) {
+    for(obj in heroes.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.hero;
+    }
+    for(obj in monsters.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.monster;
+    }
+    for(obj in foods.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.food;
+    }
+    for(obj in treasures.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.treasure;
+    }
+    return TileContentKind.empty;
+  }
+
+  public function getTileContent(tile:Array<Int>):OneOfTwo<Unit, Collectable> {
+    for(obj in heroes.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return obj;
+    }
+    for(obj in monsters.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return obj;
+    }
+    for(obj in foods.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return obj;
+    }
+    for(obj in treasures.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return obj;
+    }
+    return null;
   }
 
 }

@@ -30,36 +30,13 @@ class ActionExecuter {
 
     if (!worldMap.isTileValid(target[0],target[1])) return endAction();
 
-    setTargetObject(target);
+    _targetObject = worldMap.getTileContent(target);
 
     worldMap.setTileAsWalkable(_unit.i, _unit.j, true);
 
     target = setTargetTile(target);
 
     return goToTargetTile(target);
-  }
-
-  public static function setTargetObject(target:Array<Int>) {
-    var obs = PositionTool.getObjectsInRange(_worldMap.heroes, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
-    obs = PositionTool.getObjectsInRange(_worldMap.monsters, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
-    obs = PositionTool.getObjectsInRange(_worldMap.foods, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
-    obs = PositionTool.getObjectsInRange(_worldMap.treasures, target, 0);
-    if (obs.length > 0) {
-      _targetObject = obs[0];
-      return;
-    }
   }
 
   public static function setTargetTile(target:Array<Int>):Array<Int> {
