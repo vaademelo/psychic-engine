@@ -3,10 +3,12 @@ package intelligence.hero;
 import intelligence.Mind;
 
 import mission.world.Unit;
+import mission.world.Collectable;
 import mission.world.WorldMap;
 
 import intelligence.tools.BattleTool;
 import intelligence.tools.PositionTool;
+import intelligence.tools.TileWeightTool;
 
 import utils.Constants;
 
@@ -34,27 +36,37 @@ class HeroMind implements Mind {
 
   public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
     if (this.unit == null) this.unit = unit;
-    var tilesWeights = createOptions(worldMap);
 
-    var movingWeights = movingAnalysis(worldMap);
+    var tilesWeights    = createOptions(worldMap);
+    var movingWeights   = movingAnalysis(worldMap);
     var survivorWeights = survivorAnalysis(worldMap);
-    var lootWeights = lootAnalysis(worldMap);
-    var friendsWeights = friendsAnalysis(worldMap);
+    var lootWeights     = lootAnalysis(worldMap);
+    var friendsWeights  = friendsAnalysis(worldMap);
 
     var tiles:Map<String, Float> = new Map<String, Float>();
+
     for (key in tilesWeights.keys()) {
       tiles[key.toString()] = tilesWeights[key];
     }
+
     for (key in movingWeights.keys()) {
       if(tiles[key.toString()] == null) continue;
       tiles[key.toString()] *= movingWeights[key];
     }
+
     for (key in survivorWeights.keys()) {
       if(tiles[key.toString()] == null) continue;
       tiles[key.toString()] *= survivorWeights[key];
     }
 
+    for (key in lootWeights.keys()) {
+      if(tiles[key.toString()] == null) continue;
+      tiles[key.toString()] += lootWeights[key];
+    }
+
+    TileWeightTool.updateHeatMap(worldMap, tiles);
     return getBestOption(tiles);
+
   }
 
   public function createOptions(worldMap:WorldMap):Map<Array<Int>, Float> {
@@ -124,7 +136,7 @@ class HeroMind implements Mind {
       var opponent = cast(opp, Unit);
       var opponentTile = opponent.getCoordinate();
       tilesWeights[opponentTile] = BattleTool.chanceOfWinning(opponent, unit);
-
+      
       //LEVEL OF DANGER
       var tiles = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
       var opponentDanger = BattleTool.hitRelevance(opponent, unit);
@@ -148,7 +160,16 @@ class HeroMind implements Mind {
     - Comida recebem um peso relativo a necessidade de carne do player. Para isso o player deve definir uma meta de carne a ser obtida durante a missão
     - Tesouros recebem um peso positivo
     */
-    var tilesWeights = createOptions(worldMap);
+
+    var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
+
+    var foods = PositionTool.getObjectsInRange(worldMap.foods, unit.getCoordinate(), unit.character.vision);
+    var treasures = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
+
+    for(food in foods) {
+      tilesWeights[cast(food, Collectable).getCoordinate()] = 2;
+    }
+
     return tilesWeights;
   }
   public function friendsAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {

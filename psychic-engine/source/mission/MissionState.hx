@@ -10,6 +10,8 @@ import utils.MapMaker;
 
 import mission.ui.Camera;
 
+import intelligence.debug.TileWeight;
+
 import mission.world.Unit;
 import mission.world.WorldMap;
 
@@ -36,6 +38,7 @@ class MissionState extends FlxState {
     add(worldMap.monsters);
     add(worldMap.heroes);
     add(worldMap.effects);
+    add(worldMap.heatMap);
     add(worldMap.hud);
     add(cam);
 

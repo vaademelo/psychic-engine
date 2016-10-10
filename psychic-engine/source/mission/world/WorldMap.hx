@@ -12,6 +12,8 @@ import utils.Constants;
 import gameData.Character;
 import gameData.UserData;
 
+import intelligence.debug.TileWeight;
+
 import mission.world.Unit;
 import mission.world.Collectable;
 
@@ -25,6 +27,7 @@ class WorldMap extends FlxTilemap {
   public var monsters:FlxTypedGroup<Unit>;
   public var heroes:FlxTypedGroup<Unit>;
   public var effects:FlxTypedGroup<BattleFX>;
+  public var heatMap:FlxTypedGroup<TileWeight>;
   public var hud:Hud;
 
   public function new(tiles:Array<Array<Int>>) {
@@ -45,6 +48,7 @@ class WorldMap extends FlxTilemap {
     monsters = new FlxTypedGroup<Unit>();
     heroes = new FlxTypedGroup<Unit>();
     effects = new FlxTypedGroup<BattleFX>();
+    heatMap = new FlxTypedGroup<TileWeight>();
 
     for (i in 0...tiles.length) {
       for (j in 0...tiles[i].length) {
