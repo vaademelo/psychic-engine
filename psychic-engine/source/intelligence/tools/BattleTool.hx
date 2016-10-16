@@ -37,8 +37,9 @@ class BattleTool {
 
     var turnsToKillOpponent:Int = Math.ceil(1/unitHitRelevance);
     var damageUnitWillTake = opponentHitRelevance * turnsToKillOpponent;
+    var chanceOfWinning = Math.max(0, Math.min(1, 1 - damageUnitWillTake));
 
-    return Math.max(0, Math.min(1, 1 - damageUnitWillTake));
+    return 8 * Math.pow(chanceOfWinning - 0.5, 3); 
   }
 
 }

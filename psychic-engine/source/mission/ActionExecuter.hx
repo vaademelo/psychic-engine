@@ -109,7 +109,11 @@ class ActionExecuter {
       return;
     } else {
       if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) == 0) {
-        _unit.giveCollectable(collectable);
+        if (collectable.kind == TreasureKind.food) {
+          _unit.giveFood(collectable);
+        } else {
+          _unit.giveTreasure(collectable);
+        }
         collectable.kill();
       }
     }

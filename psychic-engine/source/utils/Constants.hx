@@ -19,6 +19,18 @@ enum Trait {
   traitTwo;
 }
 
+enum Emotion {
+  peaceful;
+  rage;
+  antecipation;
+  joy;
+  trust;
+  fear;
+  distraction;
+  sadness;
+  disgust;
+}
+
 // Treasure enums //
 ////////////////////
 

@@ -8,9 +8,13 @@ import mission.world.WorldMap;
 
 import intelligence.tools.BattleTool;
 import intelligence.tools.PositionTool;
+import intelligence.tools.EmotionTool;
+import intelligence.tools.LootTool;
 import intelligence.tools.TileWeightTool;
 
 import utils.Constants;
+
+import gameData.UserData;
 
 class HeroMind implements Mind {
 
@@ -64,6 +68,11 @@ class HeroMind implements Mind {
       tiles[key.toString()] += lootWeights[key];
     }
 
+    for (key in friendsWeights.keys()) {
+      if(tiles[key.toString()] == null) continue;
+      tiles[key.toString()] += friendsWeights[key];
+    }
+
     TileWeightTool.updateHeatMap(worldMap, tiles);
     return getBestOption(tiles);
 
@@ -73,7 +82,7 @@ class HeroMind implements Mind {
     var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.character.vision);
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
     for (tile in validTiles) {
-      tilesWeights.set(tile, 1);
+      tilesWeights.set(tile, 0);
     }
     return tilesWeights;
   }
@@ -135,20 +144,25 @@ class HeroMind implements Mind {
       //CHANCE OF WINNING
       var opponent = cast(opp, Unit);
       var opponentTile = opponent.getCoordinate();
-      tilesWeights[opponentTile] = BattleTool.chanceOfWinning(opponent, unit);
-      
-      //LEVEL OF DANGER
-      var tiles = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
-      var opponentDanger = BattleTool.hitRelevance(opponent, unit);
+      var chanceOfWinning = BattleTool.chanceOfWinning(opponent, unit) * EmotionTool.battleMultiplier(unit);
 
-      for (tile in tiles) {
-        if(PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
-        if(worldMap.getTileContentKind(tile) == TileContentKind.monster) continue;
-        if(tilesWeights[tile] == null) {
-          tilesWeights[tile] = 1 - opponentDanger;
-        } else {
-          var num = tilesWeights[tile] - opponentDanger;
-          tilesWeights[tile] = Math.max(0, Math.min(1, num));
+      if (chanceOfWinning > 0) {
+        tilesWeights[opponentTile] = chanceOfWinning;
+
+      } else {
+
+        tilesWeights[opponentTile] = chanceOfWinning;
+        //LEVEL OF DANGER
+        var tiles = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
+
+        for (tile in tiles) {
+          if(PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
+          if(worldMap.getTileContentKind(tile) == TileContentKind.monster) continue;
+          if(tilesWeights[tile] == null) {
+            tilesWeights[tile] = chanceOfWinning;
+          } else {
+            tilesWeights[tile] += chanceOfWinning;
+          }
         }
       }
     }
@@ -156,28 +170,44 @@ class HeroMind implements Mind {
   }
 
   public function lootAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
-    /* TODO:
-    - Comida recebem um peso relativo a necessidade de carne do player. Para isso o player deve definir uma meta de carne a ser obtida durante a missão
-    - Tesouros recebem um peso positivo
-    */
 
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
 
     var foods = PositionTool.getObjectsInRange(worldMap.foods, unit.getCoordinate(), unit.character.vision);
     var treasures = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
 
+
     for(food in foods) {
-      tilesWeights[cast(food, Collectable).getCoordinate()] = 2;
+      tilesWeights[cast(food, Collectable).getCoordinate()] = LootTool.needForFood(unit) * EmotionTool.lootMultiplier(unit);
     }
+
+
+    for(treasure in treasures) {
+      tilesWeights[cast(treasure, Collectable).getCoordinate()] = 1 * EmotionTool.lootMultiplier(unit);
+    }
+
 
     return tilesWeights;
   }
   public function friendsAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
     /* TODO:
-    - Peso na casa dos monstros (passíveis de atacar um amigo) relativo ao grau de perigo que ele exerce sobre o outro personagem levando em conta o grau de afinidade bem como a distância do monstro
     - Peso gradiente que irradia de outro personagem (dentro do campo de visão) diretamente proporcional a distância e ao grau de afinidade
     */
-    var tilesWeights = createOptions(worldMap);
+    var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
+
+    var opponents = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
+    var friends   = PositionTool.getObjectsInRange(worldMap.heroes, unit.getCoordinate(), unit.character.vision);
+
+    var opponentTiles = new Array<Array<Int>>();
+    for (opponent in opponents) {
+      for (friend in friends) {
+        var distanceFriendOpponent = PositionTool.getDistance(worldMap, cast(opponent, Unit).getCoordinate(), cast(friend, Unit).getCoordinate());
+
+        if (distanceFriendOpponent <= cast(opponent, Unit).character.vision) {
+          tilesWeights[cast(opponent, Unit).getCoordinate()] = 1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent;
+        }
+      }
+    }
     return tilesWeights;
   }
 
