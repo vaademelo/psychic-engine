@@ -5,16 +5,16 @@ import mission.world.WorldObject;
 import utils.Constants;
 import mission.world.Collectable;
 import gameData.Character;
-import gameData.PersonalityTrait;
 
 class Unit extends WorldObject {
 
   public var character:Character;
-  public var personality:Array<PersonalityTrait>;
+  public var personality:Array<Constants.PersonalityTrait>;
   public var hp:Int;
   public var injury:Int;
   public var recoverHealthEveryXTurns:Int = 2;
   public var turnsHurtedCount:Int = 0;
+  public var injuriesCount = 0;
 
   public var foodCollected:Array<Collectable> = [];
   public var treasureCollected:Array<Collectable> = [];
@@ -51,6 +51,7 @@ class Unit extends WorldObject {
   public function applyInjuryEffect() {
     //TODO: Define injury effects
     this.recoverHealthEveryXTurns ++; //TEMPORARY SOLUTION
+    injuriesCount ++;
   }
 
   public function giveFood(collectable:Collectable) {

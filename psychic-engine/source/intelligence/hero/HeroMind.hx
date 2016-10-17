@@ -20,7 +20,13 @@ class HeroMind implements Mind {
 
   private var unit:Unit;
 
+  public var emotionWeights:Map<Constants.Emotion, Float>;
+
   public function new() {
+    emotionWeights = new Map<Constants.Emotion, Float>();
+    for (emotion in Type.allEnums(Constants.Emotion)) {
+      emotionWeights[emotion] = 0;
+    }
   }
 
   public function updateStatus(worldMap:WorldMap, unit:Unit):Void {
