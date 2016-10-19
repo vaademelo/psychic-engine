@@ -20,12 +20,40 @@ class HeroMind implements Mind {
 
   private var unit:Unit;
 
-  public function new() {
+  public var currentEmotion:Emotion = Emotion.peaceful;
+  public var emotionTokens:Map<Emotion, Int> = [
+    Emotion.peaceful => 0,
+    Emotion.rage => 0,
+    Emotion.antecipation => 0,
+    Emotion.joy => 0,
+    Emotion.trust => 0,
+    Emotion.fear => 0,
+    Emotion.distraction => 0,
+    Emotion.sadness => 0,
+    Emotion.disgust => 0
+  ];
+
+  private var opponentsInRange:Array<Unit>;
+  private var friendsInRange:Array<Unit>;
+  private var foodsInRange:Array<Collectable>;
+  private var treasuresInRange:Array<Collectable>;
+
+  public function new(unit:Unit) {
+    this.unit = unit;
   }
 
-  public function updateStatus(worldMap:WorldMap, unit:Unit):Void {
-    if (this.unit == null) this.unit = unit;
+  private function getObjectsInRange(worldMap:WorldMap):Void {
+    opponentsInRange = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
+    friendsInRange   = PositionTool.getObjectsInRange(worldMap.heroes, unit.getCoordinate(), unit.character.vision);
+    foodsInRange     = PositionTool.getObjectsInRange(worldMap.foods, unit.getCoordinate(), unit.character.vision);
+    treasuresInRange = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
+  }
+
+  public function updateStatus(worldMap:WorldMap):Void {
+
     //TODO: UPDATE EMOTION, ANALYSE TRIGGERS
+    getObjectsInRange(worldMap);
+
     if(unit.character.goalUnit != null) {
       var tile = [0, 0];
       for(hero in worldMap.heroes.members) {
@@ -38,12 +66,10 @@ class HeroMind implements Mind {
     }
   }
 
-  public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
-    if (this.unit == null) this.unit = unit;
-
+  public function analyseAction(worldMap:WorldMap):Array<Int> {
     var tilesWeights    = createOptions(worldMap);
     var movingWeights   = movingAnalysis(worldMap);
-    var survivorWeights = survivorAnalysis(worldMap);
+    var survivorWeights = survivingAnalysis(worldMap);
     var lootWeights     = lootAnalysis(worldMap);
     var friendsWeights  = friendsAnalysis(worldMap);
 
@@ -55,12 +81,12 @@ class HeroMind implements Mind {
 
     for (key in movingWeights.keys()) {
       if(tiles[key.toString()] == null) continue;
-      tiles[key.toString()] *= movingWeights[key];
+      tiles[key.toString()] += movingWeights[key];
     }
 
     for (key in survivorWeights.keys()) {
       if(tiles[key.toString()] == null) continue;
-      tiles[key.toString()] *= survivorWeights[key];
+      tiles[key.toString()] += survivorWeights[key];
     }
 
     for (key in lootWeights.keys()) {
@@ -134,31 +160,23 @@ class HeroMind implements Mind {
     return  tilesWeights;
   }
 
-  public function survivorAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
+  public function survivingAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
 
-    var opponents = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
+    for(opponent in opponentsInRange) {
 
-    var opponentTiles = new Array<Array<Int>>();
-    for(opp in opponents) {
-      //CHANCE OF WINNING
-      var opponent = cast(opp, Unit);
       var opponentTile = opponent.getCoordinate();
       var chanceOfWinning = BattleTool.chanceOfWinning(opponent, unit) * EmotionTool.battleMultiplier(unit);
 
-      if (chanceOfWinning > 0) {
-        tilesWeights[opponentTile] = chanceOfWinning;
+      tilesWeights[opponentTile] = chanceOfWinning;
 
-      } else {
+      if (chanceOfWinning < 0) {
+        var opponentTilesInRange = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
 
-        tilesWeights[opponentTile] = chanceOfWinning;
-        //LEVEL OF DANGER
-        var tiles = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
-
-        for (tile in tiles) {
-          if(PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
-          if(worldMap.getTileContentKind(tile) == TileContentKind.monster) continue;
-          if(tilesWeights[tile] == null) {
+        for (tile in opponentTilesInRange) {
+          if (PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
+          if (worldMap.getTileContentKind(tile) == TileContentKind.monster) continue;
+          if (tilesWeights[tile] == null) {
             tilesWeights[tile] = chanceOfWinning;
           } else {
             tilesWeights[tile] += chanceOfWinning;
@@ -173,16 +191,12 @@ class HeroMind implements Mind {
 
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
 
-    var foods = PositionTool.getObjectsInRange(worldMap.foods, unit.getCoordinate(), unit.character.vision);
-    var treasures = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
-
-
-    for(food in foods) {
+    for(food in foodsInRange) {
       tilesWeights[cast(food, Collectable).getCoordinate()] = LootTool.needForFood(unit) * EmotionTool.lootMultiplier(unit);
     }
 
 
-    for(treasure in treasures) {
+    for(treasure in treasuresInRange) {
       tilesWeights[cast(treasure, Collectable).getCoordinate()] = 1 * EmotionTool.lootMultiplier(unit);
     }
 
@@ -195,16 +209,13 @@ class HeroMind implements Mind {
     */
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
 
-    var opponents = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
-    var friends   = PositionTool.getObjectsInRange(worldMap.heroes, unit.getCoordinate(), unit.character.vision);
-
     var opponentTiles = new Array<Array<Int>>();
-    for (opponent in opponents) {
-      for (friend in friends) {
-        var distanceFriendOpponent = PositionTool.getDistance(worldMap, cast(opponent, Unit).getCoordinate(), cast(friend, Unit).getCoordinate());
+    for (opponent in opponentsInRange) {
+      for (friend in friendsInRange) {
+        var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
 
-        if (distanceFriendOpponent <= cast(opponent, Unit).character.vision) {
-          tilesWeights[cast(opponent, Unit).getCoordinate()] = 1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent;
+        if (distanceFriendOpponent <= opponent.character.vision) {
+          tilesWeights[opponent.getCoordinate()] = 1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent;
         }
       }
     }

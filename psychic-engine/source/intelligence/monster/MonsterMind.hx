@@ -16,21 +16,25 @@ import utils.Constants;
 
 class MonsterMind implements Mind {
 
-  public function new() {
+  public var unit:Unit;
+  public var currentEmotion:Emotion;
+
+  public function new(unit:Unit) {
+      this.unit = unit;
   }
 
-  public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
-    var opponents = (unit.character.team == TeamSide.heroes) ? worldMap.monsters : worldMap.heroes;
-    var opponentsInRange = PositionTool.getObjectsInRange(opponents, unit.getCoordinate(), unit.character.vision);
+  public function analyseAction(worldMap:WorldMap):Array<Int> {
+    var opponents = (this.unit.character.team == TeamSide.heroes) ? worldMap.monsters : worldMap.heroes;
+    var opponentsInRange = PositionTool.getObjectsInRange(opponents, this.unit.getCoordinate(), this.unit.character.vision);
 
     if (opponentsInRange.length > 0) {
-      return BattleTool.getWeakestOpponent(opponentsInRange, unit);
+      return BattleTool.getWeakestOpponent(opponentsInRange, this.unit);
     } else {
-      return chooseRandomTileToWalk(worldMap, unit);
+      return chooseRandomTileToWalk(worldMap, this.unit);
     }
   }
 
-  public function updateStatus(worldMap:WorldMap, unit:Unit):Void {
+  public function updateStatus(worldMap:WorldMap):Void {
     //ENEMY DOESNT HAVE NOTHING TO UPDATE
   }
 

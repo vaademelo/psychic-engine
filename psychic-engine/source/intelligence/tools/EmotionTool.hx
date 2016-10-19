@@ -9,7 +9,7 @@ import mission.world.Unit;
 class EmotionTool {
 
   public static function lootMultiplier(unit:Unit):Int {
-    switch (unit.currentEmotion) {
+    switch (unit.mind.currentEmotion) {
       case Emotion.rage:
         return 1;
       case Emotion.antecipation:
@@ -32,7 +32,7 @@ class EmotionTool {
   }
 
   public static function battleMultiplier(unit:Unit):Int {
-    switch (unit.currentEmotion) {
+    switch (unit.mind.currentEmotion) {
       case Emotion.rage:
         return 1;
       case Emotion.antecipation:
@@ -50,7 +50,7 @@ class EmotionTool {
       case Emotion.disgust:
         return 1;
       default:
-        return 10;
+        return 1;
     }
   }
 }
