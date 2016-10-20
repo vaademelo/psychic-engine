@@ -195,7 +195,6 @@ class HeroMind implements Mind {
       tilesWeights[cast(food, Collectable).getCoordinate()] = LootTool.needForFood(unit) * EmotionTool.lootMultiplier(unit);
     }
 
-
     for(treasure in treasuresInRange) {
       tilesWeights[cast(treasure, Collectable).getCoordinate()] = 1 * EmotionTool.lootMultiplier(unit);
     }
