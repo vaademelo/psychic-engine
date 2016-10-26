@@ -9,7 +9,6 @@ import gameData.Character;
 class Unit extends WorldObject {
 
   public var character:Character;
-  public var personality:Array<Constants.PersonalityTrait>;
   public var hp:Int;
   public var injury:Int;
   public var recoverHealthEveryXTurns:Int = 2;

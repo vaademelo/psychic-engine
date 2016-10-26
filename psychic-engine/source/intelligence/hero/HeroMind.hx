@@ -6,11 +6,7 @@ import mission.world.Unit;
 import mission.world.Collectable;
 import mission.world.WorldMap;
 
-import intelligence.tools.BattleTool;
-import intelligence.tools.PositionTool;
-import intelligence.tools.EmotionTool;
-import intelligence.tools.LootTool;
-import intelligence.tools.TileWeightTool;
+import intelligence.tools.*;
 
 import utils.Constants;
 
@@ -20,13 +16,16 @@ class HeroMind implements Mind {
 
   private var unit:Unit;
 
-  public var emotionWeights:Map<Constants.Emotion, Float>;
+  public var emotionWeights:Map<Emotion, Float>;
+  public var personality:Array<PersonalityTrait>;
 
   public function new() {
-    emotionWeights = new Map<Constants.Emotion, Float>();
-    for (emotion in Type.allEnums(Constants.Emotion)) {
+    emotionWeights = new Map<Emotion, Float>();
+    for (emotion in Type.allEnums(Emotion)) {
       emotionWeights[emotion] = 0;
     }
+
+    PersonalityTool.generateNewPersonality(this);
   }
 
   public function updateStatus(worldMap:WorldMap, unit:Unit):Void {
@@ -42,6 +41,7 @@ class HeroMind implements Mind {
       }
       unit.character.goalTile = tile;
     }
+    TriggersTool.analyseTriggers(worldMap, unit, this);
   }
 
   public function analyseAction(worldMap:WorldMap, unit:Unit):Array<Int> {
