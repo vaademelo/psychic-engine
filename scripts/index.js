@@ -7,9 +7,9 @@ function init () {
 
   let triggers = defineTriggers(header);
   let traits = defineTraits(lines, triggers);
-  let json = JSON.stringify(traits, null, 2);
+  let json = JSON.stringify({'triggers':triggers, 'traits':traits}, null, 2);
 
-  fs.writeFile('personalityTraits.json', json);
+  fs.writeFile(__dirname + '/../psychic-engine/assets/data/personalityTraits.json', json);
 }
 
 function defineTriggers(header) {
@@ -20,7 +20,7 @@ function defineTriggers(header) {
   for (let cell of cells) {
     let name = cell;
     if (name === '') name = 'not' + triggers[triggers.length - 1].toProperCase();
-    triggers.push(name);
+    triggers.push(name.toLowerCase());
   }
 
   return triggers;
@@ -32,21 +32,39 @@ function defineTraits(lines, triggers) {
   for (let line of lines) {
     let cells = line.split(',');
     let traitName = cells.shift();
-    let values = {};
-
     if (traitName === '') continue;
-    for (let cell of cells) {
-      let value = cell;
-      if (value === '') value = 'empty';
-      let index = Object.keys(values).length;
-      console.log(index, triggers[index], value);
-      values[triggers[index]] = value;
-    }
 
-    traits[traitName] = values;
+    traits[traitName] = defineEffects(cells, triggers);
   }
 
   return traits;
+}
+
+function defineEffects(cells, triggers) {
+  let values = {};
+  let index = 0;
+
+  for (let cell of cells) {
+    let value = cell;
+    if (value === '') value = 'peaceful';
+
+    let trigger = triggers[index];
+    if (!trigger.startsWith('not')) {
+      values[trigger] = [value];
+    } else {
+      trigger = trigger.replace("not","");
+      values[trigger].push(value);
+    }
+    index ++;
+  }
+
+  for (let trigger of Object.keys(values)) {
+    if (values[trigger].length == 1) {
+      values[trigger].push('peaceful');
+    }
+  }
+
+  return values;
 }
 
 String.prototype.toProperCase = function () {
