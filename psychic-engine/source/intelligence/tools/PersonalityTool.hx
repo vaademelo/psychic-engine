@@ -8,7 +8,7 @@ import flixel.util.typeLimit.OneOfTwo;
 import utils.Constants;
 import mission.world.Unit;
 
-import intelligence.hero.HeroMind;
+import intelligence.HeroMind;
 
 class PersonalityTool {
 

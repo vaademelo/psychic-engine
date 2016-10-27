@@ -1,4 +1,4 @@
-package intelligence.hero;
+package intelligence;
 
 import intelligence.Mind;
 

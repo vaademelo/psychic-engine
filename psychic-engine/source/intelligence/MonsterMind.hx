@@ -1,4 +1,4 @@
-package intelligence.monster;
+package intelligence;
 
 import Random;
 

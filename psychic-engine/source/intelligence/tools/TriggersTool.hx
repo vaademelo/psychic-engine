@@ -6,7 +6,7 @@ import flixel.util.typeLimit.OneOfTwo;
 import utils.Constants;
 import mission.world.Unit;
 import mission.world.WorldMap;
-import intelligence.hero.HeroMind;
+import intelligence.HeroMind;
 
 import intelligence.tools.PositionTool;
 import intelligence.tools.PersonalityTool;

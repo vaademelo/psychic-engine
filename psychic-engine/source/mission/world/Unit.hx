@@ -7,8 +7,8 @@ import mission.world.Collectable;
 import gameData.Character;
 
 import intelligence.Mind;
-import intelligence.hero.HeroMind;
-import intelligence.monster.MonsterMind;
+import intelligence.HeroMind;
+import intelligence.MonsterMind;
 
 
 class Unit extends WorldObject {
