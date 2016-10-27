@@ -28,11 +28,8 @@ class HeroMind implements Mind {
   public function new(unit:Unit) {
     this.unit = unit;
 
-    emotionWeights = new Map<Emotion, Float>();
-    for (emotion in Type.allEnums(Emotion)) {
-      emotionWeights[emotion] = 0;
-    }
-    PersonalityTool.generateNewPersonality(this);
+    this.emotionWeights = EmotionTool.generateTokens();
+    this.personality = PersonalityTool.generateNewPersonality();
   }
 
   private function getObjectsInRange(worldMap:WorldMap):Void {
@@ -43,8 +40,6 @@ class HeroMind implements Mind {
   }
 
   public function updateStatus(worldMap:WorldMap):Void {
-
-    //TODO: UPDATE EMOTION, ANALYSE TRIGGERS
     getObjectsInRange(worldMap);
 
     if(unit.character.goalUnit != null) {
@@ -57,7 +52,10 @@ class HeroMind implements Mind {
       }
       unit.character.goalTile = tile;
     }
+
+    EmotionTool.amortizeTokens(this);
     TriggersTool.analyseTriggers(worldMap, unit, this);
+    EmotionTool.defineCurrentEmotion(this);
   }
 
   public function analyseAction(worldMap:WorldMap):Array<Int> {
