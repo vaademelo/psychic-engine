@@ -10,6 +10,8 @@ import mission.visualFX.BattleFX;
 
 import utils.Constants;
 
+import intelligence.tools.PositionTool;
+
 class BattleExecuter {
 
   public static function atackOpponent(worldMap:WorldMap, unit:Unit, opponent:Unit, callBack:Void->Bool):Bool {
@@ -45,6 +47,7 @@ class BattleExecuter {
       }
       var effect = new BattleFX(BattleEffectKind.kill, opponent.x, opponent.y - opponent.height/2, func);
       worldMap.effects.add(effect);
+      unitsThatSawHisDeath(worldMap, opponent);
     } else {
       var kind = BattleEffectKind.fail;
       if (damage == 1) kind = BattleEffectKind.hit;
@@ -61,6 +64,22 @@ class BattleExecuter {
       unit.mind.missedLastAtack = true;
     } else if (damage == 2) {
       unit.mind.criticalLastAtack = true;
+    }
+  }
+
+  public static function unitsThatSawHisDeath(worldMap:WorldMap, unit:Unit) {
+    var friends = unit.character.team == TeamSide.heroes ? worldMap.heroes.members : worldMap.monsters.members;
+    var enemies = unit.character.team == TeamSide.heroes ? worldMap.monsters.members : worldMap.heroes.members;
+
+    for (friend in friends) {
+      if(friend.character.vision >= PositionTool.getDistance(worldMap, unit.getCoordinate(), friend.getCoordinate())) {
+        friend.mind.friendDiedLastTurn = true;
+      }
+    }
+    for (enemy in enemies) {
+      if(enemy.character.vision >= PositionTool.getDistance(worldMap, unit.getCoordinate(), enemy.getCoordinate())) {
+        enemy.mind.enemyDiedLastTurn = true;
+      }
     }
   }
 }

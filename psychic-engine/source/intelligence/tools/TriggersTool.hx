@@ -79,13 +79,8 @@ class TriggersTool {
   }
 
   public static function analyseLastTurn(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-    //TODO: Has a enemy died last turn?
-    var enemyDiedLastTurn = false;
-    PersonalityTool.enemyDiedLastTurnTrigger(mind, enemyDiedLastTurn);
-
-    //TODO: Has a friend died last turn?
-    var friendDiedLastTurn = false;
-    PersonalityTool.friendDiedLastTurnTrigger(mind, friendDiedLastTurn);
+    PersonalityTool.enemyDiedLastTurnTrigger(mind, mind.enemyDiedLastTurn);
+    PersonalityTool.friendDiedLastTurnTrigger(mind, mind.friendDiedLastTurn);
   }
 
 }

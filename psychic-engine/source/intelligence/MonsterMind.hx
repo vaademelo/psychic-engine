@@ -9,6 +9,7 @@ import intelligence.tools.PositionTool;
 import intelligence.tools.BattleTool;
 
 import mission.world.Unit;
+import mission.world.Collectable;
 import mission.world.WorldMap;
 import mission.world.WorldObject;
 
@@ -22,6 +23,12 @@ class MonsterMind implements Mind {
   public var missedLastAtack:Bool = false;
   public var criticalLastAtack:Bool = false;
   public var wasAtackedLastTurn:Bool = false;
+  public var enemyDiedLastTurn:Bool = false;
+  public var friendDiedLastTurn:Bool = false;
+  public var opponentsInRange:Array<Unit>;
+  public var friendsInRange:Array<Unit>;
+  public var foodsInRange:Array<Collectable>;
+  public var treasuresInRange:Array<Collectable>;
 
   public function new(unit:Unit) {
       this.unit = unit;
@@ -34,6 +41,8 @@ class MonsterMind implements Mind {
     this.missedLastAtack = false;
     this.criticalLastAtack = false;
     this.wasAtackedLastTurn = false;
+    this.enemyDiedLastTurn = false;
+    this.friendDiedLastTurn = false;
 
     if (opponentsInRange.length > 0) {
       return BattleTool.getWeakestOpponent(opponentsInRange, this.unit);

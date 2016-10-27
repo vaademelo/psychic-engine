@@ -28,6 +28,8 @@ class HeroMind implements Mind {
   public var missedLastAtack:Bool = false;
   public var criticalLastAtack:Bool = false;
   public var wasAtackedLastTurn:Bool = false;
+  public var enemyDiedLastTurn:Bool = false;
+  public var friendDiedLastTurn:Bool = false;
 
   public function new(unit:Unit) {
     this.unit = unit;
@@ -46,16 +48,7 @@ class HeroMind implements Mind {
   public function updateStatus(worldMap:WorldMap):Void {
     getObjectsInRange(worldMap);
 
-    if(unit.character.goalUnit != null) {
-      var tile = [0, 0];
-      for(hero in worldMap.heroes.members) {
-        if(hero.character == unit.character.goalUnit) {
-          tile = hero.getCoordinate();
-          break;
-        }
-      }
-      unit.character.goalTile = tile;
-    }
+    GoalTool.updateGoal(worldMap, unit);
 
     EmotionTool.amortizeTokens(this);
     TriggersTool.analyseTriggers(worldMap, unit, this);
@@ -64,6 +57,8 @@ class HeroMind implements Mind {
     this.missedLastAtack = false;
     this.criticalLastAtack = false;
     this.wasAtackedLastTurn = false;
+    this.enemyDiedLastTurn = false;
+    this.friendDiedLastTurn = false;
   }
 
   public function analyseAction(worldMap:WorldMap):Array<Int> {
@@ -123,7 +118,7 @@ class HeroMind implements Mind {
       var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
       var desiredZone:Array<Int> = PositionTool.getZoneForTile(destination);
       if(worldMap.isTheSameTile(currentZone, desiredZone)) {
-        //SAME ZONE
+        //TODO: SAME ZONE
       } else {
         tilesWeights = weightsForDistance(worldMap);
       }
