@@ -36,6 +36,10 @@ class PersonalityTool {
     applyTrigger('strongenemy', mind, trigger, 2);
   }
 
+  public static function wasAtackedTrigger(mind:HeroMind, trigger:Bool) {
+    applyTrigger('wasatacked', mind, trigger, 1);
+  }
+
   public static function collectablesOnSightTrigger(mind:HeroMind, trigger:Bool) {
     applyTrigger('collectablesonsight', mind, trigger, 1);
   }
@@ -44,8 +48,28 @@ class PersonalityTool {
     applyTrigger('holdingcollectables', mind, trigger, 1);
   }
 
+  public static function friendInDangerTrigger(mind:HeroMind, trigger:Bool) {
+    applyTrigger('friendindanger', mind, trigger, 2);
+  }
+
   public static function alliesNearByTrigger(mind:HeroMind, trigger:Bool) {
     applyTrigger('alliesnearby', mind, trigger, 1);
+  }
+
+  public static function enemyDiedLastTurnTrigger(mind:HeroMind, trigger:Bool) {
+    applyTrigger('enemydiedlastturn', mind, trigger, 2);
+  }
+
+  public static function friendDiedLastTurnTrigger(mind:HeroMind, trigger:Bool) {
+    applyTrigger('frienddiedlastturn', mind, trigger, 2);
+  }
+
+  public static function missedLastAtackTrigger(mind:HeroMind, trigger:Bool) {
+    applyTrigger('missedlastatack', mind, trigger, 1);
+  }
+
+  public static function doneACriticalTrigger(mind:HeroMind, trigger:Bool) {
+    applyTrigger('doneacritical', mind, trigger, 1);
   }
 
   public static function applyTrigger(triggerName:String, mind:HeroMind, value:Bool, weight:Float) {

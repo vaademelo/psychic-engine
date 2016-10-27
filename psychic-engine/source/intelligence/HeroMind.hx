@@ -20,10 +20,14 @@ class HeroMind implements Mind {
   public var emotionWeights:Map<Emotion, Float>;
   public var personality:Array<PersonalityTrait>;
 
-  private var opponentsInRange:Array<Unit>;
-  private var friendsInRange:Array<Unit>;
-  private var foodsInRange:Array<Collectable>;
-  private var treasuresInRange:Array<Collectable>;
+  public var opponentsInRange:Array<Unit>;
+  public var friendsInRange:Array<Unit>;
+  public var foodsInRange:Array<Collectable>;
+  public var treasuresInRange:Array<Collectable>;
+
+  public var missedLastAtack:Bool = false;
+  public var criticalLastAtack:Bool = false;
+  public var wasAtackedLastTurn:Bool = false;
 
   public function new(unit:Unit) {
     this.unit = unit;
@@ -56,6 +60,10 @@ class HeroMind implements Mind {
     EmotionTool.amortizeTokens(this);
     TriggersTool.analyseTriggers(worldMap, unit, this);
     EmotionTool.defineCurrentEmotion(this);
+
+    this.missedLastAtack = false;
+    this.criticalLastAtack = false;
+    this.wasAtackedLastTurn = false;
   }
 
   public function analyseAction(worldMap:WorldMap):Array<Int> {

@@ -19,6 +19,10 @@ class MonsterMind implements Mind {
   public var unit:Unit;
   public var currentEmotion:Emotion;
 
+  public var missedLastAtack:Bool = false;
+  public var criticalLastAtack:Bool = false;
+  public var wasAtackedLastTurn:Bool = false;
+
   public function new(unit:Unit) {
       this.unit = unit;
   }
@@ -26,6 +30,10 @@ class MonsterMind implements Mind {
   public function analyseAction(worldMap:WorldMap):Array<Int> {
     var opponents = (this.unit.character.team == TeamSide.heroes) ? worldMap.monsters : worldMap.heroes;
     var opponentsInRange = PositionTool.getObjectsInRange(opponents, this.unit.getCoordinate(), this.unit.character.vision);
+
+    this.missedLastAtack = false;
+    this.criticalLastAtack = false;
+    this.wasAtackedLastTurn = false;
 
     if (opponentsInRange.length > 0) {
       return BattleTool.getWeakestOpponent(opponentsInRange, this.unit);

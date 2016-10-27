@@ -14,6 +14,7 @@ class BattleExecuter {
 
   public static function atackOpponent(worldMap:WorldMap, unit:Unit, opponent:Unit, callBack:Void->Bool):Bool {
     var damage = getAtackDamage(unit, opponent);
+    saveOnMindBattleReport(unit, opponent, damage);
     return applyDamage(worldMap, opponent, damage, callBack);
   }
 
@@ -52,5 +53,14 @@ class BattleExecuter {
       worldMap.effects.add(effect);
     }
     return true;
+  }
+
+  public static function saveOnMindBattleReport(unit:Unit, opponent:Unit, damage:Int) {
+    opponent.mind.wasAtackedLastTurn = true;
+    if (damage == 0) {
+      unit.mind.missedLastAtack = true;
+    } else if (damage == 2) {
+      unit.mind.criticalLastAtack = true;
+    }
   }
 }

@@ -23,7 +23,6 @@ class TriggersTool {
   }
 
   public static function analyseSelfStatus(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-
     var runningLowOnHealth = unit.hp <= Math.ceil(0.5 * unit.character.hpMax);
     PersonalityTool.lowHealthTrigger(mind, runningLowOnHealth);
 
@@ -32,14 +31,11 @@ class TriggersTool {
   }
 
   public static function analyseEnemies(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-    var enemyTeam = (unit.character.team == TeamSide.heroes) ? worldMap.monsters : worldMap.heroes;
-    var enemiesOnSight = PositionTool.getObjectsInRange(enemyTeam, unit.getCoordinate(), unit.character.vision);
-
-    var hasAnyEnemyOnSight = enemiesOnSight.length > 0;
+    var hasAnyEnemyOnSight = mind.opponentsInRange.length > 0;
     PersonalityTool.enemyOnSightTrigger(mind, hasAnyEnemyOnSight);
 
     var strongEnemyOnSight = false;
-    for (enemy in enemiesOnSight) {
+    for (enemy in mind.opponentsInRange) {
       var chanceOfWinning = BattleTool.chanceOfWinning(enemy, unit);
       if (chanceOfWinning < -0.5) {
         strongEnemyOnSight = true;
@@ -50,10 +46,7 @@ class TriggersTool {
   }
 
   public static function analyseLoot(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-    var foodOnSight = PositionTool.getObjectsInRange(worldMap.foods, unit.getCoordinate(), unit.character.vision);
-    var treasuresOnSight = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
-
-    var lotsOfCollectablesOnSight = foodOnSight.length + treasuresOnSight.length > 3;
+    var lotsOfCollectablesOnSight = mind.foodsInRange.length + mind.treasuresInRange.length > 3;
     PersonalityTool.collectablesOnSightTrigger(mind, lotsOfCollectablesOnSight);
 
     var holdingLotsOfCollectables = unit.foodCollected.length + unit.treasureCollected.length > 3;
@@ -61,31 +54,38 @@ class TriggersTool {
   }
 
   public static function analyseFriends(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-    var myTeam = (unit.character.team == TeamSide.heroes) ? worldMap.heroes : worldMap.monsters;
-    var alliesOnSight = PositionTool.getObjectsInRange(myTeam, unit.getCoordinate(), unit.character.vision);
-
-    var hasAlliesNearBy = alliesOnSight.length > 0;
+    var hasAlliesNearBy = mind.friendsInRange.length > 0;
     PersonalityTool.alliesNearByTrigger(mind, hasAlliesNearBy);
 
-    // Is there a friend in danger?
     var friendInDanger = false;
-
+    for (friend in mind.friendsInRange) {
+      if (friend.hp > Math.ceil(0.5 * friend.character.hpMax)) continue;
+      for (enemy in mind.opponentsInRange) {
+        var chanceOfWinning = BattleTool.chanceOfWinning(enemy, friend);
+        if (chanceOfWinning < -0.5) {
+          friendInDanger = true;
+          break;
+        }
+      }
+      if (friendInDanger) break;
+    }
+    PersonalityTool.friendInDangerTrigger(mind, friendInDanger);
   }
 
   public static function analyseMyLastActions(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-    // Have I missed last atack?
-
-    // Have I done a critical?
-
-    // Was I attacked last turn?
-
+    PersonalityTool.missedLastAtackTrigger(mind, mind.missedLastAtack);
+    PersonalityTool.doneACriticalTrigger(mind, mind.criticalLastAtack);
+    PersonalityTool.wasAtackedTrigger(mind, mind.wasAtackedLastTurn);
   }
 
   public static function analyseLastTurn(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-    // Has a enemy died last turn?
+    //TODO: Has a enemy died last turn?
+    var enemyDiedLastTurn = false;
+    PersonalityTool.enemyDiedLastTurnTrigger(mind, enemyDiedLastTurn);
 
-    // Has a friend died last turn?
-
+    //TODO: Has a friend died last turn?
+    var friendDiedLastTurn = false;
+    PersonalityTool.friendDiedLastTurnTrigger(mind, friendDiedLastTurn);
   }
 
 }
