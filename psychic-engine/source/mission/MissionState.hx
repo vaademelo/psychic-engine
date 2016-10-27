@@ -58,9 +58,9 @@ class MissionState extends FlxState {
     //1st: heal unit if needed
     unit.healIfNeeded(worldMap);
     //2nd: update unit mindStatus
-    unit.character.mind.updateStatus(worldMap, unit);
+    unit.mind.updateStatus(worldMap);
     //3nd: unit think next action
-    var action:Array<Int> = unit.character.mind.analyseAction(worldMap, unit);
+    var action:Array<Int> = unit.mind.analyseAction(worldMap);
     //4rd: execute unit action
     ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
     return true;

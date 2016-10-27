@@ -6,6 +6,11 @@ import utils.Constants;
 import mission.world.Collectable;
 import gameData.Character;
 
+import intelligence.Mind;
+import intelligence.hero.HeroMind;
+import intelligence.monster.MonsterMind;
+
+
 class Unit extends WorldObject {
 
   public var character:Character;
@@ -18,7 +23,7 @@ class Unit extends WorldObject {
   public var foodCollected:Array<Collectable> = [];
   public var treasureCollected:Array<Collectable> = [];
 
-  public var currentEmotion:Emotion = Emotion.peaceful;
+  public var mind:Mind;
 
   public function new(character:Character, i:Int, j:Int) {
     super(i,j);
@@ -27,6 +32,12 @@ class Unit extends WorldObject {
     this.setCoordinate(i,j);
     this.hp = this.character.hpMax;
     this.injury = 0;
+
+    if (this.character.team == TeamSide.heroes) {
+      this.mind = new HeroMind(this);
+    } else {
+      this.mind = new MonsterMind(this);
+    }
   }
 
   public function healIfNeeded(worldMap:WorldMap) {
