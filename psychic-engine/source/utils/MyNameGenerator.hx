@@ -14,9 +14,9 @@ class MyNameGenerator {
     if (generator == null) {
       var json:String = Assets.getText('assets/data/names.json');
       var obj:Array<String> = haxe.Json.parse(json);
-      generator = new Generator(obj, 1, 0.01);
+      generator = new Generator(obj, 1, 0.02);
     }
-    return generator.generate().substr(1);
+    return generator.generate().substr(1, 9);
   }
 
 }
