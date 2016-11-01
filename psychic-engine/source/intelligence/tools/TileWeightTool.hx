@@ -43,35 +43,6 @@ class TileWeightTool {
     for (i in index...worldMap.heatMap.members.length) {
       worldMap.heatMap.members[i].kill();
     }
-    //
-    //
-    //
-    // var index = 0;
-    // for (i in 0...worldMap.heatMap.members.length) {
-    //   if (index >= tilesWeights.keys().length) {
-    //     worldMap.heatMap.members[index].kill();
-    //   } else {
-    //     var tile = tilesWeights[index].key();
-    //     var parsedTile = tile.substring(1, tile.length - 1).split(',');
-    //
-    //   }
-    //   index ++;
-    // }
-    // var start = index;
-    // for (i in start...tilesWeights.keys().length) {
-    //   var tile = tilesWeights[index].key();
-    //   var parsedTile = tile.substring(1, tile.length - 1).split(',');
-    //   var tileWeight = new TileWeight("" + round(tilesWeights[tile]), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
-    //   worldMap.heatMap.add(tileWeight);
-    //   index ++;
-    // }
-
-    // worldMap.heatMap.clear();
-    // for(tile in tilesWeights.keys()) {
-    //   var parsedTile = tile.substring(1, tile.length - 1).split(',');
-    //   var tileWeight = new TileWeight("" + round(tilesWeights[tile]), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
-    //   worldMap.heatMap.add(tileWeight);
-    // }
   }
 
   public static function round(number:Float, ?precision=1): Float{

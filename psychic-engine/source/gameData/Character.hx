@@ -19,6 +19,7 @@ class Character {
   public var critChance:Map<BodyKind, Float>;
   public var vision:Int;
 
+  public var name:String;
   public var imageSource:String;
   public var relationList:Map<Character, Int>;
   public var personality:Array<PersonalityTrait>;

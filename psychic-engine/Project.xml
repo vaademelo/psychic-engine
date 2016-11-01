@@ -36,6 +36,7 @@
 	<haxelib name="flixel" />
 	<haxelib name="random" />
 	<haxelib name="flixel-addons" />
+	<haxelib name="markov-namegen" />
 	<!-- <haxelib name="flixel-ui" /> -->
 
 	<!--In case you want to use nape with flixel-->

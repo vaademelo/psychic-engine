@@ -16,6 +16,7 @@ import utils.Constants;
 import mission.MissionState;
 
 import camping.missionMenu.ZoneHub;
+import camping.missionMenu.HeroDiv;
 import camping.missionMenu.HeroDragButton;
 
 import gameData.UserData;
@@ -69,10 +70,9 @@ class MissionMenuState extends FlxState {
     var yy = 0;
     UserData.loadUserData();
     for (char in UserData.heroes) {
-      var sprite = new HeroDragButton(0, yy, char, spritesHolder);
+      var sprite = new HeroDiv(0, yy, char, spritesHolder);
       add(sprite);
       yy += 50;
-      spritesHolder.push(sprite);
     }
   }
 
