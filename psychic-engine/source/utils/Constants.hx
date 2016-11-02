@@ -95,6 +95,12 @@ class Constants {
   public static var TRIGGERS:Array<String>;
   public static var PERSONALITY_TRAITS:Array<PersonalityTrait>;
 
+  public static var MAX_LIFE = 4;
+  public static var MAX_INJURY = 5;
+  public static var MAX_MOVEMENT = 4;
+  public static var MAX_VISION = 6;
+  public static var MAX_ATACKRANGE = 1;
+
   public static function setup() {
     var json:String = Assets.getText('assets/data/personalityTraits.json');
     var obj = haxe.Json.parse(json);

@@ -42,9 +42,11 @@ class ZoneHub extends FlxSpriteGroup {
         this.y = zone[key] * 200;
         continue;
       case ZoneInfo.name:
-        var name = new FlxText(zoneBG.width - 60, 10, 50);
+        var name = new FlxText(zoneBG.width - 90, 10, 80);
         name.text = "zone " + zone[key];
-        name.setFormat("assets/fonts/SheepingDogs.ttf", 16, FlxColor.BLACK, FlxTextAlign.RIGHT);
+        name.size = 16;
+        name.color = FlxColor.BLACK;
+        name.alignment = FlxTextAlign.RIGHT;
         this.add(name);
         continue;
       }
@@ -52,7 +54,9 @@ class ZoneHub extends FlxSpriteGroup {
         icon.x = zoneBG.width - 30;
         icon.y = zoneBG.height - 30 - (nKeys * 30);
         text = new FlxText(zoneBG.width - 60, zoneBG.height - 30 - (nKeys * 30), 25);
-        text.setFormat("assets/fonts/SheepingDogs.ttf", 16, FlxColor.BLACK, FlxTextAlign.RIGHT);
+        text.size = 16;
+        text.color = FlxColor.BLACK;
+        text.alignment = FlxTextAlign.RIGHT;
         text.text = Std.string(zone[key]);
         nKeys++;
       }

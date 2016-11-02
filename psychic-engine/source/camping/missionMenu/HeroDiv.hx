@@ -56,7 +56,7 @@ class HeroDiv extends FlxGroup {
   }
 
   private function seeCharDetail():Void {
-    FlxG.switchState(new CharacterDetailsState(draggableButton.character));
+    FlxG.state.openSubState(new CharacterDetailsState(draggableButton.character));
   }
 
 }
