@@ -13,35 +13,50 @@ import camping.missionMenu.HeroDragButton;
 
 import gameData.Character;
 
-import utils.MyNameGenerator;
-
 class HeroDiv extends FlxGroup {
 
   public var draggableButton:HeroDragButton;
-  public var name:FlxText;
   public var moreButton:FlxButton;
+  public var name:FlxText;
+  public var action:FlxText;
 
   public function new(xx:Int, yy:Int, char:Character, spritesHolder:Array<OneOfTwo<ZoneHub, HeroDragButton>>) {
     super();
 
-    draggableButton = new HeroDragButton(xx, yy, char, spritesHolder);
-    spritesHolder.push(draggableButton);
+    xx += 5;
 
-    name = new FlxText(xx + 55, yy + 10);
-    name.size = 20;
-    name.text = MyNameGenerator.generateName();
-    name.color = FlxColor.WHITE;
-
-    moreButton = new FlxButton(xx + 60 + name.width, yy + 13, '', seeCharDetail);
+    moreButton = new FlxButton(xx, yy + 15, '', seeCharDetail);
     moreButton.loadGraphic("assets/images/menu/plusButton.png", true, 20, 20);
 
+    xx += Std.int(moreButton.width) + 5;
+
+    action = new FlxText();
+    draggableButton = new HeroDragButton(xx, yy, char, spritesHolder, action);
+    spritesHolder.push(draggableButton);
+
+    xx += Std.int(draggableButton.width) + 5;
+
+    name = new FlxText(xx, yy + 10);
+    name.size = 20;
+    name.text = char.name;
+    name.color = FlxColor.WHITE;
+
+    xx += Std.int(name.width) + 5;
+
+    action.x = xx;
+    action.y = yy + 10;
+    action.size = 20;
+    action.text = "is not going";
+    action.color = FlxColor.YELLOW;
+
     add(draggableButton);
-    add(name);
     add(moreButton);
+    add(name);
+    add(action);
   }
 
   private function seeCharDetail():Void {
-    FlxG.switchState(new CharacterDetailsState());
+    FlxG.switchState(new CharacterDetailsState(draggableButton.character));
   }
 
 }

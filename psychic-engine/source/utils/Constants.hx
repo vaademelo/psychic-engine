@@ -20,6 +20,7 @@ enum ZoneKind {
 }
 
 enum ZoneInfo {
+  name;
   kind;
   coordX;
   coordY;

@@ -41,6 +41,12 @@ class ZoneHub extends FlxSpriteGroup {
       case ZoneInfo.coordY:
         this.y = zone[key] * 200;
         continue;
+      case ZoneInfo.name:
+        var name = new FlxText(zoneBG.width - 60, 10, 50);
+        name.text = "zone " + zone[key];
+        name.setFormat("assets/fonts/SheepingDogs.ttf", 16, FlxColor.BLACK, FlxTextAlign.RIGHT);
+        this.add(name);
+        continue;
       }
       if (key != ZoneInfo.kind) {
         icon.x = zoneBG.width - 30;

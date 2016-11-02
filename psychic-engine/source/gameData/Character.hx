@@ -4,6 +4,7 @@ import Random;
 
 import flixel.util.typeLimit.OneOfTwo;
 
+import utils.MyNameGenerator;
 import utils.Constants;
 
 class Character {
@@ -39,6 +40,7 @@ class Character {
       this.critChance = new Map<BodyKind,Float>();
       this.vision = Random.int(5, 6);
       this.imageSource = "assets/images/bodies/h" + Std.string(bodyKind) + ".png";
+      this.name = MyNameGenerator.generateName();
 
       var bodyKinds = Type.allEnums(BodyKind);
       for(body in bodyKinds) {
