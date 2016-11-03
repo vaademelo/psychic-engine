@@ -10,22 +10,22 @@ import gameData.UserData;
 
 class LootTool {
 
-  /* f(x) = const   , x < foodGoal
-     f(x) = -nx + a , x > foodGoal
+  /* f(x) = const   , x < goldGoal
+     f(x) = -nx + a , x > goldGoal
        n = greed
-       a = foodWeight
-       x = numberOfCollectedFood
+       a = goldWeight
+       x = numberOfCollectedgold
   */
-  public static function needForFood(unit:Unit):Float {
-    var numberOfCollectedFood:Int = unit.foodCollected.length;
-    var foodWeight:Float = 1.0;
+  public static function needForgold(unit:Unit):Float {
+    var numberOfCollectedgold:Int = unit.goldCollected.length;
+    var goldWeight:Float = 1.0;
     var greed:Float = 0.25; // The bigger, less greedy is the character
 
-    if (numberOfCollectedFood < UserData.foodGoal) {
-      return foodWeight;
+    if (numberOfCollectedgold < UserData.goldGoal) {
+      return goldWeight;
     }
 
-    return (- (greed * numberOfCollectedFood) + foodWeight);
+    return (- (greed * numberOfCollectedgold) + goldWeight);
 
   }
 }

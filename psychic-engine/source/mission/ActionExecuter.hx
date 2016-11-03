@@ -109,8 +109,8 @@ class ActionExecuter {
       return;
     } else {
       if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) == 0) {
-        if (collectable.kind == TreasureKind.food) {
-          _unit.giveFood(collectable);
+        if (collectable.kind == TreasureKind.gold) {
+          _unit.givegold(collectable);
         } else {
           _unit.giveTreasure(collectable);
         }

@@ -27,7 +27,7 @@ class MonsterMind implements Mind {
   public var friendDiedLastTurn:Bool = false;
   public var opponentsInRange:Array<Unit>;
   public var friendsInRange:Array<Unit>;
-  public var foodsInRange:Array<Collectable>;
+  public var goldsInRange:Array<Collectable>;
   public var treasuresInRange:Array<Collectable>;
 
   public function new(unit:Unit) {

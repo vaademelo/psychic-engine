@@ -10,7 +10,7 @@ interface Mind {
 
   public var opponentsInRange:Array<Unit>;
   public var friendsInRange:Array<Unit>;
-  public var foodsInRange:Array<Collectable>;
+  public var goldsInRange:Array<Collectable>;
   public var treasuresInRange:Array<Collectable>;
 
   public var missedLastAtack:Bool = false;

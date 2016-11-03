@@ -35,7 +35,7 @@ class MissionMenuState extends FlxState {
 
     spritesHolder = new Array<OneOfTwo<ZoneHub, HeroDragButton>>();
 
-    UserData.foodGoal = 1;
+    UserData.goldGoal = 1;
 
     printButtons();
     printZones();

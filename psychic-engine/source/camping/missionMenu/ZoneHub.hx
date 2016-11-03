@@ -31,8 +31,8 @@ class ZoneHub extends FlxSpriteGroup {
         icon.loadGraphic('assets/images/menu/zones/home.png');
       case ZoneInfo.nMonsters:
         icon.loadGraphic('assets/images/menu/zones/monster.png');
-      case ZoneInfo.nFood:
-        icon.loadGraphic('assets/images/menu/zones/food.png');
+      case ZoneInfo.ngold:
+        icon.loadGraphic('assets/images/menu/zones/gold.png');
       case ZoneInfo.nTreasures:
         icon.loadGraphic('assets/images/menu/zones/item.png');
       case ZoneInfo.coordX:

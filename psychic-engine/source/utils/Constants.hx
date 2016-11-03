@@ -6,7 +6,7 @@ import openfl.Assets;
 ////////////////////
 
 enum TreasureKind {
-  food;
+  gold;
   item;
 }
 
@@ -26,14 +26,14 @@ enum ZoneInfo {
   coordY;
   nMonsters;
   nTreasures;
-  nFood;
+  ngold;
 }
 
 enum TileContentKind {
   empty;
   hero;
   monster;
-  food;
+  gold;
   treasure;
 }
 

@@ -49,36 +49,36 @@ class MapMaker {
   }
 
   private static function createZone(kind:ZoneKind, zoneCoord:Array<Int>, name:Int):Array<Array<Int>> {
-    var nFood:Int = 0;
+    var ngold:Int = 0;
     var nTreasures:Int = 0;
     var nMonsters:Int = 0;
     var nWalls:Int = 0;
 
     switch (kind) {
       case ZoneKind.starter:
-        nFood = Random.int(2, 3);
+        ngold = Random.int(2, 3);
         nMonsters = Random.int(1, 2);
         nWalls = Random.int(0, 4);
       case ZoneKind.normal:
-        nFood = Random.int(2, 4);
+        ngold = Random.int(2, 4);
         nTreasures = Random.int(0, 2);
         nMonsters = Random.int(1, 5);
         nWalls = Random.int(3, 6);
       case ZoneKind.intense:
-        nFood = Random.int(3, 5);
+        ngold = Random.int(3, 5);
         nTreasures = Random.int(0, 4);
         nMonsters = Random.int(5, 8);
         nWalls = Random.int(0, 6);
     }
 
-    var tiles = populateZone(nFood, nTreasures, nMonsters, nWalls);
+    var tiles = populateZone(ngold, nTreasures, nMonsters, nWalls);
 
     if (kind == ZoneKind.starter) tiles[0][0] = 2;
 
     var zoneInfo = new Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>();
     zoneInfo[ZoneInfo.nTreasures] = nTreasures;
     zoneInfo[ZoneInfo.nMonsters] = nMonsters;
-    zoneInfo[ZoneInfo.nFood] = nFood;
+    zoneInfo[ZoneInfo.ngold] = ngold;
     zoneInfo[ZoneInfo.kind] = kind;
     zoneInfo[ZoneInfo.coordX] = zoneCoord[0];
     zoneInfo[ZoneInfo.coordY] = zoneCoord[1];
@@ -88,7 +88,7 @@ class MapMaker {
     return tiles;
   }
 
-  public static function populateZone(nFood:Int, nTreasures:Int, nMonsters:Int, nWalls:Int):Array<Array<Int>> {
+  public static function populateZone(ngold:Int, nTreasures:Int, nMonsters:Int, nWalls:Int):Array<Array<Int>> {
     var tiles:Array<Array<Int>> = new Array<Array<Int>>();
 
     var tilesArray:Array<Int> = new Array<Int>();
@@ -96,9 +96,9 @@ class MapMaker {
       tilesArray.push(1);
       nWalls --;
     }
-    while (nFood > 0) {
+    while (ngold > 0) {
       tilesArray.push(3);
-      nFood --;
+      ngold --;
     }
     while (nTreasures > 0) {
       tilesArray.push(4);

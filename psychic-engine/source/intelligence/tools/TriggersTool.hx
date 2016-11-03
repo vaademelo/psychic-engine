@@ -46,10 +46,10 @@ class TriggersTool {
   }
 
   public static function analyseLoot(worldMap:WorldMap, unit:Unit, mind:HeroMind) {
-    var lotsOfCollectablesOnSight = mind.foodsInRange.length + mind.treasuresInRange.length > 3;
+    var lotsOfCollectablesOnSight = mind.goldsInRange.length + mind.treasuresInRange.length > 3;
     PersonalityTool.collectablesOnSightTrigger(mind, lotsOfCollectablesOnSight);
 
-    var holdingLotsOfCollectables = unit.foodCollected.length + unit.treasureCollected.length > 3;
+    var holdingLotsOfCollectables = unit.goldCollected.length + unit.treasureCollected.length > 3;
     PersonalityTool.holdingCollectablesTrigger(mind, holdingLotsOfCollectables);
   }
 

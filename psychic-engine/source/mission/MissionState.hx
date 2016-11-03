@@ -33,7 +33,7 @@ class MissionState extends FlxState {
     cam = new Camera();
 
     add(worldMap);
-    add(worldMap.foods);
+    add(worldMap.golds);
     add(worldMap.treasures);
     add(worldMap.monsters);
     add(worldMap.heroes);

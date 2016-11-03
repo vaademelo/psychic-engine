@@ -21,7 +21,7 @@ class Unit extends WorldObject {
   public var turnsHurtedCount:Int = 0;
   public var injuriesCount = 0;
 
-  public var foodCollected:Array<Collectable> = [];
+  public var goldCollected:Array<Collectable> = [];
   public var treasureCollected:Array<Collectable> = [];
 
   public var mind:Mind;
@@ -67,8 +67,8 @@ class Unit extends WorldObject {
     injuriesCount ++;
   }
 
-  public function giveFood(collectable:Collectable) {
-    this.foodCollected.push(collectable);
+  public function givegold(collectable:Collectable) {
+    this.goldCollected.push(collectable);
   }
 
   public function giveTreasure(collectable:Collectable) {

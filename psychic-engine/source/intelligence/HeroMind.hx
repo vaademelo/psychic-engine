@@ -21,7 +21,7 @@ class HeroMind implements Mind {
 
   public var opponentsInRange:Array<Unit>;
   public var friendsInRange:Array<Unit>;
-  public var foodsInRange:Array<Collectable>;
+  public var goldsInRange:Array<Collectable>;
   public var treasuresInRange:Array<Collectable>;
 
   public var missedLastAtack:Bool = false;
@@ -39,7 +39,7 @@ class HeroMind implements Mind {
   private function getObjectsInRange(worldMap:WorldMap):Void {
     opponentsInRange = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
     friendsInRange   = PositionTool.getObjectsInRange(worldMap.heroes, unit.getCoordinate(), unit.character.vision);
-    foodsInRange     = PositionTool.getObjectsInRange(worldMap.foods, unit.getCoordinate(), unit.character.vision);
+    goldsInRange     = PositionTool.getObjectsInRange(worldMap.golds, unit.getCoordinate(), unit.character.vision);
     treasuresInRange = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
   }
 
@@ -186,8 +186,8 @@ class HeroMind implements Mind {
 
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
 
-    for(food in foodsInRange) {
-      tilesWeights[cast(food, Collectable).getCoordinate()] = LootTool.needForFood(unit) * EmotionTool.lootMultiplier(unit);
+    for(gold in goldsInRange) {
+      tilesWeights[cast(gold, Collectable).getCoordinate()] = LootTool.needForgold(unit) * EmotionTool.lootMultiplier(unit);
     }
 
     for(treasure in treasuresInRange) {

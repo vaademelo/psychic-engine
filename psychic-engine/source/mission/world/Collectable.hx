@@ -12,8 +12,8 @@ class Collectable extends WorldObject {
     super(i,j);
     this.kind = kind;
     switch (kind) {
-    case TreasureKind.food:
-      this.loadGraphic('assets/images/food.png');
+    case TreasureKind.gold:
+      this.loadGraphic('assets/images/gold.png');
     case TreasureKind.item:
       this.loadGraphic('assets/images/item.png');
     }

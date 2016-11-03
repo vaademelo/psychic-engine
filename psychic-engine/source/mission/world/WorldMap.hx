@@ -23,7 +23,7 @@ import mission.visualFX.EmotionFX;
 
 class WorldMap extends FlxTilemap {
 
-  public var foods:FlxTypedGroup<Collectable>;
+  public var golds:FlxTypedGroup<Collectable>;
   public var treasures:FlxTypedGroup<Collectable>;
   public var monsters:FlxTypedGroup<Unit>;
   public var heroes:FlxTypedGroup<Unit>;
@@ -45,7 +45,7 @@ class WorldMap extends FlxTilemap {
     setTileProperties(6, FlxObject.ANY);
     setTileProperties(7, FlxObject.ANY);
 
-    foods = new FlxTypedGroup<Collectable>();
+    golds = new FlxTypedGroup<Collectable>();
     treasures = new FlxTypedGroup<Collectable>();
     monsters = new FlxTypedGroup<Unit>();
     heroes = new FlxTypedGroup<Unit>();
@@ -57,8 +57,8 @@ class WorldMap extends FlxTilemap {
       for (j in 0...tiles[i].length) {
         switch (tiles[i][j]) {
           case 3:
-            var food = new Collectable(TreasureKind.food, i, j);
-            foods.add(food);
+            var gold = new Collectable(TreasureKind.gold, i, j);
+            golds.add(gold);
           case 4:
             var treasure = new Collectable(TreasureKind.item, i, j);
             treasures.add(treasure);
@@ -116,8 +116,8 @@ class WorldMap extends FlxTilemap {
     for(obj in monsters.members) {
       if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.monster;
     }
-    for(obj in foods.members) {
-      if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.food;
+    for(obj in golds.members) {
+      if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.gold;
     }
     for(obj in treasures.members) {
       if (isTheSameTile(tile, obj.getCoordinate())) return TileContentKind.treasure;
@@ -132,7 +132,7 @@ class WorldMap extends FlxTilemap {
     for(obj in monsters.members) {
       if (isTheSameTile(tile, obj.getCoordinate())) return obj;
     }
-    for(obj in foods.members) {
+    for(obj in golds.members) {
       if (isTheSameTile(tile, obj.getCoordinate())) return obj;
     }
     for(obj in treasures.members) {
