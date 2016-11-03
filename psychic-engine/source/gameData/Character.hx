@@ -42,11 +42,13 @@ class Character {
       this.critChance = new Map<BodyKind,Float>();
       this.vision = Random.int(5, 6);
       this.imageSource = "assets/images/bodies/h" + Std.string(bodyKind) + ".png";
+
       this.name = MyNameGenerator.generateName();
+      this.personality = PersonalityTool.generateNewPersonality();
+      this.relationList = new Map<Character, Int>();
 
       var bodyKinds = Type.allEnums(BodyKind);
 
-      this.personality = PersonalityTool.generateNewPersonality();
       for(body in bodyKinds) {
         this.hitChance[body] = Random.float(0.3, 0.7);
         this.critChance[body] = Random.float(0.0, 0.3);
@@ -70,6 +72,19 @@ class Character {
 
     }
 
+  }
+
+  public function setRandomRelationShips(friends:Array<Character>) {
+    for (friend in friends) {
+      if (friend == this) continue;
+      setOneRandomRelationShip(friend);
+    }
+  }
+
+  public function setOneRandomRelationShip(friend:Character) {
+    if (this.relationList[friend] == null && friend != this) {
+      this.relationList[friend] = Random.int(1, 5);
+    }
   }
 
 }

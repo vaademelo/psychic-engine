@@ -9,6 +9,7 @@ import flixel.FlxSprite;
 
 import gameData.Character;
 
+import camping.characterMenu.FriendsDiv;
 import camping.characterMenu.CharStatus;
 import camping.characterMenu.PersonalityDiv;
 
@@ -18,6 +19,7 @@ class CharacterDetailsState extends FlxSubState {
 
   public var status:CharStatus;
   public var personality:PersonalityDiv;
+  public var relations:FriendsDiv;
 
   public var backButton:FlxButton;
   public var bg:FlxSprite;
@@ -51,6 +53,9 @@ class CharacterDetailsState extends FlxSubState {
 
     personality = new PersonalityDiv(300, 50, character);
     add(personality);
+
+    relations = new FriendsDiv(600, 50, character);
+    add(relations);
   }
 
   override public function update(elapsed:Float):Void {

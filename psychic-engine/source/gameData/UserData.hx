@@ -24,6 +24,9 @@ class UserData {
         heroes.push(char);
       }
     }
+    for (hero in heroes) {
+      hero.setRandomRelationShips(heroes);
+    }
     //TODO: treasures data
   }
 

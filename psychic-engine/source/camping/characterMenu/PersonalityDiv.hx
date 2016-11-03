@@ -16,7 +16,6 @@ class PersonalityDiv extends FlxGroup {
     super();
 
     for (trait in char.personality) {
-      trace(trait.name);
       var label = new FlxText(xx, yy);
       label.size = 20;
       label.text = trait.name;
