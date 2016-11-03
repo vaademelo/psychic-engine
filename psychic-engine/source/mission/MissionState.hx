@@ -39,8 +39,13 @@ class MissionState extends FlxState {
     add(worldMap.heroes);
     add(worldMap.effects);
     add(worldMap.heatMap);
+    add(worldMap.emotions);
     add(worldMap.hud);
     add(cam);
+
+    for (hero in worldMap.heroes) {
+      worldMap.emotions.add(hero.emotionFX);
+    }
 
     startNewTurn();
   }

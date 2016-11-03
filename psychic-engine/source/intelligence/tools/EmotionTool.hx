@@ -23,7 +23,7 @@ class EmotionTool {
   public static function amortizeTokens(mind:HeroMind) {
     for (token in mind.emotionWeights) {
       if (token > 0.3) {
-        token -= 0.3;
+        token -= Math.ceil(token/2);
       } else {
         token = 0;
       }

@@ -43,6 +43,7 @@ class BattleExecuter {
       var func = function () {
         worldMap.setTileAsWalkable(opponent.i, opponent.j, true);
         opponent.kill();
+        if(opponent.emotionFX != null) opponent.emotionFX.kill();
         callBack();
       }
       var effect = new BattleFX(BattleEffectKind.kill, opponent.x, opponent.y - opponent.height/2, func);

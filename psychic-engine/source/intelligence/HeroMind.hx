@@ -57,6 +57,8 @@ class HeroMind implements Mind {
     this.wasAtackedLastTurn = false;
     this.enemyDiedLastTurn = false;
     this.friendDiedLastTurn = false;
+
+    unit.emotionFX.updateEmotion(unit.mind.currentEmotion);
   }
 
   public function analyseAction(worldMap:WorldMap):Array<Int> {

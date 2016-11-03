@@ -10,6 +10,7 @@ import intelligence.Mind;
 import intelligence.HeroMind;
 import intelligence.MonsterMind;
 
+import mission.visualFX.EmotionFX;
 
 class Unit extends WorldObject {
 
@@ -24,6 +25,7 @@ class Unit extends WorldObject {
   public var treasureCollected:Array<Collectable> = [];
 
   public var mind:Mind;
+  public var emotionFX:EmotionFX;
 
   public function new(character:Character, i:Int, j:Int) {
     super(i,j);
@@ -35,6 +37,7 @@ class Unit extends WorldObject {
 
     if (this.character.team == TeamSide.heroes) {
       this.mind = new HeroMind(this);
+      this.emotionFX = new EmotionFX(this);
     } else {
       this.mind = new MonsterMind(this);
     }

@@ -19,6 +19,7 @@ import mission.world.Collectable;
 
 import mission.ui.Hud;
 import mission.visualFX.BattleFX;
+import mission.visualFX.EmotionFX;
 
 class WorldMap extends FlxTilemap {
 
@@ -27,6 +28,7 @@ class WorldMap extends FlxTilemap {
   public var monsters:FlxTypedGroup<Unit>;
   public var heroes:FlxTypedGroup<Unit>;
   public var effects:FlxTypedGroup<BattleFX>;
+  public var emotions:FlxTypedGroup<EmotionFX>;
   public var heatMap:FlxTypedGroup<TileWeight>;
   public var hud:Hud;
 
@@ -49,6 +51,7 @@ class WorldMap extends FlxTilemap {
     heroes = new FlxTypedGroup<Unit>();
     effects = new FlxTypedGroup<BattleFX>();
     heatMap = new FlxTypedGroup<TileWeight>();
+    emotions = new FlxTypedGroup<EmotionFX>();
 
     for (i in 0...tiles.length) {
       for (j in 0...tiles[i].length) {
