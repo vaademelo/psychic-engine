@@ -21,11 +21,15 @@ class EmotionTool {
   }
 
   public static function amortizeTokens(mind:HeroMind) {
-    for (token in mind.emotionWeights) {
-      if (token > 0.3) {
-        token -= Math.ceil(token/2);
+    for (emotion in mind.emotionWeights.keys()) {
+      if (mind.emotionWeights[emotion] > 0.3) {
+        if (emotion == mind.currentEmotion) {
+          mind.emotionWeights[emotion] -= Math.ceil(mind.emotionWeights[emotion]*2/3);
+        } else {
+          mind.emotionWeights[emotion] -= Math.ceil(mind.emotionWeights[emotion]/3);
+        }
       } else {
-        token = 0;
+        mind.emotionWeights[emotion] = 0;
       }
     }
   }
