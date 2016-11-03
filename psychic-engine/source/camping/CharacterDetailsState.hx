@@ -2,20 +2,26 @@ package camping;
 
 import flixel.FlxG;
 import flixel.ui.FlxButton;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
 import flixel.FlxSubState;
 import flixel.FlxSprite;
 
 import gameData.Character;
 
 import camping.characterMenu.CharStatus;
+import camping.characterMenu.PersonalityDiv;
 
 class CharacterDetailsState extends FlxSubState {
 
   public var character:Character;
 
   public var status:CharStatus;
+  public var personality:PersonalityDiv;
+
   public var backButton:FlxButton;
   public var bg:FlxSprite;
+  public var name:FlxText;
 
   public function new(character:Character) {
     super();
@@ -30,12 +36,21 @@ class CharacterDetailsState extends FlxSubState {
     bg.centerOrigin();
     add(bg);
 
-    status = new CharStatus(FlxG.width - 300, 20, character);
-    add(status);
-
     backButton = new FlxButton(20, 20, '', goBackToMissionMenu);
     backButton.loadGraphic("assets/images/menu/backButton.png", true, 20, 20);
     add(backButton);
+
+    name = new FlxText(50, 17);
+    name.size = 20;
+    name.text = character.name;
+    name.color = FlxColor.YELLOW;
+    add(name);
+
+    status = new CharStatus(20, 50, character);
+    add(status);
+
+    personality = new PersonalityDiv(300, 50, character);
+    add(personality);
   }
 
   override public function update(elapsed:Float):Void {

@@ -7,6 +7,8 @@ import flixel.util.typeLimit.OneOfTwo;
 import utils.MyNameGenerator;
 import utils.Constants;
 
+import intelligence.tools.PersonalityTool;
+
 class Character {
 
   public var team:TeamSide;
@@ -43,6 +45,8 @@ class Character {
       this.name = MyNameGenerator.generateName();
 
       var bodyKinds = Type.allEnums(BodyKind);
+
+      this.personality = PersonalityTool.generateNewPersonality();
       for(body in bodyKinds) {
         this.hitChance[body] = Random.float(0.3, 0.7);
         this.critChance[body] = Random.float(0.0, 0.3);

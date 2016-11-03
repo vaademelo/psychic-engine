@@ -73,7 +73,7 @@ class PersonalityTool {
   }
 
   public static function applyTrigger(triggerName:String, mind:HeroMind, value:Bool, weight:Float) {
-    for (trait in mind.personality) {
+    for (trait in mind.unit.character.personality) {
       var trigger = Lambda.find(trait.effects, function (effect) {
         return effect.trigger == triggerName;
       });

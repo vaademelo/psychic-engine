@@ -14,11 +14,10 @@ import gameData.UserData;
 
 class HeroMind implements Mind {
 
-  private var unit:Unit;
+  public var unit:Unit;
 
   public var currentEmotion:Emotion = Emotion.peaceful;
   public var emotionWeights:Map<Emotion, Float>;
-  public var personality:Array<PersonalityTrait>;
 
   public var opponentsInRange:Array<Unit>;
   public var friendsInRange:Array<Unit>;
@@ -35,7 +34,6 @@ class HeroMind implements Mind {
     this.unit = unit;
 
     this.emotionWeights = EmotionTool.generateTokens();
-    this.personality = PersonalityTool.generateNewPersonality();
   }
 
   private function getObjectsInRange(worldMap:WorldMap):Void {
