@@ -16,7 +16,7 @@ class ZoneHub extends FlxSpriteGroup {
     super();
     this.info = zone;
     var zoneBG = new FlxSprite();
-    zoneBG.makeGraphic(190, 190);
+    zoneBG.loadGraphic("assets/images/menu/zone.png");
     this.add(zoneBG);
 
     var nKeys = 0;
@@ -30,35 +30,34 @@ class ZoneHub extends FlxSpriteGroup {
         icon.y = 6;
         icon.loadGraphic('assets/images/menu/zones/home.png');
       case ZoneInfo.nMonsters:
+        if(cast(zone[key], Int) < 4) continue;
         icon.loadGraphic('assets/images/menu/zones/monster.png');
+        icon.x = 15;
+        icon.y = zoneBG.height - 15 - icon.height;
       case ZoneInfo.ngold:
+        if(cast(zone[key], Int) < 4) continue;
         icon.loadGraphic('assets/images/menu/zones/gold.png');
+        icon.x = zoneBG.width - 15 - icon.width;
+        icon.y = zoneBG.height - 15 - icon.height;
       case ZoneInfo.nTreasures:
+        if(cast(zone[key], Int) < 2) continue;
         icon.loadGraphic('assets/images/menu/zones/item.png');
+        icon.x = zoneBG.width/2 - icon.width/2;
+        icon.y = zoneBG.height - 30 - icon.height;
       case ZoneInfo.coordX:
-        this.x = zone[key] * 200;
+        this.x = zone[key] * 100;
         continue;
       case ZoneInfo.coordY:
-        this.y = zone[key] * 200;
+        this.y = zone[key] * 100;
         continue;
       case ZoneInfo.name:
-        var name = new FlxText(zoneBG.width - 90, 10, 80);
-        name.text = "zone " + zone[key];
-        name.size = 16;
-        name.color = FlxColor.BLACK;
-        name.alignment = FlxTextAlign.RIGHT;
-        this.add(name);
-        continue;
-      }
-      if (key != ZoneInfo.kind) {
-        icon.x = zoneBG.width - 30;
-        icon.y = zoneBG.height - 30 - (nKeys * 30);
-        text = new FlxText(zoneBG.width - 60, zoneBG.height - 30 - (nKeys * 30), 25);
+        text = new FlxText(zoneBG.width - 30, 10);
+        text.text = Std.string(zone[key]);
         text.size = 16;
         text.color = FlxColor.BLACK;
         text.alignment = FlxTextAlign.RIGHT;
-        text.text = Std.string(zone[key]);
-        nKeys++;
+        this.add(text);
+        continue;
       }
       if (icon != null) this.add(icon);
       if (text != null) this.add(text);

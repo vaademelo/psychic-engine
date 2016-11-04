@@ -23,12 +23,6 @@ class HeroDiv extends FlxGroup {
   public function new(xx:Int, yy:Int, char:Character, spritesHolder:Array<OneOfTwo<ZoneHub, HeroDragButton>>) {
     super();
 
-    xx += 5;
-
-    moreButton = new FlxButton(xx, yy + 15, '', seeCharDetail);
-    moreButton.loadGraphic("assets/images/menu/plusButton.png", true, 20, 20);
-
-    xx += Std.int(moreButton.width) + 5;
 
     action = new FlxText();
     draggableButton = new HeroDragButton(xx, yy, char, spritesHolder, action);
@@ -36,18 +30,21 @@ class HeroDiv extends FlxGroup {
 
     xx += Std.int(draggableButton.width) + 5;
 
-    name = new FlxText(xx, yy + 10);
-    name.size = 20;
+    name = new FlxText(xx, yy);
+    name.size = 15;
     name.text = char.name;
-    name.color = FlxColor.WHITE;
-
-    xx += Std.int(name.width) + 5;
+    name.color = FlxColor.BROWN;
 
     action.x = xx;
-    action.y = yy + 10;
-    action.size = 20;
+    action.y = yy + 22;
+    action.size = 15;
     action.text = "is not going";
-    action.color = FlxColor.YELLOW;
+    action.color = FlxColor.GRAY;
+
+    xx += Std.int(name.width);
+
+    moreButton = new FlxButton(xx, yy, '', seeCharDetail);
+    moreButton.loadGraphic("assets/images/menu/plusButton.png", true, 20, 20);
 
     add(draggableButton);
     add(moreButton);

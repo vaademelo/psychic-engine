@@ -15,6 +15,9 @@ class HeroDragButton extends FlxExtendedSprite {
 
   public function new(xx:Int, yy:Int, char:Character, spritesHolder:Array<OneOfTwo<ZoneHub, HeroDragButton>>, action:FlxText) {
     super(xx, yy, char.imageSource);
+    this.setGraphicSize(40, 40);
+    this.updateHitbox();
+    this.centerOrigin();
     this.character = char;
     this.enableMouseDrag(true);
     this.mouseStopDragCallback = function (obj:FlxExtendedSprite, x:Int, y:Int):Bool {

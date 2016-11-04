@@ -15,9 +15,7 @@ import utils.Constants;
 
 import mission.MissionState;
 
-import camping.missionMenu.ZoneHub;
-import camping.missionMenu.HeroDiv;
-import camping.missionMenu.HeroDragButton;
+import camping.missionMenu.*;
 
 import gameData.UserData;
 
@@ -30,6 +28,11 @@ class MissionMenuState extends FlxState {
 
   override public function create():Void {
     super.create();
+    var bg = new FlxSprite(0, 0, "assets/images/menu/missionBG.png");
+    bg.setGraphicSize(FlxG.width, FlxG.height);
+    bg.updateHitbox();
+    bg.centerOrigin();
+    add(bg);
 
     FlxG.plugins.add(new FlxMouseControl());
 
@@ -40,6 +43,7 @@ class MissionMenuState extends FlxState {
     printButtons();
     printZones();
     printChars();
+    printMoney();
   }
 
   override public function update(elapsed:Float):Void {
@@ -55,22 +59,26 @@ class MissionMenuState extends FlxState {
   }
 
   private function printButtons() {
-    _playBtn = new FlxButton(0, 0, "Play", clickPlay);
-    _resetBtn = new FlxButton(0, 0, "Reset", clickReset);
+    _playBtn = new FlxButton(0, 0, "Start Mission", clickPlay);
+    _resetBtn = new FlxButton(0, 0, "Erase Planning", clickReset);
 
-    _playBtn.x = _resetBtn.x = FlxG.width - 30 - _playBtn.width;
-    _playBtn.y = FlxG.height - 30 - _playBtn.height;
-    _resetBtn.y = FlxG.height - 60 - _resetBtn.height;
+    _playBtn.loadGraphic("assets/images/menu/button.png", true, 261, 46);
+    _resetBtn.loadGraphic("assets/images/menu/button.png", true, 261, 46);
+
+    _playBtn.x = FlxG.width/2 + 5;
+    _resetBtn.x = FlxG.width/2 - _resetBtn.width - 5;
+
+    _playBtn.y = _resetBtn.y = FlxG.height - 30 - _playBtn.height;
 
     add(_playBtn);
     add(_resetBtn);
   }
 
   private function printChars() {
-    var yy = 0;
+    var yy = 125;
     UserData.loadUserData();
     for (char in UserData.heroes) {
-      var sprite = new HeroDiv(0, yy, char, spritesHolder);
+      var sprite = new HeroDiv(110, yy, char, spritesHolder);
       add(sprite);
       yy += 50;
     }
@@ -86,9 +94,14 @@ class MissionMenuState extends FlxState {
       spritesHolder.push(zoneHub);
     }
 
-    zonesMap.x = FlxG.width/2 - 200 * zones.length/2;
+    zonesMap.x = FlxG.width * 0.89 - zonesMap.width;
     zonesMap.y = FlxG.height/2 - zonesMap.height/2;
     add(zonesMap);
+  }
+
+  private function printMoney() {
+    var goldDiv = new GoldDiv(Std.int(FlxG.width * 0.89 - 45), 125);
+    add(goldDiv);
   }
 
 }
