@@ -18,17 +18,16 @@ class GoalTool {
     var shouldReturn = shouldReturnAnalisys(worldMap, unit);
 
     if (shouldReturn) {
-      unit.character.goalTile = [0, 0];
+      unit.character.goalTile = worldMap.homeTile;
     } else {
       if(unit.character.goalChar != null) {
         unit.character.goalTile = unit.goalUnit.getCoordinate();
-        trace(unit.character.goalTile);
       }
     }
   }
 
   public static function shouldReturnAnalisys(worldMap:WorldMap, unit:Unit):Bool {
-    if (unit.character.goalTile != null && worldMap.isTheSameTile(unit.character.goalTile, [0,0])) return true;
+    if (unit.character.goalTile != null && worldMap.isTheSameTile(unit.character.goalTile, worldMap.homeTile)) return true;
     var goalCompletion = calculateGoalCompletion(worldMap, unit);
     unit.goalCompletionRate = goalCompletion;
     var lifeLeft:Float = unit.hp / unit.character.hpMax;
@@ -56,12 +55,12 @@ class GoalTool {
       var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
       var desiredZone:Array<Int> = PositionTool.getZoneForTile(unit.character.goalTile);
       if(worldMap.isTheSameTile(currentZone, desiredZone)) {
-        //TODO: SAME ZONE COMPLETION VALUE
-        return 1;
+        var percentageOfCollectablesRemaining = worldMap.percentageOfCollectablesRemainingInZone(currentZone);
+        return (1 - percentageOfCollectablesRemaining) * 0.7 + 0.3;
       } else {
         var distance = PositionTool.getDistance(worldMap, unit.getCoordinate(), unit.character.goalTile);
         var maxDistance = Math.abs(unit.character.goalTile[0]) + Math.abs(unit.character.goalTile[1]);
-        return (1 - (distance/maxDistance)) * 0.5;
+        return (1 - (distance/maxDistance)) * 0.3;
       }
     }
   }

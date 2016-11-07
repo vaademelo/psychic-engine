@@ -38,7 +38,7 @@ class PositionTool {
     return [i, j];
   }
 
-  public static function getDistanceFromObject(target:OneOfTwo<Unit, Collectable> ,start:Array<Int>):Int {
+  public static function getDistanceFromObject(target:OneOfTwo<Unit, Collectable>, start:Array<Int>):Int {
     if(!cast(target, WorldObject).alive) return 100;
     var destination = cast(target, WorldObject).getCoordinate();
     return Std.int(Math.abs(start[0] - destination[0]) + Math.abs(start[1] - destination[1]));

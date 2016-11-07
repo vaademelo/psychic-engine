@@ -1,5 +1,7 @@
 package intelligence;
 
+import Random;
+
 import intelligence.Mind;
 
 import mission.world.Unit;
@@ -112,13 +114,13 @@ class HeroMind implements Mind {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
     if (destination == null) return tilesWeights;
-    if (worldMap.isTheSameTile(destination, [0,0]) || (unit.character.goalChar != null)) {
+    if (worldMap.isTheSameTile(destination, worldMap.homeTile) || (unit.character.goalChar != null)) {
       tilesWeights = weightsForDistance(worldMap);
     } else {
       var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
       var desiredZone:Array<Int> = PositionTool.getZoneForTile(destination);
       if(worldMap.isTheSameTile(currentZone, desiredZone)) {
-        //TODO: SAME ZONE
+        tilesWeights = simpleWeights(worldMap);
       } else {
         tilesWeights = weightsForDistance(worldMap);
       }
@@ -127,10 +129,18 @@ class HeroMind implements Mind {
     return tilesWeights;
   }
 
+  private function simpleWeights(worldMap:WorldMap):Map<Array<Int>, Float> {
+    var tilesWeights = createOptions(worldMap);
+    for (key in tilesWeights.keys()) {
+      tilesWeights[key] = 0.5;
+    }
+    return tilesWeights;
+  }
+
   private function weightsForDistance(worldMap:WorldMap):Map<Array<Int>, Float> {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
-    var wantToGoBackFactor = worldMap.isTheSameTile(destination, [0,0]) ? 3 : 1;
+    var wantToGoBackFactor = worldMap.isTheSameTile(destination, worldMap.homeTile) ? 3 : 1;
     if (destination == null) return tilesWeights;
     if (unit.character.goalChar != null) {
       worldMap.setTileAsWalkable(destination[0], destination[1], true);
@@ -192,14 +202,17 @@ class HeroMind implements Mind {
 
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
 
+    var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
+    var desiredZone:Array<Int> = PositionTool.getZoneForTile(unit.character.goalTile);
+    var lootFactor = (worldMap.isTheSameTile(currentZone, desiredZone)) ? 3 : 1;
+
     for(gold in goldsInRange) {
-      tilesWeights[cast(gold, Collectable).getCoordinate()] = LootTool.needForgold(unit) * EmotionTool.lootMultiplier(unit);
+      tilesWeights[cast(gold, Collectable).getCoordinate()] = LootTool.needForgold(unit) * lootFactor * EmotionTool.lootMultiplier(unit);
     }
 
     for(treasure in treasuresInRange) {
-      tilesWeights[cast(treasure, Collectable).getCoordinate()] = 1 * EmotionTool.lootMultiplier(unit);
+      tilesWeights[cast(treasure, Collectable).getCoordinate()] = 1 * lootFactor * EmotionTool.lootMultiplier(unit);
     }
-
 
     return tilesWeights;
   }
@@ -217,7 +230,6 @@ class HeroMind implements Mind {
         }
       }
 
-      trace(unit.character.relationList[friend.character]);
       var friendshipFactor = (unit.character.relationList[friend.character] - 3) * 0.2;
       var friendTilesInRange = PositionTool.getValidTilesInRange(worldMap, friend.getCoordinate(), friend.character.movement);
 
@@ -241,6 +253,8 @@ class HeroMind implements Mind {
     for(key in tilesWeights.keys()) {
       if(tilesWeights[key] > bestOptionValue) {
         bestOptionValue = tilesWeights[key];
+        bestOption = key;
+      } else if (tilesWeights[key] == bestOptionValue && Random.bool()) {
         bestOption = key;
       }
     }

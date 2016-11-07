@@ -2,7 +2,7 @@ package mission;
 
 import flixel.util.FlxPath;
 import flixel.group.FlxGroup;
-import flixel.util.typeLimit.OneOfTwo;
+import flixel.math.FlxPoint;
 
 import utils.Constants;
 
@@ -18,19 +18,21 @@ class ActionExecuter {
   private static var _callBack:Array<Unit>->Void;
   private static var _list:Array<Unit>;
   private static var _unit:Unit;
-  private static var _targetObject:OneOfTwo<Unit, Collectable>;
+  private static var _targetUnit:Unit;
   private static var _worldMap:WorldMap;
+  private static var _atackedThisTurn:Bool;
 
   public static function executeAction(worldMap:WorldMap, unit:Unit, target:Array<Int>, callBack:Array<Unit>->Void, list:Array<Unit>):Bool {
     _unit = unit;
     _list = list;
     _callBack = callBack;
     _worldMap = worldMap;
-    _targetObject = null;
+    _atackedThisTurn = false;
+    _targetUnit = null;
 
     if (!worldMap.isTileValid(target[0],target[1])) return endAction();
 
-    _targetObject = worldMap.getTileContent(target);
+    _targetUnit = worldMap.getTileUnit(target);
 
     worldMap.setTileAsWalkable(_unit.i, _unit.j, true);
 
@@ -61,11 +63,16 @@ class ActionExecuter {
     var nodes = _worldMap.getPath(_unit.getCoordinate(), target);
 
     if (nodes == null || nodes.length == 0) {
+      verifyIfThereIsAnEnemyToAtack(_unit.origin);
       return endAction();
     }
 
     if (nodes.length > _unit.character.movement) {
       nodes = nodes.slice(0, _unit.character.movement + 1);
+    }
+
+    if (_targetUnit == null) {
+      verifyIfThereIsAnEnemyToAtack(nodes[nodes.length - 1]);
     }
 
     var path = new FlxPath();
@@ -81,15 +88,14 @@ class ActionExecuter {
     _unit.updateCoordinate();
     _worldMap.setTileAsWalkable(_unit.i, _unit.j, false);
 
-    if (_targetObject != null) {
-      if (Type.getClass(_targetObject) == Unit) {
-        var targetUnit:Unit = cast(_targetObject, Unit);
-        return atackAction(targetUnit, nextUnit);
-      } else {
-        var targetCollectable:Collectable = cast(_targetObject, Collectable);
-        collectAction(targetCollectable);
-        return nextUnit();
-      }
+    var collectableOnTile = _worldMap.getTileCollectable(_unit.getCoordinate());
+    if (collectableOnTile != null) {
+      collectAction(collectableOnTile);
+    }
+
+    if (_targetUnit != null) {
+      var targetUnit:Unit = cast(_targetUnit, Unit);
+      return atackAction(targetUnit, nextUnit);
     } else {
       return nextUnit();
     }
@@ -97,7 +103,8 @@ class ActionExecuter {
 
   public static function atackAction(opponent:Unit, callbackAfterAtack:Void->Bool):Bool {
     if (_unit.character.team == opponent.character.team) return callbackAfterAtack();
-    if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) <= _unit.character.atackRange) {
+    if (PositionTool.getDistanceFromObject(_targetUnit, _unit.getCoordinate()) <= _unit.character.atackRange) {
+      _atackedThisTurn = true;
       return BattleExecuter.atackOpponent(_worldMap, _unit, opponent, callbackAfterAtack);
     } else {
       return callbackAfterAtack();
@@ -105,23 +112,34 @@ class ActionExecuter {
   }
 
   public static function collectAction(collectable:Collectable) {
-    if(_unit.character.team == TeamSide.monsters) {
-      return;
+    if(_unit.character.team == TeamSide.monsters) return;
+
+    if (collectable.kind == TreasureKind.gold) {
+      _unit.givegold(collectable);
     } else {
-      if (PositionTool.getDistanceFromObject(_targetObject, _unit.getCoordinate()) == 0) {
-        if (collectable.kind == TreasureKind.gold) {
-          _unit.givegold(collectable);
-        } else {
-          _unit.giveTreasure(collectable);
-        }
-        collectable.kill();
-      }
+      _unit.giveTreasure(collectable);
     }
+    collectable.kill();
   }
 
   public static function nextUnit():Bool {
     _callBack(_list);
     return true;
   }
+
+  public static function verifyIfThereIsAnEnemyToAtack(destinationPoint:FlxPoint) {
+    var destination = new Array<Int>();
+    destination[0] = Math.floor(destinationPoint.y / Constants.TILE_SIZE);
+    destination[1] = Math.floor(destinationPoint.x / Constants.TILE_SIZE);
+
+    var enemies = _unit.character.team == TeamSide.heroes ? _worldMap.monsters : _worldMap.heroes;
+    for (enemy in enemies.members) {
+      if (PositionTool.getDistanceFromObject(enemy, destination) <= _unit.character.atackRange) {
+        _targetUnit = enemy;
+        return;
+      }
+    }
+  }
+
 
 }
