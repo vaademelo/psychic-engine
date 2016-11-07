@@ -112,7 +112,7 @@ class HeroMind implements Mind {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
     if (destination == null) return tilesWeights;
-    if (worldMap.isTheSameTile(destination, [0,0]) || (unit.character.goalUnit != null)) {
+    if (worldMap.isTheSameTile(destination, [0,0]) || (unit.character.goalChar != null)) {
       tilesWeights = weightsForDistance(worldMap);
     } else {
       var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
@@ -130,8 +130,11 @@ class HeroMind implements Mind {
   private function weightsForDistance(worldMap:WorldMap):Map<Array<Int>, Float> {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
+    var wantToGoBackFactor = worldMap.isTheSameTile(destination, [0,0]) ? 3 : 1;
     if (destination == null) return tilesWeights;
-
+    if (unit.character.goalChar != null) {
+      worldMap.setTileAsWalkable(destination[0], destination[1], true);
+    }
     var maxDistance = 1;
     for (key in tilesWeights.keys()) {
       var distance = PositionTool.getDistance(worldMap, key, destination);
@@ -148,8 +151,11 @@ class HeroMind implements Mind {
           tilesWeights.remove(key);
         }
       } else {
-        tilesWeights[key] = 1 - tilesWeights[key]/maxDistance;
+        tilesWeights[key] = (1 - tilesWeights[key]/maxDistance) * wantToGoBackFactor;
       }
+    }
+    if (unit.character.goalChar != null) {
+      worldMap.setTileAsWalkable(destination[0], destination[1], false);
     }
 
     return  tilesWeights;

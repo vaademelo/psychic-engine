@@ -24,6 +24,8 @@ class MissionMenuState extends FlxState {
   private var _playBtn:FlxButton;
   private var _resetBtn:FlxButton;
 
+  public var goldDiv:GoldDiv;
+
   public var spritesHolder:Array<OneOfTwo<ZoneHub, HeroDragButton>>;
 
   override public function create():Void {
@@ -100,7 +102,7 @@ class MissionMenuState extends FlxState {
   }
 
   private function printMoney() {
-    var goldDiv = new GoldDiv(Std.int(FlxG.width * 0.89 - 45), 125);
+    goldDiv = new GoldDiv(Std.int(FlxG.width * 0.89 - 45), 125);
     add(goldDiv);
   }
 

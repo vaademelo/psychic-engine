@@ -72,7 +72,7 @@ class WorldMap extends FlxTilemap {
     var i = 0;
     UserData.loadUserData();
     for(char in UserData.heroes) {
-      if (char.goalUnit == null && char.goalTile == null) continue;
+      if (char.goalChar == null && char.goalTile == null) continue;
       var line = (i + 1) % this.heightInTiles;
       var collumn = Math.floor((i + 1)/this.heightInTiles);
       var hero = new Unit(char, line, collumn);

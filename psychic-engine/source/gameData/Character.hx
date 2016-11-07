@@ -27,7 +27,7 @@ class Character {
   public var relationList:Map<Character, Int>;
   public var personality:Array<PersonalityTrait>;
   public var goalTile:Array<Int>;
-  public var goalUnit:Character;
+  public var goalChar:Character;
 
   public function new(team:TeamSide) {
     this.team = team;

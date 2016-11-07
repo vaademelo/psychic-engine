@@ -33,7 +33,7 @@ class GoldDiv extends FlxGroup {
   public function calcUsedGold() {
     var goldUsage = UserData.heroes.length * 2;
     for (hero in UserData.heroes) {
-      if (hero.goalTile != null || hero.goalUnit != null) {
+      if (hero.goalTile != null || hero.goalChar != null) {
         goldUsage += 3;
       }
     }

@@ -10,12 +10,14 @@ import utils.MapMaker;
 
 import mission.ui.Camera;
 
+import intelligence.tools.GoalTool;
 import intelligence.debug.TileWeight;
 
 import mission.world.Unit;
 import mission.world.WorldMap;
 
 import mission.ActionExecuter;
+
 
 class MissionState extends FlxState {
 
@@ -45,6 +47,10 @@ class MissionState extends FlxState {
 
     for (hero in worldMap.heroes) {
       worldMap.emotions.add(hero.emotionFX);
+
+      if (hero.character.goalChar != null) {
+        GoalTool.findGoalChar(worldMap, hero);
+      }
     }
 
     startNewTurn();

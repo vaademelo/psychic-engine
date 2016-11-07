@@ -27,6 +27,9 @@ class Unit extends WorldObject {
   public var mind:Mind;
   public var emotionFX:EmotionFX;
 
+  public var goalUnit:Unit;
+  public var goalCompletionRate:Float = 0;
+
   public function new(character:Character, i:Int, j:Int) {
     super(i,j);
     this.character = character;
