@@ -204,21 +204,33 @@ class HeroMind implements Mind {
     return tilesWeights;
   }
   public function friendsAnalysis(worldMap:WorldMap):Map<Array<Int>, Float> {
-    /* TODO:
-    - Peso gradiente que irradia de outro personagem (dentro do campo de visão) diretamente proporcional a distância e ao grau de afinidade
-    */
     var tilesWeights:Map<Array<Int>, Float> = new Map<Array<Int>, Float>();
 
     var opponentTiles = new Array<Array<Int>>();
-    for (opponent in opponentsInRange) {
-      for (friend in friendsInRange) {
+    for (friend in friendsInRange) {
+      if (friend == unit) continue;
+      for (opponent in opponentsInRange) {
         var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
 
         if (distanceFriendOpponent <= opponent.character.vision) {
           tilesWeights[opponent.getCoordinate()] = 1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent;
         }
       }
+
+      trace(unit.character.relationList[friend.character]);
+      var friendshipFactor = (unit.character.relationList[friend.character] - 3) * 0.2;
+      var friendTilesInRange = PositionTool.getValidTilesInRange(worldMap, friend.getCoordinate(), friend.character.movement);
+
+      for (tile in friendTilesInRange) {
+        if (PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
+        if (tilesWeights[tile] == null) {
+          tilesWeights[tile] = friendshipFactor;
+        } else {
+          tilesWeights[tile] += friendshipFactor;
+        }
+      }
     }
+
     return tilesWeights;
   }
 
