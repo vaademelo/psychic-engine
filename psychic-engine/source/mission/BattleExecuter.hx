@@ -37,7 +37,7 @@ class BattleExecuter {
 
   public static function applyDamage(worldMap:WorldMap, opponent:Unit, damage:Int, callBack:Void->Bool):Bool {
     opponent.hp -= damage;
-    if(opponent.character.team == TeamSide.heroes) worldMap.hud.updateUnitHud(opponent);
+    worldMap.hud.updateUnitHud(opponent);
 
     if (opponent.hp <= 0) {
       var func = function () {
@@ -65,6 +65,9 @@ class BattleExecuter {
       unit.mind.missedLastAtack = true;
     } else if (damage == 2) {
       unit.mind.criticalLastAtack = true;
+    }
+    if (opponent.hp <= damage) {
+      unit.kills ++;
     }
   }
 

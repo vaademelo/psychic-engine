@@ -8,11 +8,13 @@ import flixel.math.FlxPoint;
 import flixel.FlxObject;
 
 import utils.Constants;
+import utils.MapMaker;
 
 import gameData.Character;
 import gameData.UserData;
 
 import intelligence.debug.TileWeight;
+import intelligence.tools.PositionTool;
 
 import mission.world.Unit;
 import mission.world.Collectable;
@@ -37,6 +39,8 @@ class WorldMap extends FlxTilemap {
   public var decorativeObjects:FlxTypedGroup<DecorativeObject>;
 
   public var hud:Hud;
+
+  public var homeTile:Array<Int> = [0, 0];
 
   public function new(tiles:Array<Array<Int>>) {
     super();
@@ -85,7 +89,7 @@ class WorldMap extends FlxTilemap {
     var i = 0;
     UserData.loadUserData();
     for(char in UserData.heroes) {
-      if (char.goalUnit == null && char.goalTile == null) continue;
+      if (char.goalChar == null && char.goalTile == null) continue;
       var line = (i + 1) % this.heightInTiles;
       var collumn = Math.floor((i + 1)/this.heightInTiles);
       var hero = new Unit(char, line, collumn);
@@ -94,7 +98,7 @@ class WorldMap extends FlxTilemap {
       i++;
     }
 
-    hud = new Hud(this.heroes.members);
+    hud = new Hud(this, this.heroes.members);
   }
 
   public function getPath(start:Array<Int>, destination:Array<Int>):Array<FlxPoint> {
@@ -108,7 +112,7 @@ class WorldMap extends FlxTilemap {
 	}
 
   public function setTileAsWalkable(i:Int, j:Int, walkable = true) {
-		var value = (walkable) ? 0 : 5;
+		var value = (walkable) ? 0 : isTheSameTile([i, j], this.homeTile) ? 2 : 5;
 		this.setTile(j, i, value, false);
 	}
 
@@ -138,13 +142,17 @@ class WorldMap extends FlxTilemap {
     return TileContentKind.empty;
   }
 
-  public function getTileContent(tile:Array<Int>):OneOfTwo<Unit, Collectable> {
+  public function getTileUnit(tile:Array<Int>):Unit {
     for(obj in heroes.members) {
       if (isTheSameTile(tile, obj.getCoordinate())) return obj;
     }
     for(obj in monsters.members) {
       if (isTheSameTile(tile, obj.getCoordinate())) return obj;
     }
+    return null;
+  }
+
+  public function getTileCollectable(tile:Array<Int>):Collectable {
     for(obj in golds.members) {
       if (isTheSameTile(tile, obj.getCoordinate())) return obj;
     }
@@ -152,6 +160,53 @@ class WorldMap extends FlxTilemap {
       if (isTheSameTile(tile, obj.getCoordinate())) return obj;
     }
     return null;
+  }
+
+  public function percentageOfCollectablesRemainingInZone(zoneCoord:Array<Int>):Float {
+    var collectablesInZoneCount = 0;
+
+    var zones = MapMaker.getMapZones();
+    var currentZone:Map<ZoneInfo, OneOfTwo<Int, ZoneKind>> = new Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>();
+    for (zone in zones) {
+      if (cast(zone[ZoneInfo.coordX], Int) == zoneCoord[1] && cast(zone[ZoneInfo.coordY], Int) == zoneCoord[0]) {
+        currentZone = zone;
+        break;
+      }
+    }
+
+    for (gold in golds.members) {
+      var goldZone = PositionTool.getZoneForTile(gold.getCoordinate());
+      if (isTheSameTile(zoneCoord, goldZone) && gold.alive) {
+        collectablesInZoneCount ++;
+      }
+    }
+    for (treasure in treasures.members) {
+      var treasureZone = PositionTool.getZoneForTile(treasure.getCoordinate());
+      if (isTheSameTile(zoneCoord, treasureZone) && treasure.alive) {
+        collectablesInZoneCount ++;
+      }
+    }
+
+    var nTreasures:Float = cast(currentZone[ZoneInfo.nTreasures], Int);
+    var ngold:Float = cast(currentZone[ZoneInfo.ngold], Int);
+    var originalCollectablesInZoneCount:Float = nTreasures + ngold;
+    if (originalCollectablesInZoneCount <= 0) {
+      return 0;
+    } else {
+      return collectablesInZoneCount/originalCollectablesInZoneCount;
+    }
+  }
+
+  public function getZoneName(zoneCoord:Array<Int>) {
+    var zones = MapMaker.getMapZones();
+    var currentZone:Map<ZoneInfo, OneOfTwo<Int, ZoneKind>> = new Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>();
+    for (zone in zones) {
+      if (cast(zone[ZoneInfo.coordX], Int) == zoneCoord[1] && cast(zone[ZoneInfo.coordY], Int) == zoneCoord[0]) {
+        currentZone = zone;
+        break;
+      }
+    }
+    return currentZone[ZoneInfo.name];
   }
 
 }

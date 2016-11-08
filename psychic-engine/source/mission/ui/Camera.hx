@@ -23,7 +23,7 @@ class Camera extends FlxSprite {
     h = _map.length;
 
     FlxG.camera.antialiasing = true;
-    FlxG.camera.setScrollBounds(0,w * Constants.TILE_SIZE,0, h * Constants.TILE_SIZE);
+    FlxG.camera.setScrollBounds(-220,w * Constants.TILE_SIZE,0, h * Constants.TILE_SIZE);
     FlxG.camera.follow(this, FlxCameraFollowStyle.LOCKON);
   }
 
@@ -41,8 +41,8 @@ class Camera extends FlxSprite {
     if (FlxG.keys.pressed.RIGHT) {
       this.x += speed;
     }
-    if (this.x < FlxG.width / 2) {
-			this.x = FlxG.width / 2;
+    if (this.x < (FlxG.width / 2) - 220) {
+			this.x = (FlxG.width / 2) - 220;
 		}
 		if (this.x > w * Constants.TILE_SIZE - FlxG.width / 2) {
 			this.x = w * Constants.TILE_SIZE - FlxG.width / 2;

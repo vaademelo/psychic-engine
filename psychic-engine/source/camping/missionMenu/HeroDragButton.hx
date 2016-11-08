@@ -1,10 +1,13 @@
 package camping.missionMenu;
 
+import flixel.FlxG;
 import flixel.util.typeLimit.OneOfTwo;
 import flixel.addons.display.FlxExtendedSprite;
 import flixel.text.FlxText;
 
 import camping.missionMenu.ZoneHub;
+
+import camping.MissionMenuState;
 
 import gameData.Character;
 import utils.Constants;
@@ -30,12 +33,12 @@ class HeroDragButton extends FlxExtendedSprite {
             var goalX = Math.floor((zone.info[ZoneInfo.coordX] + 0.5) * Constants.ZONE_SIZE);
             var goalY = Math.floor((zone.info[ZoneInfo.coordY] + 0.5) * Constants.ZONE_SIZE);
             this.character.goalTile = [goalY, goalX];
-            this.character.goalUnit = null;
+            this.character.goalChar = null;
             action.text = "is going to zone " + zone.info[ZoneInfo.name];
             return goBack(xx, yy);
           } else if (Type.getClass(sprite) == HeroDragButton && sprite != obj) {
             var char = cast(sprite, HeroDragButton);
-            this.character.goalUnit = char.character;
+            this.character.goalChar = char.character;
             this.character.goalTile = null;
             action.text = "will protect " + char.character.name;
             return goBack(xx, yy);
@@ -43,7 +46,7 @@ class HeroDragButton extends FlxExtendedSprite {
         }
       }
       this.character.goalTile = null;
-      this.character.goalUnit = null;
+      this.character.goalChar = null;
       action.text = "is not going";
       return goBack(xx, yy);
     }
@@ -52,6 +55,7 @@ class HeroDragButton extends FlxExtendedSprite {
   private function goBack(xx:Int, yy:Int):Bool {
     this.x = xx;
     this.y = yy;
+    cast(FlxG.state, MissionMenuState).goldDiv.calcUsedGold();
     return true;
   }
 }

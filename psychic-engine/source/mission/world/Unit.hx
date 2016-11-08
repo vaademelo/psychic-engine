@@ -19,13 +19,18 @@ class Unit extends WorldObject {
   public var injury:Int;
   public var recoverHealthEveryXTurns:Int = 2;
   public var turnsHurtedCount:Int = 0;
-  public var injuriesCount = 0;
+  public var injuriesCount:Int = 0;
 
+  public var kills:Int = 0;
   public var goldCollected:Array<Collectable> = [];
   public var treasureCollected:Array<Collectable> = [];
+  public var gotBackSafelly:Bool = false;
 
   public var mind:Mind;
   public var emotionFX:EmotionFX;
+
+  public var goalUnit:Unit;
+  public var goalCompletionRate:Float = 0;
 
   public function new(character:Character, i:Int, j:Int) {
     super(i,j);
@@ -58,7 +63,7 @@ class Unit extends WorldObject {
       }
     }
 
-    if(this.character.team == TeamSide.heroes) worldMap.hud.updateUnitHud(this);
+    worldMap.hud.updateUnitHud(this);
   }
 
   public function applyInjuryEffect() {
