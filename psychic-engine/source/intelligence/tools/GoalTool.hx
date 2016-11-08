@@ -19,6 +19,7 @@ class GoalTool {
 
     if (shouldReturn) {
       unit.character.goalTile = worldMap.homeTile;
+      unit.character.goalChar = null;
     } else {
       if(unit.character.goalChar != null) {
         unit.character.goalTile = unit.goalUnit.getCoordinate();

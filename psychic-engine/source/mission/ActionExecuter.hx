@@ -123,6 +123,7 @@ class ActionExecuter {
   }
 
   public static function nextUnit():Bool {
+    _worldMap.hud.updateUnitHud(_unit);
     _callBack(_list);
     return true;
   }

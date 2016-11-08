@@ -61,7 +61,7 @@ class Unit extends WorldObject {
       }
     }
 
-    if(this.character.team == TeamSide.heroes) worldMap.hud.updateUnitHud(this);
+    worldMap.hud.updateUnitHud(this);
   }
 
   public function applyInjuryEffect() {

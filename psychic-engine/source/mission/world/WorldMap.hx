@@ -85,7 +85,7 @@ class WorldMap extends FlxTilemap {
       i++;
     }
 
-    hud = new Hud(this.heroes.members);
+    hud = new Hud(this, this.heroes.members);
   }
 
   public function getPath(start:Array<Int>, destination:Array<Int>):Array<FlxPoint> {
@@ -182,6 +182,18 @@ class WorldMap extends FlxTilemap {
     } else {
       return collectablesInZoneCount/originalCollectablesInZoneCount;
     }
+  }
+
+  public function getZoneName(zoneCoord:Array<Int>) {
+    var zones = MapMaker.getMapZones();
+    var currentZone:Map<ZoneInfo, OneOfTwo<Int, ZoneKind>> = new Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>();
+    for (zone in zones) {
+      if (cast(zone[ZoneInfo.coordX], Int) == zoneCoord[1] && cast(zone[ZoneInfo.coordY], Int) == zoneCoord[0]) {
+        currentZone = zone;
+        break;
+      }
+    }
+    return currentZone[ZoneInfo.name];
   }
 
 }

@@ -57,7 +57,6 @@ class EmotionTool {
       var weights:Map<String, Float> = Constants.EMOTION_WEIGHTS[unit.mind.currentEmotion];
       factor = weights.get(criteria);
     }
-    trace(factor);
     return factor;
   }
 }
