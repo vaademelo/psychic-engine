@@ -20,10 +20,11 @@ class Unit extends WorldObject {
   public var recoverHealthEveryXTurns:Int = 2;
   public var turnsHurtedCount:Int = 0;
   public var injuriesCount:Int = 0;
-  public var kills:Int = 0;
 
+  public var kills:Int = 0;
   public var goldCollected:Array<Collectable> = [];
   public var treasureCollected:Array<Collectable> = [];
+  public var gotBackSafelly:Bool = false;
 
   public var mind:Mind;
   public var emotionFX:EmotionFX;

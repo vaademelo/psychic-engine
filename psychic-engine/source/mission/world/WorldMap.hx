@@ -99,7 +99,7 @@ class WorldMap extends FlxTilemap {
 	}
 
   public function setTileAsWalkable(i:Int, j:Int, walkable = true) {
-		var value = (walkable) ? 0 : 5;
+		var value = (walkable) ? 0 : isTheSameTile([i, j], this.homeTile) ? 2 : 5;
 		this.setTile(j, i, value, false);
 	}
 

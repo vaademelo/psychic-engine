@@ -18,6 +18,7 @@ import mission.world.WorldMap;
 
 import mission.ActionExecuter;
 
+import camping.MissionReportState;
 
 class MissionState extends FlxState {
 
@@ -62,6 +63,7 @@ class MissionState extends FlxState {
   }
 
   public function unitAction(list:Array<Unit>):Bool {
+    if (worldMap.heroes.countLiving() <= 0) return endMission();
     turn = (turn + 1) % list.length;
     var unit = list.shift();
     if (!unit.alive) return unitAction(list);
@@ -74,6 +76,11 @@ class MissionState extends FlxState {
     var action:Array<Int> = unit.mind.analyseAction(worldMap);
     //4rd: execute unit action
     ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
+    return true;
+  }
+
+  public function endMission():Bool {
+    FlxG.switchState(new MissionReportState(worldMap.heroes.members));
     return true;
   }
 
