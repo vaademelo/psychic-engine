@@ -17,6 +17,8 @@ import intelligence.debug.TileWeight;
 import mission.world.Unit;
 import mission.world.Collectable;
 
+import mission.world.DecorativeObject;
+
 import mission.ui.Hud;
 import mission.visualFX.BattleFX;
 import mission.visualFX.EmotionFX;
@@ -29,7 +31,11 @@ class WorldMap extends FlxTilemap {
   public var heroes:FlxTypedGroup<Unit>;
   public var effects:FlxTypedGroup<BattleFX>;
   public var emotions:FlxTypedGroup<EmotionFX>;
+
   public var heatMap:FlxTypedGroup<TileWeight>;
+
+  public var decorativeObjects:FlxTypedGroup<DecorativeObject>;
+
   public var hud:Hud;
 
   public function new(tiles:Array<Array<Int>>) {
@@ -52,10 +58,17 @@ class WorldMap extends FlxTilemap {
     effects = new FlxTypedGroup<BattleFX>();
     heatMap = new FlxTypedGroup<TileWeight>();
     emotions = new FlxTypedGroup<EmotionFX>();
+    decorativeObjects = new FlxTypedGroup<DecorativeObject>();
 
     for (i in 0...tiles.length) {
       for (j in 0...tiles[i].length) {
         switch (tiles[i][j]) {
+          case 2:
+            var exitDoor = new DecorativeObject(DecorativeObjectKind.exitDoor, i-1, j);
+            decorativeObjects.add(exitDoor);
+          case 1:
+            var column = new DecorativeObject(DecorativeObjectKind.column, i, j);
+            decorativeObjects.add(column);
           case 3:
             var gold = new Collectable(TreasureKind.gold, i, j);
             golds.add(gold);

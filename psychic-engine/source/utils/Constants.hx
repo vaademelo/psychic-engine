@@ -10,6 +10,12 @@ enum TreasureKind {
   item;
 }
 
+enum DecorativeObjectKind {
+  column;
+  exitDoor;
+
+}
+
 // WorldMap enums //
 ////////////////////
 

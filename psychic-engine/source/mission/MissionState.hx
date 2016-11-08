@@ -28,7 +28,7 @@ class MissionState extends FlxState {
     super.create();
 
     var _map = MapMaker.getMap();
-
+    
     worldMap = new WorldMap(_map);
     cam = new Camera();
 
@@ -37,6 +37,7 @@ class MissionState extends FlxState {
     add(worldMap.treasures);
     add(worldMap.monsters);
     add(worldMap.heroes);
+    add(worldMap.decorativeObjects);
     add(worldMap.effects);
     add(worldMap.heatMap);
     add(worldMap.emotions);

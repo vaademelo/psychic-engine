@@ -28,24 +28,134 @@ class MapMaker {
 
   public static function createMap():Void {
     _zones = new Array<Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>>();
-
-    var nZones = Random.int(2, 3);
-
+    var usedZoneCoord:Array<Array<Int>> = new Array<Array<Int>>();
+    var createdZones = new Array<Array<Array<Int>>>();
+    var tiles:Array<Array<Int>> = new Array<Array<Int>>();
+    var nZones = 6;
     var zoneCoord = [0, 0];
-    var tiles:Array<Array<Int>> = createZone(ZoneKind.starter, zoneCoord, 0);
-
     var kinds = [ZoneKind.normal, ZoneKind.intense];
 
+    usedZoneCoord.push([zoneCoord[0],zoneCoord[1]]);
+    createdZones.push(createZone(ZoneKind.starter, zoneCoord, 0));
+
     for (i in 0...nZones) {
-      zoneCoord[0] ++;
-      //TODO: Use zoneCoord to make a map that is not always the same format
-      var zone = createZone(Random.fromArray(kinds), zoneCoord, i + 1);
-      for(j in 0...zone.length) {
-        tiles[j] = tiles[j].concat(zone[j]);
-      }
+      zoneCoord = nextZoneCoord(usedZoneCoord);
+      usedZoneCoord.push([zoneCoord[0],zoneCoord[1]]);
+      createdZones.push(createZone(Random.fromArray(kinds), zoneCoord, 0));
     }
 
+    var limits:Map<String, Int> = zonesLimits(usedZoneCoord);
+    tiles = initializeTiles(limits);
+
+    for (j in 0...(limits["jMax"] - limits["jMin"] + 1)) {
+      for (i in 0...(limits["iMax"] - limits["iMin"] + 1)) {
+
+        if (!coordinateHasZone(usedZoneCoord, [limits["iMin"] + i, limits["jMin"] + j])) {
+          for (k in 0...(Constants.ZONE_SIZE)) {
+            tiles[k + (j * Constants.ZONE_SIZE)] = tiles[k + (j * Constants.ZONE_SIZE)].concat([8,8,8,8,8,8,8]);
+          }
+
+        } else {
+
+          var zone:Array<Array<Int>> = createdZones[zoneIndex(usedZoneCoord, [limits["iMin"] + i, limits["jMin"] + j])];
+          for (k in 0...(Constants.ZONE_SIZE)) {
+            tiles[k + (j * Constants.ZONE_SIZE)] = tiles[k + (j * Constants.ZONE_SIZE)].concat(zone[k]);
+          }
+        }
+      }
+    }
     _tiles = tiles;
+  }
+
+  private static function initializeTiles(limits:Map<String, Int>):Array<Array<Int>> {
+    var tiles:Array<Array<Int>> = [];
+    for (j in 0...((limits["jMax"] - limits["jMin"] + 1) * Constants.ZONE_SIZE)) {
+      tiles.push([]);
+    }
+    return tiles;
+  }
+
+  private static function zoneIndex(usedZoneCoord:Array<Array<Int>>, coordinate:Array<Int>){
+    for (i in 0...usedZoneCoord.length) {
+      if(coordinate[0] == usedZoneCoord[i][0] && coordinate[1] == usedZoneCoord[i][1]) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  private static function coordinateHasZone(usedZoneCoord:Array<Array<Int>>, coordinate:Array<Int>):Bool {
+    for (usedCoordinate in usedZoneCoord) {
+      if(coordinate[0] == usedCoordinate[0] && coordinate[1] == usedCoordinate[1]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static function zonesLimits(usedZoneCoord:Array<Array<Int>>):Map<String, Int> {
+    var limits:Map<String, Int> = ["iMax" => -42, "iMin" => 42, "jMax" => -42, "jMin" => 42];
+
+    for (coordinate in usedZoneCoord){
+      if(coordinate[0] > limits["iMax"])
+        limits["iMax"] = coordinate[0];
+      if(coordinate[0] < limits["iMin"])
+        limits["iMin"] = coordinate[0];
+      if(coordinate[1] > limits["jMax"])
+        limits["jMax"] = coordinate[1];
+      if(coordinate[1] < limits["jMin"])
+        limits["jMin"] = coordinate[1];
+    }
+    return limits;
+  }
+
+  private static function nextZoneCoord(usedZoneCoord:Array<Array<Int>>):Array<Int> {
+    var zoneCoord = [];
+    var lastCoord = usedZoneCoord[usedZoneCoord.length - 1];
+
+    var availableDirections = [];
+
+    if (isCoordinateAvailable([lastCoord[0], lastCoord[1] - 1], usedZoneCoord)) {
+      availableDirections.push(0);
+    }
+    if (isCoordinateAvailable([lastCoord[0] + 1, lastCoord[1]], usedZoneCoord)) {
+      availableDirections.push(1);
+    }
+    if (isCoordinateAvailable([lastCoord[0], lastCoord[1] + 1], usedZoneCoord)) {
+      availableDirections.push(2);
+    }
+    if (isCoordinateAvailable([lastCoord[0] - 1, lastCoord[1]], usedZoneCoord)) {
+      availableDirections.push(3);
+    }
+
+    switch Random.fromArray(availableDirections) {
+      case 0: //UP
+        zoneCoord = [lastCoord[0], lastCoord[1] - 1];
+      case 1: //RIGHT
+        zoneCoord = [lastCoord[0] + 1, lastCoord[1]];
+      case 2: //DOWN
+        zoneCoord = [lastCoord[0], lastCoord[1] + 1];
+      case 3: //LEFT
+        zoneCoord = [lastCoord[0] - 1, lastCoord[1]];
+    }
+    return zoneCoord;
+  }
+
+  private static function isCoordinateAvailable(coordinate:Array<Int>, usedZoneCoord:Array<Array<Int>>):Bool {
+    if (coordinate[0] == 0 && coordinate[1] == -1) {
+      return false;
+    }
+    
+    if (coordinate[1] > 1 || coordinate[1] < -1) {
+      return false;
+    }
+
+    for (coord in usedZoneCoord) {
+      if(coord[0] == coordinate[0] && coord[1] == coordinate[1]){
+        return false;
+      }
+    }
+    return true;
   }
 
   private static function createZone(kind:ZoneKind, zoneCoord:Array<Int>, name:Int):Array<Array<Int>> {
@@ -73,7 +183,7 @@ class MapMaker {
 
     var tiles = populateZone(ngold, nTreasures, nMonsters, nWalls);
 
-    if (kind == ZoneKind.starter) tiles[0][0] = 2;
+    if (kind == ZoneKind.starter) tiles[0][1] = 2;
 
     var zoneInfo = new Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>();
     zoneInfo[ZoneInfo.nTreasures] = nTreasures;

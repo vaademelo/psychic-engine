@@ -20,11 +20,23 @@ class WorldObject extends FlxSprite {
   public function getPos():Array<Float> {
     return [this.x, this.y];
   }
-  public function setCoordinate(i:Int, j:Int) {
+  public function setCoordinate(i:Int, j:Int, ?baseI:Int, ?baseJ:Int) {
     this.i = i;
     this.j = j;
-    this.x = (j + 0.5) * Constants.TILE_SIZE - this.width/2;
-    this.y = (i + 0.5) * Constants.TILE_SIZE - this.height/2;
+
+    if (this.height >= 2 * Constants.TILE_SIZE) {
+      this.y = ((i + ((this.height / Constants.TILE_SIZE) - baseI))) * Constants.TILE_SIZE - this.height;
+      /*this.y = (i + (((this.height / Constants.TILE_SIZE) - baseI) * 0.5)) * Constants.TILE_SIZE - this.height/2;*/
+    } else {
+      this.y = (i + 0.5) * Constants.TILE_SIZE - this.height/2;
+    }
+
+    if (this.width >= 2 * Constants.TILE_SIZE) {
+      this.x = ((j + ((this.width / Constants.TILE_SIZE) - baseJ))) * Constants.TILE_SIZE - this.width;
+    } else {
+      this.x = (j + 0.5) * Constants.TILE_SIZE - this.width/2;
+    }
+
   }
   public function setPos(x:Float, y:Float) {
     this.x = x;
