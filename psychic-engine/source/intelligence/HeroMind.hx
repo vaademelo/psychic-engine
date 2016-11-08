@@ -161,7 +161,7 @@ class HeroMind implements Mind {
           tilesWeights.remove(key);
         }
       } else {
-        tilesWeights[key] = (1 - tilesWeights[key]/maxDistance) * wantToGoBackFactor;
+        tilesWeights[key] = (1 - tilesWeights[key]/maxDistance) * wantToGoBackFactor * EmotionTool.emotionFactor(unit, 'goToTarget');
       }
     }
     if (unit.character.goalChar != null) {
@@ -177,7 +177,7 @@ class HeroMind implements Mind {
     for(opponent in opponentsInRange) {
 
       var opponentTile = opponent.getCoordinate();
-      var chanceOfWinning = BattleTool.chanceOfWinning(opponent, unit) * EmotionTool.battleMultiplier(unit);
+      var chanceOfWinning = BattleTool.chanceOfWinning(opponent, unit) * EmotionTool.emotionFactor(unit, 'atack');
 
       tilesWeights[opponentTile] = chanceOfWinning;
 
@@ -188,9 +188,9 @@ class HeroMind implements Mind {
           if (PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
           if (worldMap.getTileContentKind(tile) == TileContentKind.monster) continue;
           if (tilesWeights[tile] == null) {
-            tilesWeights[tile] = chanceOfWinning;
+            tilesWeights[tile] = chanceOfWinning * EmotionTool.emotionFactor(unit, 'danger');
           } else {
-            tilesWeights[tile] += chanceOfWinning;
+            tilesWeights[tile] += chanceOfWinning * EmotionTool.emotionFactor(unit, 'danger');
           }
         }
       }
@@ -204,14 +204,14 @@ class HeroMind implements Mind {
 
     var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
     var desiredZone:Array<Int> = PositionTool.getZoneForTile(unit.character.goalTile);
-    var lootFactor = (worldMap.isTheSameTile(currentZone, desiredZone)) ? 3 : 1;
+    var lootFactor = (worldMap.isTheSameTile(currentZone, desiredZone)) ? 3 * EmotionTool.emotionFactor(unit, 'lootOnZone') : 1;
 
     for(gold in goldsInRange) {
-      tilesWeights[cast(gold, Collectable).getCoordinate()] = LootTool.needForgold(unit) * lootFactor * EmotionTool.lootMultiplier(unit);
+      tilesWeights[cast(gold, Collectable).getCoordinate()] = LootTool.needForgold(unit) * lootFactor * EmotionTool.emotionFactor(unit, 'loot');
     }
 
     for(treasure in treasuresInRange) {
-      tilesWeights[cast(treasure, Collectable).getCoordinate()] = 1 * lootFactor * EmotionTool.lootMultiplier(unit);
+      tilesWeights[cast(treasure, Collectable).getCoordinate()] = 1 * lootFactor * EmotionTool.emotionFactor(unit, 'loot');
     }
 
     return tilesWeights;
@@ -226,11 +226,11 @@ class HeroMind implements Mind {
         var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
 
         if (distanceFriendOpponent <= opponent.character.vision) {
-          tilesWeights[opponent.getCoordinate()] = 1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent;
+          tilesWeights[opponent.getCoordinate()] = (1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent) * EmotionTool.emotionFactor(unit, 'protection');
         }
       }
 
-      var friendshipFactor = (unit.character.relationList[friend.character] - 3) * 0.2;
+      var friendshipFactor = (unit.character.relationList[friend.character] - 3) * 0.2 * EmotionTool.emotionFactor(unit, 'friendship');
       var friendTilesInRange = PositionTool.getValidTilesInRange(worldMap, friend.getCoordinate(), friend.character.movement);
 
       for (tile in friendTilesInRange) {

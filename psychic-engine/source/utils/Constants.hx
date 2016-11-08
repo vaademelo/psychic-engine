@@ -92,8 +92,8 @@ class Constants {
   public static var BATTLE_EFFECT_TIME:Int = 1;
   public static var ZONE_SIZE:Int = 7;
 
-  public static var TRIGGERS:Array<String>;
   public static var PERSONALITY_TRAITS:Array<PersonalityTrait>;
+  public static var EMOTION_WEIGHTS:Map<Emotion, Map<String, Float>>;
 
   public static var MAX_LIFE = 4;
   public static var MAX_INJURY = 5;
@@ -102,16 +102,38 @@ class Constants {
   public static var MAX_ATACKRANGE = 1;
 
   public static function setup() {
+    setupEmotion();
+    setupPersonality();
+  }
+
+  public static function setupEmotion() {
+    var json:String = Assets.getText('assets/data/emotionWeights.json');
+    var obj = haxe.Json.parse(json);
+    EMOTION_WEIGHTS = new Map<Emotion, Map<String, Float>>();
+
+    for (emotionField in Reflect.fields(obj)) {
+      var emotion = Type.createEnum(Emotion, emotionField);
+      EMOTION_WEIGHTS[emotion] = new Map<String, Float>();
+
+      var weights = Reflect.field(obj, emotionField);
+
+      for (weight in Reflect.fields(weights)) {
+        var value:Float = Std.parseFloat(Reflect.field(weights, weight));
+        EMOTION_WEIGHTS[emotion][weight] = value;
+      }
+    }
+  }
+
+  public static function setupPersonality() {
     var json:String = Assets.getText('assets/data/personalityTraits.json');
     var obj = haxe.Json.parse(json);
-    TRIGGERS = obj.triggers;
     PERSONALITY_TRAITS = new Array<PersonalityTrait>();
 
-    for (traitName in Reflect.fields(obj.traits)) {
+    for (traitName in Reflect.fields(obj)) {
       var trait:PersonalityTrait = {name: null, effects:[]};
       trait.name = traitName;
 
-      var effects = Reflect.field(obj.traits, traitName);
+      var effects = Reflect.field(obj, traitName);
 
       for (triggerName in Reflect.fields(effects)) {
         var effect:TriggerEffect = {trigger:null, trueEffect:null, falseEffect:null};
