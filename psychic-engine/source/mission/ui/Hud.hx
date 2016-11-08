@@ -39,7 +39,7 @@ class Hud extends FlxSpriteGroup {
     var hero = new CharHud(5, yPos, unit, worldMap);
     heroes[unit] = hero;
     add(hero);
-    return Std.int(hero.height) + 5;
+    return Std.int(hero.height) + 10;
   }
 
   public function updateUnitHud(unit:Unit) {

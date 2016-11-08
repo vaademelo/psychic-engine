@@ -226,7 +226,8 @@ class HeroMind implements Mind {
         var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
 
         if (distanceFriendOpponent <= opponent.character.vision) {
-          tilesWeights[opponent.getCoordinate()] = (1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent) * EmotionTool.emotionFactor(unit, 'protection');
+          var protectObjective = (unit.goalUnit == friend) ? 3 * EmotionTool.emotionFactor(unit, 'lootOnZone') : 1;
+          tilesWeights[opponent.getCoordinate()] = (1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent) * protectObjective * EmotionTool.emotionFactor(unit, 'protection');
         }
       }
 

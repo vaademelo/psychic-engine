@@ -31,24 +31,23 @@ class CharHud extends FlxSpriteGroup {
     this.unit = unit;
     this.worldMap = worldMap;
 
-    heroIcon = new FlxSprite(xx, yy, unit.character.imageSource);
-    heroIcon.setGraphicSize(30, 30);
+    heroIcon = new FlxSprite(xx, yy + 2, unit.character.imageSource);
+    heroIcon.setGraphicSize(40, 40);
     heroIcon.updateHitbox();
     heroIcon.centerOrigin();
 
-    name = new FlxText(xx + 35, yy);
-    name.size = 15;
+    name = new FlxText(xx + 45, yy);
+    name.size = 13;
     name.text = unit.character.name;
     name.color = FlxColor.BROWN;
 
-    yy += Std.int(heroIcon.height) + 5;
-
-    action = new FlxText(xx, yy);
-    action.size = 15;
+    action = new FlxText(xx + 45, yy + Std.int(name.height/2) + 9);
+    action.size = 13;
     action.text = getCharGoalText();
     action.color = FlxColor.GRAY;
 
-    yy += Std.int(action.height) + 5;
+    yy += Std.int(heroIcon.height) + 5;
+
 
     hearts = new FlxSpriteGroup(xx, yy);
     var nHearts:Int = unit.character.hpMax;
@@ -110,14 +109,14 @@ class CharHud extends FlxSpriteGroup {
   }
 
   private function getCharGoalText():String {
-    if (unit.character.goalChar != null) return "will protect " + unit.character.goalChar.name;
-    if (unit.character.goalTile == worldMap.homeTile) return "is going home";
+    if (unit.character.goalChar != null) return "protecting " + unit.character.goalChar.name;
+    if (unit.character.goalTile == worldMap.homeTile) return "going home";
     var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
     var desiredZone:Array<Int> = PositionTool.getZoneForTile(unit.character.goalTile);
     if(worldMap.isTheSameTile(currentZone, desiredZone)) {
       return "searching on zone " + worldMap.getZoneName(desiredZone);
     } else {
-      return "is going to zone " + worldMap.getZoneName(desiredZone);
+      return "going to zone " + worldMap.getZoneName(desiredZone);
     }
   }
 
