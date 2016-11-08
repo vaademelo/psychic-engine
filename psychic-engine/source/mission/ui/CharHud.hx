@@ -21,10 +21,15 @@ class CharHud extends FlxSpriteGroup {
   private var worldMap:WorldMap;
 
   private var heroIcon:FlxSprite;
+  private var emotionIcon:FlxSprite;
   private var name:FlxText;
   private var action:FlxText;
   private var hearts:FlxSpriteGroup;
   private var injuries:FlxSpriteGroup;
+
+  private var goldLbl:FlxText;
+  private var treasureLbl:FlxText;
+  private var killsLbl:FlxText;
 
   public function new(xx:Int, yy:Int, unit:Unit, worldMap:WorldMap) {
     super();
@@ -32,11 +37,12 @@ class CharHud extends FlxSpriteGroup {
     this.worldMap = worldMap;
 
     heroIcon = new FlxSprite(xx, yy + 2, unit.character.imageSource);
-    heroIcon.setGraphicSize(40, 40);
-    heroIcon.updateHitbox();
-    heroIcon.centerOrigin();
+    resizeImage(heroIcon, 40, 40);
 
-    name = new FlxText(xx + 45, yy);
+    emotionIcon = new FlxSprite(xx + 45, yy, "assets/images/emotion/" + Std.string(unit.mind.currentEmotion) + ".png");
+    resizeImage(emotionIcon, 20, 20);
+
+    name = new FlxText(xx + 70, yy);
     name.size = 13;
     name.text = unit.character.name;
     name.color = FlxColor.BROWN;
@@ -75,16 +81,51 @@ class CharHud extends FlxSpriteGroup {
       injuries.add(injury);
     }
 
+    yy += Std.int(injuries.height) + 5;
+
+    var gold = new FlxSprite(xx, yy, "assets/images/gold.png");
+    resizeImage(gold, 20, 20);
+    goldLbl = new FlxText(xx + 25, yy, 20);
+    goldLbl.size = 13;
+    goldLbl.text = Std.string(unit.goldCollected.length);
+    goldLbl.color = FlxColor.GRAY;
+
+    var treasure = new FlxSprite(xx + 50, yy, "assets/images/item.png");
+    resizeImage(treasure, 20, 20);
+    treasureLbl = new FlxText(xx + 75, yy, 20);
+    treasureLbl.size = 13;
+    treasureLbl.text = Std.string(unit.treasureCollected.length);
+    treasureLbl.color = FlxColor.GRAY;
+
+    var kills = new FlxSprite(xx + 100, yy, "assets/images/hud/skull.png");
+    resizeImage(kills, 20, 20);
+    killsLbl = new FlxText(xx + 125, yy, 20);
+    killsLbl.size = 13;
+    killsLbl.text = Std.string(unit.kills);
+    killsLbl.color = FlxColor.GRAY;
+
     add(heroIcon);
+    add(emotionIcon);
     add(name);
     add(action);
     add(hearts);
     add(injuries);
 
+    add(gold);
+    add(goldLbl);
+    add(treasure);
+    add(treasureLbl);
+    add(kills);
+    add(killsLbl);
   }
 
   public function updateCharacterHud() {
     action.text = getCharGoalText();
+    emotionIcon.loadGraphic("assets/images/emotion/" + Std.string(unit.mind.currentEmotion) + ".png");
+    resizeImage(emotionIcon, 20, 20);
+    goldLbl.text = Std.string(unit.goldCollected.length);
+    treasureLbl.text = Std.string(unit.treasureCollected.length);
+    killsLbl.text = Std.string(unit.kills);
 
     var nHearts:Int = unit.character.hpMax;
     for (i in 0 ... nHearts) {
@@ -118,6 +159,12 @@ class CharHud extends FlxSpriteGroup {
     } else {
       return "going to zone " + worldMap.getZoneName(desiredZone);
     }
+  }
+
+  private function resizeImage(image:FlxSprite, width:Int, height:Int) {
+    image.setGraphicSize(width, height);
+    image.updateHitbox();
+    image.centerOrigin();
   }
 
 }

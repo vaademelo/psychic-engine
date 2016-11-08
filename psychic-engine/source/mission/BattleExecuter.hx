@@ -66,6 +66,9 @@ class BattleExecuter {
     } else if (damage == 2) {
       unit.mind.criticalLastAtack = true;
     }
+    if (opponent.hp <= damage) {
+      unit.kills ++;
+    }
   }
 
   public static function unitsThatSawHisDeath(worldMap:WorldMap, unit:Unit) {

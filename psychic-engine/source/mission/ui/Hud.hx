@@ -14,7 +14,6 @@ import mission.ui.CharHud;
 
 class Hud extends FlxSpriteGroup {
 
-  private var border:Int = Constants.HUD_BORDER;
   private var heroes:Map<Unit, CharHud>;
 
   public function new(worldMap:WorldMap, units:Array<Unit>) {

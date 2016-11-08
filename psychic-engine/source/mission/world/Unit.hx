@@ -19,7 +19,8 @@ class Unit extends WorldObject {
   public var injury:Int;
   public var recoverHealthEveryXTurns:Int = 2;
   public var turnsHurtedCount:Int = 0;
-  public var injuriesCount = 0;
+  public var injuriesCount:Int = 0;
+  public var kills:Int = 0;
 
   public var goldCollected:Array<Collectable> = [];
   public var treasureCollected:Array<Collectable> = [];
