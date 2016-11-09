@@ -13,7 +13,18 @@ enum TreasureKind {
 enum DecorativeObjectKind {
   column;
   exitDoor;
-
+  topWall;
+  topRightWall;
+  topRightInWall;
+  rightWall;
+  bottomRightWall;
+  bottomRightInWall;
+  bottomWall;
+  bottomLeftWall;
+  bottomLeftInWall;
+  leftWall;
+  topLeftWall;
+  topLeftInWall;
 }
 
 // WorldMap enums //

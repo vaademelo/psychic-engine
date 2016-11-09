@@ -54,6 +54,20 @@ class WorldMap extends FlxTilemap {
     setTileProperties(5, FlxObject.ANY);
     setTileProperties(6, FlxObject.ANY);
     setTileProperties(7, FlxObject.ANY);
+    setTileProperties(8, FlxObject.ANY);
+    setTileProperties(9, FlxObject.ANY);
+    setTileProperties(10, FlxObject.ANY);
+    setTileProperties(11, FlxObject.ANY);
+    setTileProperties(12, FlxObject.ANY);
+    setTileProperties(13, FlxObject.ANY);
+    setTileProperties(14, FlxObject.ANY);
+    setTileProperties(15, FlxObject.ANY);
+    setTileProperties(16, FlxObject.ANY);
+    setTileProperties(17, FlxObject.ANY);
+    setTileProperties(18, FlxObject.ANY);
+    setTileProperties(19, FlxObject.ANY);
+    setTileProperties(20, FlxObject.ANY);
+    setTileProperties(21, FlxObject.ANY);
 
     golds = new FlxTypedGroup<Collectable>();
     treasures = new FlxTypedGroup<Collectable>();
@@ -67,12 +81,12 @@ class WorldMap extends FlxTilemap {
     for (i in 0...tiles.length) {
       for (j in 0...tiles[i].length) {
         switch (tiles[i][j]) {
-          case 2:
-            var exitDoor = new DecorativeObject(DecorativeObjectKind.exitDoor, i-1, j);
-            decorativeObjects.add(exitDoor);
           case 1:
             var column = new DecorativeObject(DecorativeObjectKind.column, i, j);
             decorativeObjects.add(column);
+          case 2:
+            var exitDoor = new DecorativeObject(DecorativeObjectKind.exitDoor, i-1, j);
+            decorativeObjects.add(exitDoor);
           case 3:
             var gold = new Collectable(TreasureKind.gold, i, j);
             golds.add(gold);
@@ -82,6 +96,43 @@ class WorldMap extends FlxTilemap {
           case 5:
             var monster = new Unit(new Character(TeamSide.monsters), i, j);
             monsters.add(monster);
+          case 10:
+            var topWall = new DecorativeObject(DecorativeObjectKind.topWall, i, j);
+            decorativeObjects.add(topWall);
+          case 11:
+            var rightWall = new DecorativeObject(DecorativeObjectKind.rightWall, i, j);
+            decorativeObjects.add(rightWall);
+          case 12:
+            var bottomWall = new DecorativeObject(DecorativeObjectKind.bottomWall, i, j);
+            decorativeObjects.add(bottomWall);
+          case 13:
+            var leftWall = new DecorativeObject(DecorativeObjectKind.leftWall, i, j);
+            decorativeObjects.add(leftWall);
+          case 14:
+            var topRightWall = new DecorativeObject(DecorativeObjectKind.topRightWall, i, j);
+            decorativeObjects.add(topRightWall);
+          case 15:
+            var bottomRightWall = new DecorativeObject(DecorativeObjectKind.bottomRightWall, i, j);
+            decorativeObjects.add(bottomRightWall);
+          case 16:
+            var bottomLeftWall = new DecorativeObject(DecorativeObjectKind.bottomLeftWall, i, j);
+            decorativeObjects.add(bottomLeftWall);
+          case 17:
+            var topLeftWall = new DecorativeObject(DecorativeObjectKind.topLeftWall, i, j);
+            decorativeObjects.add(topLeftWall);
+          case 18:
+            var topRightInWall = new DecorativeObject(DecorativeObjectKind.topRightInWall, i, j);
+            decorativeObjects.add(topRightInWall);
+          case 19:
+            var bottomRightInWall = new DecorativeObject(DecorativeObjectKind.bottomRightInWall, i, j);
+            decorativeObjects.add(bottomRightInWall);
+          case 20:
+            var bottomLeftInWall = new DecorativeObject(DecorativeObjectKind.bottomLeftInWall, i, j);
+            decorativeObjects.add(bottomLeftInWall);
+          case 21:
+            var topLeftInWall = new DecorativeObject(DecorativeObjectKind.topLeftInWall, i, j);
+            decorativeObjects.add(topLeftInWall);
+
         }
       }
     }

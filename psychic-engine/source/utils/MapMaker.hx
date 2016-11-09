@@ -38,38 +38,101 @@ class MapMaker {
     usedZoneCoord.push([zoneCoord[0],zoneCoord[1]]);
     createdZones.push(createZone(ZoneKind.starter, zoneCoord, 0));
 
-    for (i in 0...nZones) {
+    for (i in 1...(nZones+1)) {
       zoneCoord = nextZoneCoord(usedZoneCoord);
       usedZoneCoord.push([zoneCoord[0],zoneCoord[1]]);
-      createdZones.push(createZone(Random.fromArray(kinds), zoneCoord, 0));
+      createdZones.push(createZone(Random.fromArray(kinds), zoneCoord, i));
     }
 
     var limits:Map<String, Int> = zonesLimits(usedZoneCoord);
     tiles = initializeTiles(limits);
 
-    for (j in 0...(limits["jMax"] - limits["jMin"] + 1)) {
-      for (i in 0...(limits["iMax"] - limits["iMin"] + 1)) {
+    for (j in 0...(limits["jMax"] - limits["jMin"] + 1 + 2)) {
+      for (i in 0...(limits["iMax"] - limits["iMin"] + 1 + 2)) {
 
-        if (!coordinateHasZone(usedZoneCoord, [limits["iMin"] + i, limits["jMin"] + j])) {
+        if (!coordinateHasZone(usedZoneCoord, [limits["iMin"] - 1 + i, limits["jMin"] - 1 + j])) {
           for (k in 0...(Constants.ZONE_SIZE)) {
-            tiles[k + (j * Constants.ZONE_SIZE)] = tiles[k + (j * Constants.ZONE_SIZE)].concat([8,8,8,8,8,8,8]);
+            tiles[k + (j * Constants.ZONE_SIZE)] = tiles[k + (j * Constants.ZONE_SIZE)].concat([9,9,9,9,9,9,9]);
           }
 
         } else {
 
-          var zone:Array<Array<Int>> = createdZones[zoneIndex(usedZoneCoord, [limits["iMin"] + i, limits["jMin"] + j])];
+          var zone:Array<Array<Int>> = createdZones[zoneIndex(usedZoneCoord, [limits["iMin"] - 1 + i, limits["jMin"] - 1 + j])];
           for (k in 0...(Constants.ZONE_SIZE)) {
             tiles[k + (j * Constants.ZONE_SIZE)] = tiles[k + (j * Constants.ZONE_SIZE)].concat(zone[k]);
           }
         }
       }
     }
+    createWalls(tiles);
     _tiles = tiles;
+  }
+
+  /*
+    topWall: 10
+    rightWall: 11
+    bottomWall: 12
+    leftWall: 13
+    topRightWall: 14
+    bottomRightWall: 15
+    bottomLeftWall: 16
+    topLeftWall: 17
+    topRightInWall: 18
+    bottomRightInWall: 19
+    bottomLeftInWall: 20
+    topLeftInWall: 21
+
+  */
+  private static  function createWalls(tiles:Array<Array<Int>>) {
+
+    for (i in 1...tiles.length-1) {
+      for (j in 1...tiles[i].length-1) {
+        if (tiles[i][j] == 9) {
+
+          if (tiles[i][j+1] < 9 && tiles[i-1][j] >= 9 && tiles[i-1][j] <= 17 && tiles[i+1][j] >= 9 && tiles[i+1][j] <= 17) {
+            tiles[i][j] = 13;
+
+          } else if (tiles[i][j-1] < 9 && tiles[i-1][j] >= 9 && tiles[i-1][j] <= 17 && tiles[i+1][j] >= 9 && tiles[i+1][j] <= 17) {
+            tiles[i][j] = 11;
+
+          } else if (tiles[i+1][j] < 9 && tiles[i][j-1] >= 9 && tiles[i][j-1] <= 17 && tiles[i][j+1] >= 9 && tiles[i][j+1] <= 17) {
+            tiles[i][j] = 10;
+
+          } else if (tiles[i-1][j] < 9 && tiles[i][j-1] >= 9 && tiles[i][j-1] <= 17 && tiles[i][j+1] >= 9 && tiles[i][j+1] <= 17) {
+            tiles[i][j] = 12;
+
+          } else if (tiles[i-1][j+1] < 9 && tiles[i][j+1] >= 9 && tiles[i-1][j] >= 9) {
+            tiles[i][j] = 16;
+
+          } else if (tiles[i+1][j+1] < 9 && tiles[i][j+1] >= 9 && tiles[i+1][j] >= 9) {
+            tiles[i][j] = 17;
+
+          } else if (tiles[i-1][j-1] < 9 && tiles[i][j-1] >= 9 && tiles[i-1][j] >= 9) {
+            tiles[i][j] = 15;
+
+          } else if (tiles[i+1][j-1] < 9 && tiles[i][j-1] >= 9 && tiles[i+1][j] >= 9) {
+            tiles[i][j] = 14;
+
+          } else if (tiles[i-1][j+1] < 9 && tiles[i-1][j] < 9 && tiles[i][j+1] < 9) {
+            tiles[i][j] = 18;
+
+          } else if (tiles[i+1][j+1] < 9 && tiles[i+1][j] < 9 && tiles[i][j+1] < 9) {
+            tiles[i][j] = 19;
+
+          } else if (tiles[i+1][j-1] < 9 && tiles[i+1][j] < 9 && tiles[i][j-1] < 9) {
+            tiles[i][j] = 20;
+
+          } else if (tiles[i-1][j-1] < 9 && tiles[i-1][j] < 9 && tiles[i][j-1] < 9) {
+            tiles[i][j] = 21;
+          }
+        }
+      }
+    }
   }
 
   private static function initializeTiles(limits:Map<String, Int>):Array<Array<Int>> {
     var tiles:Array<Array<Int>> = [];
-    for (j in 0...((limits["jMax"] - limits["jMin"] + 1) * Constants.ZONE_SIZE)) {
+    for (j in 0...((limits["jMax"] - limits["jMin"] + 1 + 2) * Constants.ZONE_SIZE)) {
       tiles.push([]);
     }
     return tiles;
@@ -145,7 +208,7 @@ class MapMaker {
     if (coordinate[0] == 0 && coordinate[1] == -1) {
       return false;
     }
-    
+
     if (coordinate[1] > 1 || coordinate[1] < -1) {
       return false;
     }
@@ -183,7 +246,7 @@ class MapMaker {
 
     var tiles = populateZone(ngold, nTreasures, nMonsters, nWalls);
 
-    if (kind == ZoneKind.starter) tiles[0][1] = 2;
+    if (kind == ZoneKind.starter) tiles[0][3] = 2;
 
     var zoneInfo = new Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>();
     zoneInfo[ZoneInfo.nTreasures] = nTreasures;
