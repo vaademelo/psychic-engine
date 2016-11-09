@@ -139,10 +139,11 @@ class WorldMap extends FlxTilemap {
 
     var i = 0;
     UserData.loadUserData();
+    var startTile = getStartTile(tiles);
     for(char in UserData.heroes) {
       if (char.goalChar == null && char.goalTile == null) continue;
-      var line = (i + 1) % this.heightInTiles;
-      var collumn = Math.floor((i + 1)/this.heightInTiles);
+      var line = startTile[0];
+      var collumn = startTile[1];
       var hero = new Unit(char, line, collumn);
       heroes.add(hero);
       this.setTile(collumn, line, 5);
@@ -258,6 +259,17 @@ class WorldMap extends FlxTilemap {
       }
     }
     return currentZone[ZoneInfo.name];
+  }
+
+  public function getStartTile(tiles:Array<Array<Int>>):Array<Int> {
+    for (i in 0...tiles.length) {
+      for (j in 0...tiles[i].length) {
+        if (tiles[i][j] == 2) {
+          return [i-1, j];
+        }
+      }
+    }
+    return [];
   }
 
 }
