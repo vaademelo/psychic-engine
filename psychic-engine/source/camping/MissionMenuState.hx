@@ -89,14 +89,18 @@ class MissionMenuState extends FlxState {
   private function printZones() {
     var zonesMap = new FlxSpriteGroup();
 
+
     var zones = MapMaker.getMapZones();
     for (zone in zones) {
       var zoneHub = new ZoneHub(zone);
       zonesMap.add(zoneHub);
       spritesHolder.push(zoneHub);
     }
+    trace("h: " + zonesMap.height);
+    trace("w: " + zonesMap.width);
+    trace("mp: " + zonesMap.getGraphicMidpoint());
 
-    zonesMap.x = FlxG.width * 0.40;
+    zonesMap.x = 300;
     zonesMap.y = FlxG.height/2 - zonesMap.height/2;
     add(zonesMap);
   }

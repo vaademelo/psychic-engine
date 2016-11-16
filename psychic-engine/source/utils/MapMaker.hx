@@ -172,6 +172,28 @@ class MapMaker {
     return limits;
   }
 
+  public static function minZoneXCoordinate():Int {
+    var minX = 42;
+
+    for(zone in _zones) {
+      if (cast(zone[coordX], Int) < minX) {
+        minX = cast(zone[coordX], Int);
+      }
+    }
+    return minX;
+  }
+
+  public static function minZoneYCoordinate():Int {
+    var minY = 42;
+
+    for(zone in _zones) {
+      if (cast(zone[coordY], Int) < minY) {
+        minY = cast(zone[coordY], Int);
+      }
+    }
+    return minY;
+  }
+
   private static function nextZoneCoord(usedZoneCoord:Array<Array<Int>>):Array<Int> {
     var zoneCoord = [];
     var lastCoord = usedZoneCoord[usedZoneCoord.length - 1];
