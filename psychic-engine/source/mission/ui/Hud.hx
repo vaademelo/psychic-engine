@@ -21,13 +21,13 @@ class Hud extends FlxSpriteGroup {
     this.scrollFactor.x = 0;
     this.scrollFactor.y = 0;
 
-    var bg = new FlxSprite(0, 0, "assets/images/hud/scroll.png");
-    bg.setGraphicSize(220, FlxG.height);
+    var bg = new FlxSprite(10, 10, "assets/images/hud/scroll.png");
+    bg.setGraphicSize(268, FlxG.height - 20);
     bg.updateHitbox();
     bg.centerOrigin();
     add(bg);
 
-    var yy:Int = 5;
+    var yy:Int = 50;
     heroes = new Map<Unit, CharHud>();
     for (unit in units) {
       yy += addUnitHud(worldMap, unit, yy);
@@ -35,10 +35,10 @@ class Hud extends FlxSpriteGroup {
   }
 
   public function addUnitHud(worldMap:WorldMap, unit:Unit, yPos:Int) {
-    var hero = new CharHud(5, yPos, unit, worldMap);
+    var hero = new CharHud(40, yPos, unit, worldMap);
     heroes[unit] = hero;
     add(hero);
-    return Std.int(hero.height) + 10;
+    return Std.int(hero.height) + 30;
   }
 
   public function updateUnitHud(unit:Unit) {

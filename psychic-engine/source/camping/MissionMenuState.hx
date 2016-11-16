@@ -96,7 +96,7 @@ class MissionMenuState extends FlxState {
       spritesHolder.push(zoneHub);
     }
 
-    zonesMap.x = FlxG.width * 0.89 - zonesMap.width;
+    zonesMap.x = FlxG.width * 0.40;
     zonesMap.y = FlxG.height/2 - zonesMap.height/2;
     add(zonesMap);
   }

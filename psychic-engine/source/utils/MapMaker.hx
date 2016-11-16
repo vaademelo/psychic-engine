@@ -38,9 +38,9 @@ class MapMaker {
     usedZoneCoord.push([zoneCoord[0],zoneCoord[1]]);
     createdZones.push(createZone(ZoneKind.starter, zoneCoord, 0));
 
-    for (i in 1...(nZones+1)) {
+    for (i in 1...(nZones + 1)) {
       zoneCoord = nextZoneCoord(usedZoneCoord);
-      usedZoneCoord.push([zoneCoord[0],zoneCoord[1]]);
+      usedZoneCoord.push([zoneCoord[0], zoneCoord[1]]);
       createdZones.push(createZone(Random.fromArray(kinds), zoneCoord, i));
     }
 
@@ -177,6 +177,8 @@ class MapMaker {
     var lastCoord = usedZoneCoord[usedZoneCoord.length - 1];
 
     var availableDirections = [];
+
+    trace("lastCoord: " + lastCoord);
 
     if (isCoordinateAvailable([lastCoord[0], lastCoord[1] - 1], usedZoneCoord)) {
       availableDirections.push(0);

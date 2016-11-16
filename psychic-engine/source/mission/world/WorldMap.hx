@@ -6,6 +6,7 @@ import flixel.tile.FlxTilemap;
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
 import flixel.FlxObject;
+import mission.ui.Camera;
 
 import utils.Constants;
 import utils.MapMaker;
@@ -33,6 +34,7 @@ class WorldMap extends FlxTilemap {
   public var heroes:FlxTypedGroup<Unit>;
   public var effects:FlxTypedGroup<BattleFX>;
   public var emotions:FlxTypedGroup<EmotionFX>;
+  public var cam:Camera;
 
   public var heatMap:FlxTypedGroup<TileWeight>;
 
@@ -42,8 +44,10 @@ class WorldMap extends FlxTilemap {
 
   public var homeTile:Array<Int> = [0, 0];
 
-  public function new(tiles:Array<Array<Int>>) {
+  public function new(tiles:Array<Array<Int>>, camera:Camera) {
     super();
+
+    this.cam = camera;
 
     this.loadMapFrom2DArray(tiles, "assets/images/tileset.png", Constants.TILE_SIZE, Constants.TILE_SIZE, 0, -1);
     setTileProperties(0, FlxObject.NONE);
@@ -81,21 +85,6 @@ class WorldMap extends FlxTilemap {
     for (i in 0...tiles.length) {
       for (j in 0...tiles[i].length) {
         switch (tiles[i][j]) {
-          case 1:
-            var column = new DecorativeObject(DecorativeObjectKind.column, i, j);
-            decorativeObjects.add(column);
-          case 2:
-            var exitDoor = new DecorativeObject(DecorativeObjectKind.exitDoor, i-1, j);
-            decorativeObjects.add(exitDoor);
-          case 3:
-            var gold = new Collectable(TreasureKind.gold, i, j);
-            golds.add(gold);
-          case 4:
-            var treasure = new Collectable(TreasureKind.item, i, j);
-            treasures.add(treasure);
-          case 5:
-            var monster = new Unit(new Character(TeamSide.monsters), i, j);
-            monsters.add(monster);
           case 10:
             var topWall = new DecorativeObject(DecorativeObjectKind.topWall, i, j);
             decorativeObjects.add(topWall);
@@ -132,7 +121,21 @@ class WorldMap extends FlxTilemap {
           case 21:
             var topLeftInWall = new DecorativeObject(DecorativeObjectKind.topLeftInWall, i, j);
             decorativeObjects.add(topLeftInWall);
-
+          case 1:
+            var column = new DecorativeObject(DecorativeObjectKind.column, i, j);
+            decorativeObjects.add(column);
+          case 2:
+            var exitDoor = new DecorativeObject(DecorativeObjectKind.exitDoor, i-1, j);
+            decorativeObjects.add(exitDoor);
+          case 3:
+            var gold = new Collectable(TreasureKind.gold, i, j);
+            golds.add(gold);
+          case 4:
+            var treasure = new Collectable(TreasureKind.item, i, j);
+            treasures.add(treasure);
+          case 5:
+            var monster = new Unit(new Character(TeamSide.monsters), i, j);
+            monsters.add(monster);
         }
       }
     }

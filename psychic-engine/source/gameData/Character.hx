@@ -41,7 +41,17 @@ class Character {
       this.hitChance = new Map<BodyKind,Float>();
       this.critChance = new Map<BodyKind,Float>();
       this.vision = Random.int(5, 6);
-      this.imageSource = "assets/images/bodies/h" + Std.string(bodyKind) + ".png";
+      this.imageSource = "assets/images/bodies/h" + Std.string(bodyKind) + "0" + Random.int(1,8) + ".png";
+
+      /*if (bodyKind == BodyKind.metal){*/
+        this.imageSource = "assets/images/bodies/h_metal0" + Random.int(0,8) + ".png";
+
+      /*} else if (bodyKind == BodyKind.fur){
+        this.imageSource = "assets/images/bodies/h" + Std.string(bodyKind) + "0" + Random.int(1,8) + ".png";
+
+      } else {
+        this.imageSource = "assets/images/bodies/h" + Std.string(bodyKind) + "0" + Random.int(1,8) + ".png";
+      }*/ 
 
       this.name = MyNameGenerator.generateName();
       this.personality = PersonalityTool.generateNewPersonality();
@@ -62,7 +72,17 @@ class Character {
       this.hitChance = new Map<BodyKind,Float>();
       this.critChance = new Map<BodyKind,Float>();
       this.vision = Random.int(3, 4);
-      this.imageSource = "assets/images/bodies/e" + Std.string(bodyKind) + ".png";
+
+      if (bodyKind == BodyKind.metal){
+        this.imageSource = "assets/images/bodies/e_golem0" + Random.int(0,2) + ".png";
+
+      } else if (bodyKind == BodyKind.fur){
+        this.imageSource = "assets/images/bodies/e_zombie0" + Random.int(0,2) + ".png";
+
+      } else {
+        this.imageSource = "assets/images/bodies/e_ecto0" + Random.int(0,1) + ".png";
+      }
+
 
       var bodyKinds = Type.allEnums(BodyKind);
       for(body in bodyKinds) {

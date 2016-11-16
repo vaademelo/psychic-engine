@@ -17,7 +17,7 @@ class Collectable extends WorldObject {
     case TreasureKind.item:
       this.loadGraphic('assets/images/item.png');
     }
-    this.setCoordinate(i,j);
+    this.setCoordinate(i,j,1,0);
   }
 
 }

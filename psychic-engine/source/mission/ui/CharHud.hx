@@ -7,6 +7,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
+import flixel.FlxCamera;
 
 import gameData.Character;
 
@@ -24,6 +25,7 @@ class CharHud extends FlxSpriteGroup {
   private var emotionIcon:FlxSprite;
   private var name:FlxText;
   private var action:FlxText;
+  private var follow:FlxText;
   private var hearts:FlxSpriteGroup;
   private var injuries:FlxSpriteGroup;
 
@@ -69,7 +71,7 @@ class CharHud extends FlxSpriteGroup {
 
     yy += Std.int(hearts.height) + 5;
 
-    injuries = new FlxSpriteGroup(xx, yy);
+    /*injuries = new FlxSpriteGroup(xx, yy);
     var nInjuries:Int = unit.character.injuryMax;
     for (i in 0 ... nInjuries) {
       var injury:FlxSprite = new FlxSprite(i * 23, 0);
@@ -81,7 +83,7 @@ class CharHud extends FlxSpriteGroup {
       injuries.add(injury);
     }
 
-    yy += Std.int(injuries.height) + 5;
+    yy += Std.int(injuries.height) + 5;*/
 
     var gold = new FlxSprite(xx, yy, "assets/images/gold.png");
     resizeImage(gold, 20, 20);
@@ -104,12 +106,22 @@ class CharHud extends FlxSpriteGroup {
     killsLbl.text = Std.string(unit.kills);
     killsLbl.color = FlxColor.GRAY;
 
+    yy += Std.int(kills.height) + 5;
+
+    var follow:FlxButton = new FlxButton(xx + 70, yy, "Follow", OnClickButton);
+
+
+    /*follow = new FlxText(xx + 70, yy);
+    follow.size = 13;
+    follow.text = "Follow";
+    follow.color = FlxColor.BROWN;*/
+
     add(heroIcon);
     add(emotionIcon);
     add(name);
     add(action);
     add(hearts);
-    add(injuries);
+    /*add(injuries);*/
 
     add(gold);
     add(goldLbl);
@@ -117,6 +129,12 @@ class CharHud extends FlxSpriteGroup {
     add(treasureLbl);
     add(kills);
     add(killsLbl);
+
+    add(follow);
+  }
+
+  function OnClickButton():Void {
+    worldMap.cam.followUnit(unit);
   }
 
   public function updateCharacterHud() {
@@ -137,7 +155,7 @@ class CharHud extends FlxSpriteGroup {
         hearts.members[i].animation.stop();
       }
     }
-    var nInjuries:Int = unit.character.injuryMax;
+    /*var nInjuries:Int = unit.character.injuryMax;
     for (i in 0 ... nInjuries) {
       if(i >= unit.injury) {
         injuries.members[i].animation.play("empty");
@@ -146,7 +164,7 @@ class CharHud extends FlxSpriteGroup {
         injuries.members[i].animation.play("full");
         injuries.members[i].animation.stop();
       }
-    }
+    }*/
   }
 
   private function getCharGoalText():String {
