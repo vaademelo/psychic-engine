@@ -20,11 +20,10 @@ class GoldDiv extends FlxGroup {
     var icon = new FlxSprite(xx, yy, "assets/images/gold.png");
     add(icon);
 
-    moneyLbl = new FlxText(xx - 105, yy + 5, 100);
+    moneyLbl = new FlxText(xx + 55, yy + 15, 100);
     moneyLbl.size = 14;
     moneyLbl.text = Std.string(UserData.goldTotal);
     moneyLbl.color = FlxColor.BROWN;
-    moneyLbl.alignment = FlxTextAlign.RIGHT;
     add(moneyLbl);
 
     calcUsedGold();

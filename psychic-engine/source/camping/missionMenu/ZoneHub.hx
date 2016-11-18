@@ -50,16 +50,16 @@ class ZoneHub extends FlxSpriteGroup {
           icon.y = zoneBG.height - 30 - icon.height;
         case ZoneInfo.coordX:
           if (minZoneXCoordinate < 0) {
-            this.x = (zone[key] + Math.abs(minZoneXCoordinate)) * 100;
+            this.x = (zone[key] + Math.abs(minZoneXCoordinate)) * 90;
           } else {
-            this.x = zone[key] * 100;
+            this.x = zone[key] * 90;
           }
           continue;
         case ZoneInfo.coordY:
           if (minZoneYCoordinate < 0) {
-            this.y = (zone[key] + Math.abs(minZoneYCoordinate)) * 100;
+            this.y = (zone[key] + Math.abs(minZoneYCoordinate)) * 90;
           } else {
-            this.y = zone[key] * 100;
+            this.y = zone[key] * 90;
           }
           continue;
         case ZoneInfo.name:

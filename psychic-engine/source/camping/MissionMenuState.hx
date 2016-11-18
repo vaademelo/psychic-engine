@@ -77,7 +77,7 @@ class MissionMenuState extends FlxState {
   }
 
   private function printChars() {
-    var yy = 125;
+    var yy = 180;
     UserData.loadUserData();
     for (char in UserData.heroes) {
       var sprite = new HeroDiv(110, yy, char, spritesHolder);
@@ -89,24 +89,20 @@ class MissionMenuState extends FlxState {
   private function printZones() {
     var zonesMap = new FlxSpriteGroup();
 
-
     var zones = MapMaker.getMapZones();
     for (zone in zones) {
       var zoneHub = new ZoneHub(zone);
       zonesMap.add(zoneHub);
       spritesHolder.push(zoneHub);
     }
-    trace("h: " + zonesMap.height);
-    trace("w: " + zonesMap.width);
-    trace("mp: " + zonesMap.getGraphicMidpoint());
 
-    zonesMap.x = 300;
-    zonesMap.y = FlxG.height/2 - zonesMap.height/2;
+    zonesMap.x = FlxG.width/2 - zonesMap.width/2 + 150;
+    zonesMap.y = FlxG.height/2 - zonesMap.height/2 + 15;
     add(zonesMap);
   }
 
   private function printMoney() {
-    goldDiv = new GoldDiv(Std.int(FlxG.width * 0.89 - 45), 125);
+    goldDiv = new GoldDiv(115, 125);//Std.int(FlxG.width * 0.89 - 45), 125);
     add(goldDiv);
   }
 
