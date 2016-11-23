@@ -6,7 +6,6 @@ function init (csvFile) {
 
   let emotions = defineEmotions(header);
   let emotionsWeights = defineWeights(lines, emotions);
-  console.log(emotionsWeights);
   return JSON.stringify(emotionsWeights, null, 2);
 }
 

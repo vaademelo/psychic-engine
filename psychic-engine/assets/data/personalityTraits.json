@@ -1,5 +1,5 @@
 {
-  "adventurous": {
+  "Adventurous": {
     "lowhealth": [
       "peaceful",
       "trust"
@@ -53,7 +53,7 @@
       "peaceful"
     ]
   },
-  "alert": {
+  "Alert": {
     "lowhealth": [
       "antecipation",
       "peaceful"
@@ -107,7 +107,7 @@
       "peaceful"
     ]
   },
-  "compassionate": {
+  "Compassionate": {
     "lowhealth": [
       "peaceful",
       "peaceful"
@@ -161,7 +161,7 @@
       "peaceful"
     ]
   },
-  "courageous": {
+  "Courageous": {
     "lowhealth": [
       "peaceful",
       "peaceful"
@@ -215,7 +215,7 @@
       "peaceful"
     ]
   },
-  "curious": {
+  "Curious": {
     "lowhealth": [
       "peaceful",
       "peaceful"
@@ -269,7 +269,7 @@
       "peaceful"
     ]
   },
-  "dramatic": {
+  "Dramatic": {
     "lowhealth": [
       "fear",
       "peaceful"
@@ -323,7 +323,7 @@
       "peaceful"
     ]
   },
-  "friendly": {
+  "Friendly": {
     "lowhealth": [
       "peaceful",
       "peaceful"
@@ -354,7 +354,7 @@
     ],
     "friendindanger": [
       "fear",
-      "peaceful"
+      "trust"
     ],
     "alliesnearby": [
       "joy",
@@ -377,7 +377,7 @@
       "peaceful"
     ]
   },
-  "heroic": {
+  "Heroic": {
     "lowhealth": [
       "peaceful",
       "trust"
@@ -431,115 +431,7 @@
       "peaceful"
     ]
   },
-  "honorable": {
-    "lowhealth": [
-      "peaceful",
-      "peaceful"
-    ],
-    "hasanyinjuries": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemyonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "strongenemy": [
-      "peaceful",
-      "peaceful"
-    ],
-    "wasatacked": [
-      "peaceful",
-      "peaceful"
-    ],
-    "collectablesonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "holdingcollectables": [
-      "peaceful",
-      "peaceful"
-    ],
-    "friendindanger": [
-      "peaceful",
-      "peaceful"
-    ],
-    "alliesnearby": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemydiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "frienddiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "missedlastatack": [
-      "peaceful",
-      "peaceful"
-    ],
-    "doneacritical": [
-      "peaceful",
-      "peaceful"
-    ]
-  },
-  "humble": {
-    "lowhealth": [
-      "peaceful",
-      "peaceful"
-    ],
-    "hasanyinjuries": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemyonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "strongenemy": [
-      "peaceful",
-      "peaceful"
-    ],
-    "wasatacked": [
-      "peaceful",
-      "peaceful"
-    ],
-    "collectablesonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "holdingcollectables": [
-      "peaceful",
-      "peaceful"
-    ],
-    "friendindanger": [
-      "peaceful",
-      "peaceful"
-    ],
-    "alliesnearby": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemydiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "frienddiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "missedlastatack": [
-      "peaceful",
-      "peaceful"
-    ],
-    "doneacritical": [
-      "peaceful",
-      "peaceful"
-    ]
-  },
-  "individualistic": {
+  "Individualistic": {
     "lowhealth": [
       "peaceful",
       "peaceful"
@@ -593,9 +485,9 @@
       "peaceful"
     ]
   },
-  "manly": {
+  "Manly": {
     "lowhealth": [
-      "rage",
+      "disgust",
       "joy"
     ],
     "hasanyinjuries": [
@@ -647,7 +539,7 @@
       "peaceful"
     ]
   },
-  "optimistic": {
+  "Optimistic": {
     "lowhealth": [
       "peaceful",
       "trust"
@@ -701,18 +593,18 @@
       "peaceful"
     ]
   },
-  "prudent": {
+  "Prudent": {
     "lowhealth": [
       "peaceful",
-      "peaceful"
+      "trust"
     ],
     "hasanyinjuries": [
       "peaceful",
       "peaceful"
     ],
     "enemyonsight": [
-      "peaceful",
-      "peaceful"
+      "disgust",
+      "antecipation"
     ],
     "strongenemy": [
       "peaceful",
@@ -736,18 +628,18 @@
     ],
     "alliesnearby": [
       "peaceful",
-      "peaceful"
+      "antecipation"
     ],
     "enemydiedlastturn": [
       "peaceful",
       "peaceful"
     ],
     "frienddiedlastturn": [
-      "peaceful",
+      "fear",
       "peaceful"
     ],
     "missedlastatack": [
-      "peaceful",
+      "fear",
       "peaceful"
     ],
     "doneacritical": [
@@ -755,7 +647,7 @@
       "peaceful"
     ]
   },
-  "relaxed": {
+  "Relaxed": {
     "lowhealth": [
       "peaceful",
       "peaceful"
@@ -809,9 +701,9 @@
       "peaceful"
     ]
   },
-  "responsible": {
+  "Responsible": {
     "lowhealth": [
-      "peaceful",
+      "antecipation",
       "peaceful"
     ],
     "hasanyinjuries": [
@@ -819,7 +711,7 @@
       "peaceful"
     ],
     "enemyonsight": [
-      "peaceful",
+      "disgust",
       "peaceful"
     ],
     "strongenemy": [
@@ -832,7 +724,7 @@
     ],
     "collectablesonsight": [
       "antecipation",
-      "antecipation"
+      "peaceful"
     ],
     "holdingcollectables": [
       "peaceful",
@@ -863,7 +755,7 @@
       "peaceful"
     ]
   },
-  "selfless": {
+  "Selfless": {
     "lowhealth": [
       "peaceful",
       "peaceful"
@@ -917,7 +809,7 @@
       "peaceful"
     ]
   },
-  "selfCritical": {
+  "Selfcritical": {
     "lowhealth": [
       "fear",
       "peaceful"
@@ -971,115 +863,7 @@
       "peaceful"
     ]
   },
-  "selfSufficent": {
-    "lowhealth": [
-      "peaceful",
-      "peaceful"
-    ],
-    "hasanyinjuries": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemyonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "strongenemy": [
-      "peaceful",
-      "peaceful"
-    ],
-    "wasatacked": [
-      "peaceful",
-      "peaceful"
-    ],
-    "collectablesonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "holdingcollectables": [
-      "peaceful",
-      "peaceful"
-    ],
-    "friendindanger": [
-      "peaceful",
-      "peaceful"
-    ],
-    "alliesnearby": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemydiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "frienddiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "missedlastatack": [
-      "peaceful",
-      "peaceful"
-    ],
-    "doneacritical": [
-      "peaceful",
-      "peaceful"
-    ]
-  },
-  "sensitive": {
-    "lowhealth": [
-      "peaceful",
-      "peaceful"
-    ],
-    "hasanyinjuries": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemyonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "strongenemy": [
-      "peaceful",
-      "peaceful"
-    ],
-    "wasatacked": [
-      "peaceful",
-      "peaceful"
-    ],
-    "collectablesonsight": [
-      "peaceful",
-      "peaceful"
-    ],
-    "holdingcollectables": [
-      "peaceful",
-      "peaceful"
-    ],
-    "friendindanger": [
-      "peaceful",
-      "peaceful"
-    ],
-    "alliesnearby": [
-      "peaceful",
-      "peaceful"
-    ],
-    "enemydiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "frienddiedlastturn": [
-      "peaceful",
-      "peaceful"
-    ],
-    "missedlastatack": [
-      "peaceful",
-      "peaceful"
-    ],
-    "doneacritical": [
-      "peaceful",
-      "peaceful"
-    ]
-  },
-  "sentimental": {
+  "Sentimental": {
     "lowhealth": [
       "fear",
       "trust"
@@ -1184,6 +968,3084 @@
     ],
     "doneacritical": [
       "joy",
+      "peaceful"
+    ]
+  },
+  "Ambitious": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "distraction",
+      "antecipation"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "antecipation"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Determined": {
+    "lowhealth": [
+      "antecipation",
+      "trust"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "trust"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "trust"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "trust",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "trust",
+      "antecipation"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Impressionable": {
+    "lowhealth": [
+      "fear",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "disgust",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "fear",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "fear",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "trust",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "trust",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "fear",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "sadness",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "trust",
+      "peaceful"
+    ]
+  },
+  "Intense": {
+    "lowhealth": [
+      "rage",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "antecipation",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "antecipation",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "joy",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "sadness",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "trust",
+      "peaceful"
+    ]
+  },
+  "Maternal": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "rage",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "joy",
+      "antecipation"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "sadness",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Old-fashined": {
+    "lowhealth": [
+      "rage",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "fear",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "antecipation"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "distraction",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "rage",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Political": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "sadness",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "rage",
+      "joy"
+    ],
+    "alliesnearby": [
+      "joy",
+      "distraction"
+    ],
+    "enemydiedlastturn": [
+      "joy",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Preoccupied": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "antecipation"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "antecipation"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "antecipation"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "fear",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Proud": {
+    "lowhealth": [
+      "peaceful",
+      "trust"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "trust",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "trust",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "distraction",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "rage",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "joy",
+      "peaceful"
+    ]
+  },
+  "Stubborn": {
+    "lowhealth": [
+      "peaceful",
+      "trust"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "trust",
+      "antecipation"
+    ],
+    "holdingcollectables": [
+      "trust",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Abrasive": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "sadness"
+    ],
+    "strongenemy": [
+      "joy",
+      "sadness"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "rage",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "sadness",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "rage",
+      "peaceful"
+    ]
+  },
+  "Aimless": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "distraction"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "distraction"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "distraction"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Airy": {
+    "lowhealth": [
+      "peaceful",
+      "distraction"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "trust",
+      "distraction"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "trust"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "distraction"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Angry": {
+    "lowhealth": [
+      "rage",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "rage",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "rage",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "rage",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Apathetic": {
+    "lowhealth": [
+      "disgust",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "disgust",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "disgust",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "sadness",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "disgust",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "sadness",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Brutal": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "joy",
+      "sadness"
+    ],
+    "strongenemy": [
+      "joy",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "joy",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "joy",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "joy",
+      "peaceful"
+    ]
+  },
+  "Careless": {
+    "lowhealth": [
+      "peaceful",
+      "trust"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "distraction"
+    ],
+    "enemyonsight": [
+      "trust",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Cautious": {
+    "lowhealth": [
+      "antecipation",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "antecipation"
+    ],
+    "strongenemy": [
+      "disgust",
+      "antecipation"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Childish": {
+    "lowhealth": [
+      "fear",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "antecipation",
+      "distraction"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "fear",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "distraction",
+      "sadness"
+    ],
+    "enemydiedlastturn": [
+      "joy",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "fear",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "disgust",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "trust",
+      "peaceful"
+    ]
+  },
+  "Clumsy": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "distraction"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "distraction"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "distraction"
+    ],
+    "collectablesonsight": [
+      "joy",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "distraction",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Compulsive": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "distraction",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "joy",
+      "distraction"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "distraction"
+    ],
+    "alliesnearby": [
+      "distraction",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Condemnatory": {
+    "lowhealth": [
+      "sadness",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "sadness",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "sadness",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "sadness",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "fear",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "sadness",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "sadness",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "fear",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Cowardly": {
+    "lowhealth": [
+      "fear",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "fear",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "disgust",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "fear",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "disgust",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "sadness"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Cynical": {
+    "lowhealth": [
+      "sadness",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "trust"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "disgust",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "joy",
+      "disgust"
+    ],
+    "alliesnearby": [
+      "disgust",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "disgust",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Delicate": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "sadness",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "fear",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "sadness"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "fear",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "sadness",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Dependent": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "antecipation",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "fear",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "antecipation"
+    ],
+    "alliesnearby": [
+      "distraction",
+      "fear"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "fear",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "disgust",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Desperate": {
+    "lowhealth": [
+      "rage",
+      "fear"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "antecipation"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "disgust"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "fear",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "fear",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Devious": {
+    "lowhealth": [
+      "joy",
+      "distraction"
+    ],
+    "hasanyinjuries": [
+      "rage",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "disgust",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "joy",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "joy",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "antecipation"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "rage",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "rage",
+      "peaceful"
+    ]
+  },
+  "Discontented": {
+    "lowhealth": [
+      "sadness",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "sadness",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "disgust",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "sadness"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "disgust",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "sadness"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Disrespectful": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "disgust",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "disgust",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "disgust",
+      "distraction"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "joy",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "disgust",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Easilydiscouraged": {
+    "lowhealth": [
+      "sadness",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "sadness",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "fear",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "fear",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "fear",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "disgust"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Egocentric": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "disgust",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "sadness"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "distraction",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "trust",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "disgust",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Escapist": {
+    "lowhealth": [
+      "distraction",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "distraction",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "distraction",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "trust",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "trust",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "fear",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "distraction",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "fear",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Gloomy": {
+    "lowhealth": [
+      "sadness",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "disgust",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "disgust",
+      "distraction"
+    ],
+    "strongenemy": [
+      "disgust",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "disgust",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "sadness"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "sadness"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Greedy": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "antecipation",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "joy",
+      "antecipation"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "antecipation"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "trust",
+      "peaceful"
+    ]
+  },
+  "Hateful": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "rage",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "disgust",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "joy",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "rage",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "rage",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "antecipation",
+      "peaceful"
+    ]
+  },
+  "Hesitant": {
+    "lowhealth": [
+      "disgust",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "distraction",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "disgust",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "disgust",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "fear"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "disgust",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Hostile": {
+    "lowhealth": [
+      "rage",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "rage",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "rage",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "rage",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "disgust",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Ignorant": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "rage",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "disgust",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "rage",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "joy",
+      "peaceful"
+    ]
+  },
+  "Impatient": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "trust",
+      "rage"
+    ],
+    "strongenemy": [
+      "antecipation",
+      "distraction"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "trust",
+      "rage"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "sadness"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "trust",
+      "sadness"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "rage",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "rage",
+      "peaceful"
+    ]
+  },
+  "Impulsive": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "antecipation",
+      "distraction"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "antecipation",
+      "distraction"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "joy",
+      "sadness"
+    ],
+    "enemydiedlastturn": [
+      "trust",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "disgust",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "disgust",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "trust",
+      "peaceful"
+    ]
+  },
+  "Indecisive": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "distraction",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "distraction",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "distraction",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "distraction",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Insecure": {
+    "lowhealth": [
+      "fear",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "fear",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "disgust",
+      "antecipation"
+    ],
+    "strongenemy": [
+      "disgust",
+      "antecipation"
+    ],
+    "wasatacked": [
+      "fear",
+      "antecipation"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "fear",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "fear"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "fear",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "fear",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Lazy": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "distraction"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "distraction"
+    ],
+    "alliesnearby": [
+      "distraction",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "sadness",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Malicious": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "antecipation",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "joy",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "antecipation",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "disgust",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "disgust",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "joy",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "rage",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "joy",
+      "peaceful"
+    ]
+  },
+  "Melancholic": {
+    "lowhealth": [
+      "fear",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "fear",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "sadness",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "sadness",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "sadness"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Moody": {
+    "lowhealth": [
+      "sadness",
+      "joy"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "sadness",
+      "joy"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "joy",
+      "sadness"
+    ],
+    "holdingcollectables": [
+      "trust",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "fear",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "trust",
+      "disgust"
+    ],
+    "enemydiedlastturn": [
+      "trust",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "sadness",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "sadness",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "joy",
+      "peaceful"
+    ]
+  },
+  "Naive": {
+    "lowhealth": [
+      "peaceful",
+      "joy"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "distraction"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "distraction",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "trust",
+      "fear"
+    ],
+    "enemydiedlastturn": [
+      "trust",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "joy",
+      "peaceful"
+    ]
+  },
+  "Negativistic": {
+    "lowhealth": [
+      "fear",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "fear",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "fear",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "fear",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "sadness",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "fear"
+    ],
+    "holdingcollectables": [
+      "fear",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "fear",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Neurotic": {
+    "lowhealth": [
+      "fear",
+      "antecipation"
+    ],
+    "hasanyinjuries": [
+      "fear",
+      "antecipation"
+    ],
+    "enemyonsight": [
+      "antecipation",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "disgust",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "antecipation",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Opportunistic": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "joy",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "joy",
+      "antecipation"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Paranoid": {
+    "lowhealth": [
+      "rage",
+      "fear"
+    ],
+    "hasanyinjuries": [
+      "rage",
+      "fear"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "antecipation"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "antecipation"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "antecipation"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "fear"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Possessive": {
+    "lowhealth": [
+      "peaceful",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "antecipation",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "antecipation"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Pretentious": {
+    "lowhealth": [
+      "peaceful",
+      "trust"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "trust"
+    ],
+    "enemyonsight": [
+      "trust",
+      "distraction"
+    ],
+    "strongenemy": [
+      "trust",
+      "distraction"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "trust",
+      "distraction"
+    ],
+    "holdingcollectables": [
+      "joy",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "joy",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Procrastinating": {
+    "lowhealth": [
+      "peaceful",
+      "distraction"
+    ],
+    "hasanyinjuries": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "peaceful",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "distraction"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "peaceful",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "distraction"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "peaceful",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Regretful": {
+    "lowhealth": [
+      "sadness",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "disgust",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "disgust",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "sadness",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "sadness",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "disgust",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
+      "peaceful"
+    ]
+  },
+  "Resentful": {
+    "lowhealth": [
+      "sadness",
+      "peaceful"
+    ],
+    "hasanyinjuries": [
+      "disgust",
+      "peaceful"
+    ],
+    "enemyonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "strongenemy": [
+      "peaceful",
+      "peaceful"
+    ],
+    "wasatacked": [
+      "rage",
+      "peaceful"
+    ],
+    "collectablesonsight": [
+      "peaceful",
+      "peaceful"
+    ],
+    "holdingcollectables": [
+      "peaceful",
+      "peaceful"
+    ],
+    "friendindanger": [
+      "rage",
+      "peaceful"
+    ],
+    "alliesnearby": [
+      "peaceful",
+      "peaceful"
+    ],
+    "enemydiedlastturn": [
+      "peaceful",
+      "peaceful"
+    ],
+    "frienddiedlastturn": [
+      "rage",
+      "peaceful"
+    ],
+    "missedlastatack": [
+      "disgust",
+      "peaceful"
+    ],
+    "doneacritical": [
+      "peaceful",
       "peaceful"
     ]
   }

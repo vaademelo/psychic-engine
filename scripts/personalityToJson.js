@@ -28,7 +28,7 @@ function defineTraits(lines, triggers) {
 
   for (let line of lines) {
     let cells = line.split(',');
-    let traitName = cells.shift();
+    let traitName = cells.shift().toProperCase();
     if (traitName === '') continue;
 
     traits[traitName] = defineEffects(cells, triggers);
@@ -42,7 +42,7 @@ function defineEffects(cells, triggers) {
   let index = 0;
 
   for (let cell of cells) {
-    let value = cell;
+    let value = cell.toLowerCase();
     if (value === '') value = 'peaceful';
 
     let trigger = triggers[index];

@@ -14,7 +14,7 @@ class PersonalityTool {
 
   public static function generateNewPersonality():Array<PersonalityTrait> {
     var personality = new Array<PersonalityTrait>();
-    var numberOfTraits = Random.int(3, 5);//TODO
+    var numberOfTraits = Random.int(7, 10);
     var traits = Random.shuffle(Constants.PERSONALITY_TRAITS);
     personality = traits.slice(0, numberOfTraits);
     return personality;

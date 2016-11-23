@@ -22,7 +22,11 @@ class GoalTool {
       unit.character.goalChar = null;
     } else {
       if(unit.character.goalChar != null) {
-        unit.character.goalTile = unit.goalUnit.getCoordinate();
+        try {
+          unit.character.goalTile = unit.goalUnit.getCoordinate();
+        } catch(e:Dynamic) {
+          unit.character.goalTile = unit.getCoordinate();
+        }
       }
     }
   }
@@ -59,9 +63,13 @@ class GoalTool {
         var percentageOfCollectablesRemaining = worldMap.percentageOfCollectablesRemainingInZone(currentZone);
         return (1 - percentageOfCollectablesRemaining) * 0.7 + 0.3;
       } else {
-        var distance = PositionTool.getDistance(worldMap, unit.getCoordinate(), unit.character.goalTile);
-        var maxDistance = Math.abs(unit.character.goalTile[0]) + Math.abs(unit.character.goalTile[1]);
-        return (1 - (distance/maxDistance)) * 0.3;
+        try {
+          var distance = PositionTool.getDistance(worldMap, unit.getCoordinate(), unit.character.goalTile);
+          var maxDistance = Math.abs(unit.character.goalTile[0]) + Math.abs(unit.character.goalTile[1]);
+          return (1 - (distance/maxDistance)) * 0.3;
+        } catch(e:Dynamic) {
+          return 0;
+        }
       }
     }
   }
