@@ -51,11 +51,11 @@ class CharacterDetailsState extends FlxSubState {
     status = new CharStatus(20, 50, character);
     add(status);
 
-    personality = new PersonalityDiv(300, 50, character);
-    add(personality);
-
     relations = new FriendsDiv(600, 50, character);
     add(relations);
+
+    personality = new PersonalityDiv(300, 50, character);
+    add(personality);
   }
 
   override public function update(elapsed:Float):Void {

@@ -8,6 +8,8 @@ import flixel.group.FlxGroup;
 
 import gameData.Character;
 
+import camping.characterMenu.TraitDiv;
+
 import utils.Constants;
 
 class PersonalityDiv extends FlxGroup {
@@ -16,14 +18,10 @@ class PersonalityDiv extends FlxGroup {
     super();
 
     for (trait in char.personality) {
-      var label = new FlxText(xx, yy);
-      label.size = 20;
-      label.text = trait.name;
-      label.color = FlxColor.WHITE;
+      var label = new TraitDiv(xx, yy, trait);
       add(label);
-      yy += Std.int(label.height) + 10;
+      yy += 30;
     }
-    //var image = new FlxSprite(xx, yy, "assets/images/emotion/" + )
 
   }
 
