@@ -159,7 +159,11 @@ class WorldMap extends FlxTilemap {
   public function getPath(start:Array<Int>, destination:Array<Int>):Array<FlxPoint> {
     var startPt = this.getTileCoordsByIndex(start[1] + start[0] * this.widthInTiles);
     var endPt = this.getTileCoordsByIndex(destination[1] + destination[0] * this.widthInTiles);
-    return this.findPath(startPt, endPt, false, false, FlxTilemapDiagonalPolicy.NONE);
+    try{
+      return this.findPath(startPt, endPt, false, false, FlxTilemapDiagonalPolicy.NONE);
+    } catch(e:Dynamic) {
+      return null;
+    }
 	}
 
   public function isTileWalkable(i:Int, j:Int):Bool {

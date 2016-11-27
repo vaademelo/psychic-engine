@@ -11,6 +11,7 @@ import mission.world.Unit;
 import mission.world.WorldMap;
 
 import mission.ui.CharHud;
+import mission.ui.DebugButton;
 
 class Hud extends FlxSpriteGroup {
 
@@ -32,6 +33,9 @@ class Hud extends FlxSpriteGroup {
     for (unit in units) {
       yy += addUnitHud(worldMap, unit, yy);
     }
+
+    var debugAiButton = new DebugButton(FlxG.width - 110, 10);
+    add(debugAiButton);
   }
 
   public function addUnitHud(worldMap:WorldMap, unit:Unit, yPos:Int) {

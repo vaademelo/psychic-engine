@@ -102,7 +102,7 @@ class MissionMenuState extends FlxState {
   }
 
   private function printMoney() {
-    goldDiv = new GoldDiv(115, 125);//Std.int(FlxG.width * 0.89 - 45), 125);
+    goldDiv = new GoldDiv(115, 125);
     add(goldDiv);
   }
 

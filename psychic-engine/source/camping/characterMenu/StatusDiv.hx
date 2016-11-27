@@ -52,8 +52,8 @@ class StatusDiv extends FlxGroup {
     var i = 0;
     div.height = statusLabel.height;
     for (body in Type.allEnums(BodyKind)) {
-      var image = new FlxSprite(xx + i * 50, yy + statusLabel.height + 10, "assets/images/hud/h" + Std.string(body) + ".png");
-      var value = new FlxText(xx + i * 50,yy + statusLabel.height + 20 + image.height);
+      var image = new FlxSprite(xx + i * 50, yy + statusLabel.height + 10, "assets/images/menu/" + Std.string(body) + ".png");
+      var value = new FlxText(xx + i * 50,yy + statusLabel.height + 10 + image.height);
       value.text = Math.round(hitChance[body] * 100) + "%";
       value.size = 15;
       value.color = FlxColor.WHITE;
@@ -61,7 +61,7 @@ class StatusDiv extends FlxGroup {
       div.add(value);
       div.add(image);
       if (i == 0) {
-        div.height += image.height + value.height + 20;
+        div.height += image.height + value.height + 10;
       }
       i++;
     }

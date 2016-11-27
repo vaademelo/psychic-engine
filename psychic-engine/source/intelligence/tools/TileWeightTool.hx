@@ -28,17 +28,19 @@ class TileWeightTool {
   public static function updateHeatMap(worldMap:WorldMap, tilesWeights:Map<String, Float>) {
     var index = 0;
 
-    for (tile in  tilesWeights.keys()) {
-      var parsedTile = tile.substring(1, tile.length - 1).split(',');
-      if (index < worldMap.heatMap.members.length) {
-        worldMap.heatMap.members[index].revive();
-        worldMap.heatMap.members[index].updateTileWeight(Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
-      } else {
-        var tileWeight = new TileWeight(Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
-        worldMap.heatMap.add(tileWeight);
-      }
+    if (Constants.debugAi) {
+      for (tile in  tilesWeights.keys()) {
+        var parsedTile = tile.substring(1, tile.length - 1).split(',');
+        if (index < worldMap.heatMap.members.length) {
+          worldMap.heatMap.members[index].revive();
+          worldMap.heatMap.members[index].updateTileWeight(Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
+        } else {
+          var tileWeight = new TileWeight(Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
+          worldMap.heatMap.add(tileWeight);
+        }
 
-      index ++;
+        index ++;
+      }
     }
     for (i in index...worldMap.heatMap.members.length) {
       worldMap.heatMap.members[i].kill();
