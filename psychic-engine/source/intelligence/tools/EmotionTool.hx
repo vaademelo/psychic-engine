@@ -21,14 +21,31 @@ class EmotionTool {
   }
 
   public static function amortizeTokens(mind:HeroMind) {
+
+    if (mind.emotionsAmortization == null) {
+      mind.emotionsAmortization = new Map<Emotion, Float>();
+    }
+    if (mind.emotionsLastTurn == null) {
+      mind.emotionsLastTurn = new Map<Emotion, Float>();
+    }
+    mind.triggersEffectOnEmotions = new Map<Emotion, Map<String, Float>>();
+
     for (emotion in mind.emotionWeights.keys()) {
+
+      //for debug analysis
+      mind.triggersEffectOnEmotions[emotion] = new Map<String, Float>();
+      mind.emotionsLastTurn[emotion] = mind.emotionWeights[emotion];
+
       if (mind.emotionWeights[emotion] > 0.3) {
         if (emotion == mind.currentEmotion) {
+          mind.emotionsAmortization[emotion] = Math.ceil(mind.emotionWeights[emotion]*2/3);
           mind.emotionWeights[emotion] -= Math.ceil(mind.emotionWeights[emotion]*2/3);
         } else {
+          mind.emotionsAmortization[emotion] = Math.ceil(mind.emotionWeights[emotion]/3);
           mind.emotionWeights[emotion] -= Math.ceil(mind.emotionWeights[emotion]/3);
         }
       } else {
+        mind.emotionsAmortization[emotion] = mind.emotionWeights[emotion];
         mind.emotionWeights[emotion] = 0;
       }
     }
@@ -36,6 +53,7 @@ class EmotionTool {
 
   public static function defineCurrentEmotion(mind:HeroMind) {
     var maxValue:Float = 0;
+    mind.lastEmotion = mind.currentEmotion;
 
     mind.currentEmotion = Emotion.peaceful;
     for (emotion in mind.emotionWeights.keys()) {

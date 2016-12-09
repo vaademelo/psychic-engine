@@ -14,7 +14,9 @@ import gameData.Character;
 import mission.world.Unit;
 import mission.world.WorldMap;
 
+import intelligence.HeroMind;
 import intelligence.tools.PositionTool;
+import intelligence.debug.CharMindAnalysis;
 
 class CharHud extends FlxSpriteGroup {
 
@@ -34,8 +36,9 @@ class CharHud extends FlxSpriteGroup {
   private var killsLbl:FlxText;
 
   public var continueBtn:FlxButton;
+  public var CharMindAnalysis:CharMindAnalysis;
 
-  public function new(xx:Int, yy:Int, unit:Unit, worldMap:WorldMap) {
+  public function new(xx:Int, yy:Int, unit:Unit, worldMap:WorldMap, debug:Bool = false) {
     super();
     this.unit = unit;
     this.worldMap = worldMap;
@@ -110,18 +113,13 @@ class CharHud extends FlxSpriteGroup {
 
     yy += Std.int(kills.height) + 5;
 
-    if (unit.mind.debugMe) {
+    if (debug) {
       continueBtn = new FlxButton(xx + 70, yy, "Continue", null);
       worldMap.cam.followUnit(unit);
+      CharMindAnalysis = new CharMindAnalysis(xx + 15, yy + 30, cast(unit.mind, HeroMind));
     } else {
       follow = new FlxButton(xx + 70, yy, "Follow", OnClickButton);
     }
-
-
-    /*follow = new FlxText(xx + 70, yy);
-    follow.size = 13;
-    follow.text = "Follow";
-    follow.color = FlxColor.BROWN;*/
 
     add(heroIcon);
     add(emotionIcon);
@@ -137,8 +135,9 @@ class CharHud extends FlxSpriteGroup {
     add(kills);
     add(killsLbl);
 
-    if (unit.mind.debugMe) {
+    if (debug) {
       add(continueBtn);
+      add(CharMindAnalysis);
     } else {
       add(follow);
     }

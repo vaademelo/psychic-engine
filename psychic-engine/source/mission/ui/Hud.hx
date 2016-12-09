@@ -35,6 +35,8 @@ class Hud extends FlxSpriteGroup {
 
     var debugAiButton = new DebugMenu(units, FlxG.width - 110, 10);
     add(debugAiButton);
+
+    FlxMouseEventManager.add(bg, null, null, null, null, false);
   }
 
   public function updateHud(worldMap:WorldMap, units:Array<Unit>) {
@@ -49,11 +51,11 @@ class Hud extends FlxSpriteGroup {
     if(Constants.debugAi && units.length == 1) {
 
       // debug hud
-      var hero = new CharHud(40, 50, units[0], worldMap);
+      var hero = new CharHud(40, 50, units[0], worldMap, true);
       heroes[units[0]] = hero;
       add(hero);
       this.continueBtn = hero.continueBtn;
-      
+
     } else {
 
       // normal hud
@@ -66,7 +68,7 @@ class Hud extends FlxSpriteGroup {
   }
 
   public function addUnitHud(worldMap:WorldMap, unit:Unit, yPos:Int):Int {
-    var hero = new CharHud(40, yPos, unit, worldMap);
+    var hero = new CharHud(40, yPos, unit, worldMap, false);
     heroes[unit] = hero;
     add(hero);
     return Std.int(hero.height) + 30;

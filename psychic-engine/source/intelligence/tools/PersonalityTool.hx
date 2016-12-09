@@ -77,7 +77,17 @@ class PersonalityTool {
       var trigger = Lambda.find(trait.effects, function (effect) {
         return effect.trigger == triggerName;
       });
-      mind.emotionWeights[value ? trigger.trueEffect : trigger.falseEffect] += weight;
+
+      var affectedEmotion = (value) ? trigger.trueEffect : trigger.falseEffect;
+      if (affectedEmotion == Emotion.peaceful) continue;
+      mind.emotionWeights[affectedEmotion] += weight;
+
+      var triggerLabel = triggerName + '[' + Std.string(value) + ']';
+      if(mind.triggersEffectOnEmotions[affectedEmotion][triggerLabel] == null) {
+        mind.triggersEffectOnEmotions[affectedEmotion][triggerLabel] = weight;
+      } else {
+        mind.triggersEffectOnEmotions[affectedEmotion][triggerLabel] += weight;
+      }
     }
   }
 

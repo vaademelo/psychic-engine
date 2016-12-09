@@ -33,6 +33,10 @@ class HeroMind implements Mind {
   public var friendDiedLastTurn:Bool = false;
 
   public var analyzeWeights:Map<String, Map<String, Float>>;
+  public var lastEmotion:Emotion;
+  public var emotionsLastTurn:Map<Emotion, Float>;
+  public var emotionsAmortization:Map<Emotion, Float>;
+  public var triggersEffectOnEmotions:Map<Emotion, Map<String, Float>>;
 
   public var debugMe:Bool = true;
 
@@ -102,7 +106,10 @@ class HeroMind implements Mind {
       tiles[key] += friendsWeights[key];
     }
 
-    if (this.debugMe && Constants.debugAi) TileWeightTool.updateHeatMap(worldMap, this, tiles);
+
+    if (this.debugMe && Constants.debugAi) {
+      TileWeightTool.updateHeatMap(worldMap, this, tiles);
+    }
     return getBestOption(tiles);
   }
 

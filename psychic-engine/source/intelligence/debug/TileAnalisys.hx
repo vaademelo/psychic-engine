@@ -68,17 +68,17 @@ class TileAnalisys extends FlxSpriteGroup {
 
     var analysisText = new FlxText(105, yy, 30);
     analysisText.size = 10;
-    labelText.alignment = FlxTextAlign.CENTER;
+    analysisText.alignment = FlxTextAlign.CENTER;
     analysisText.color = FlxColor.BLACK;
 
     var emotionText = new FlxText(140, yy, 30);
     emotionText.size = 10;
-    labelText.alignment = FlxTextAlign.CENTER;
+    emotionText.alignment = FlxTextAlign.CENTER;
     emotionText.color = FlxColor.RED;
 
     var finalText = new FlxText(175, yy, 30);
     finalText.size = 10;
-    labelText.alignment = FlxTextAlign.CENTER;
+    finalText.alignment = FlxTextAlign.CENTER;
     finalText.color = FlxColor.BLACK;
 
     add(labelText);

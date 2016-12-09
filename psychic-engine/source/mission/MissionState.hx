@@ -85,7 +85,7 @@ class MissionState extends FlxState {
     //2nd: update unit mindStatus
     unit.mind.updateStatus(worldMap);
 
-    //3nd: unit think next action
+    //3rd: unit think next action
     var action:Array<Int> = unit.mind.analyseAction(worldMap);
 
     //4rd: execute unit action or wait if on debug mode
