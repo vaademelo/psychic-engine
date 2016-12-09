@@ -27,7 +27,10 @@ class TileAnalisys extends FlxSpriteGroup {
   }
 
   public function updateValues(mind:HeroMind, i:Int, j:Int) {
-    if (firstTime) firstTimeShowingAnalisys(mind, i, j);
+    if (firstTime) {
+      firstTimeShowingAnalisys(mind, i, j);
+      firstTime = false;
+    }
     for (analysis in mind.analyzeWeights.keys()) {
       var analysisValue:Float = getValueForThisTile(mind.analyzeWeights[analysis], i, j);
       var emotionValue:Float = EmotionTool.emotionFactor(mind.unit, analysis);

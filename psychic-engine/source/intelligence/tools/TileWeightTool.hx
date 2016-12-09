@@ -29,7 +29,6 @@ class TileWeightTool {
 
   public static function updateHeatMap(worldMap:WorldMap, mind:HeroMind, tilesWeights:Map<String, Float>) {
     var index = 0;
-
     if (Constants.debugAi) {
       for (tile in  tilesWeights.keys()) {
         var parsedTile = tile.substring(1, tile.length - 1).split(',');
@@ -44,9 +43,6 @@ class TileWeightTool {
         index ++;
       }
     }
-    // for (i in index...worldMap.heatMap.members.length) {
-    //   worldMap.heatMap.members[i].kill();
-    // }
   }
 
   public static function cleanHeatMap(worldMap:WorldMap) {

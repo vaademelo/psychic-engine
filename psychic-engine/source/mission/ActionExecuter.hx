@@ -11,7 +11,6 @@ import mission.world.Collectable;
 import mission.world.WorldMap;
 
 import intelligence.tools.PositionTool;
-import intelligence.tools.TileWeightTool;
 import mission.BattleExecuter;
 
 class ActionExecuter {
@@ -132,7 +131,6 @@ class ActionExecuter {
          if(_unit.emotionFX != null) _unit.emotionFX.kill();
     }
     _worldMap.hud.updateUnitHud(_unit);
-    if(_unit.character.team == TeamSide.heroes && _unit.mind.debugMe) TileWeightTool.cleanHeatMap(_worldMap);
     _callBack(_list);
     return true;
   }

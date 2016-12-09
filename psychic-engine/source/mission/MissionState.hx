@@ -12,8 +12,9 @@ import utils.Constants;
 
 import mission.ui.Camera;
 
-import intelligence.tools.GoalTool;
 import intelligence.debug.TileWeight;
+import intelligence.tools.GoalTool;
+import intelligence.tools.TileWeightTool;
 
 import mission.world.Unit;
 import mission.world.WorldMap;
@@ -44,8 +45,8 @@ class MissionState extends FlxState {
     add(worldMap.heroes);
     add(worldMap.decorativeObjects);
     add(worldMap.effects);
-    add(worldMap.heatMap);
     add(worldMap.emotions);
+    add(worldMap.heatMap);
     add(worldMap.hud);
     add(worldMap.tileAnalisys);
     add(cam);
@@ -91,6 +92,7 @@ class MissionState extends FlxState {
     if (Constants.debugAi && unit.mind.debugMe) {
       worldMap.hud.updateHud(worldMap, [unit]);
       function nextTurn(sprite:FlxSprite) {
+        TileWeightTool.cleanHeatMap(worldMap);
         ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
         FlxMouseEventManager.remove(worldMap.hud.continueBtn);
       }
