@@ -19,6 +19,8 @@ interface Mind {
   public var enemyDiedLastTurn:Bool = false;
   public var friendDiedLastTurn:Bool = false;
 
+  public var debugMe:Bool = false;
+
   public function analyseAction(worldMap:WorldMap):Array<Int>;
   public function updateStatus(worldMap:WorldMap):Void;
 }

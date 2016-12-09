@@ -30,6 +30,8 @@ class MonsterMind implements Mind {
   public var goldsInRange:Array<Collectable>;
   public var treasuresInRange:Array<Collectable>;
 
+  public var debugMe:Bool = false;
+
   public function new(unit:Unit) {
       this.unit = unit;
   }

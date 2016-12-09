@@ -25,13 +25,15 @@ class CharHud extends FlxSpriteGroup {
   private var emotionIcon:FlxSprite;
   private var name:FlxText;
   private var action:FlxText;
-  private var follow:FlxText;
+  private var follow:FlxButton;
   private var hearts:FlxSpriteGroup;
   private var injuries:FlxSpriteGroup;
 
   private var goldLbl:FlxText;
   private var treasureLbl:FlxText;
   private var killsLbl:FlxText;
+
+  public var continueBtn:FlxButton;
 
   public function new(xx:Int, yy:Int, unit:Unit, worldMap:WorldMap) {
     super();
@@ -108,7 +110,12 @@ class CharHud extends FlxSpriteGroup {
 
     yy += Std.int(kills.height) + 5;
 
-    var follow:FlxButton = new FlxButton(xx + 70, yy, "Follow", OnClickButton);
+    if (unit.mind.debugMe) {
+      continueBtn = new FlxButton(xx + 70, yy, "Continue", null);
+      worldMap.cam.followUnit(unit);
+    } else {
+      follow = new FlxButton(xx + 70, yy, "Follow", OnClickButton);
+    }
 
 
     /*follow = new FlxText(xx + 70, yy);
@@ -130,7 +137,11 @@ class CharHud extends FlxSpriteGroup {
     add(kills);
     add(killsLbl);
 
-    add(follow);
+    if (unit.mind.debugMe) {
+      add(continueBtn);
+    } else {
+      add(follow);
+    }
   }
 
   function OnClickButton():Void {

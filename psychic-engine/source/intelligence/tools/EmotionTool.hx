@@ -59,4 +59,11 @@ class EmotionTool {
     }
     return factor;
   }
+
+  public static function applyEmotion(unit:Unit, criteria:String, tileWeights:Map<String, Float>) {
+    for (key in tileWeights.keys()) {
+      tileWeights[key] *= emotionFactor(unit, criteria);
+    }
+    return tileWeights;
+  }
 }

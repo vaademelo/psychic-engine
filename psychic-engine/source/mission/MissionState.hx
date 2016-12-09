@@ -5,8 +5,10 @@ import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import flixel.input.mouse.FlxMouseEventManager;
 
 import utils.MapMaker;
+import utils.Constants;
 
 import mission.ui.Camera;
 
@@ -45,6 +47,7 @@ class MissionState extends FlxState {
     add(worldMap.heatMap);
     add(worldMap.emotions);
     add(worldMap.hud);
+    add(worldMap.tileAnalisys);
     add(cam);
 
     for (hero in worldMap.heroes) {
@@ -64,21 +67,42 @@ class MissionState extends FlxState {
   }
 
   public function unitAction(list:Array<Unit>):Bool {
+    // verify if mission ended
     if (worldMap.heroes.countLiving() <= 0) return endMission();
+
+    // get next unit from list
     turn = (turn + 1) % list.length;
     var unit = list.shift();
+
+    //remove dead units from list
     if (!unit.alive) return unitAction(list);
     list.push(unit);
+
     //1st: heal unit if needed
     unit.healIfNeeded(worldMap);
+
     //2nd: update unit mindStatus
     unit.mind.updateStatus(worldMap);
+
     //3nd: unit think next action
     var action:Array<Int> = unit.mind.analyseAction(worldMap);
-    //4rd: execute unit action
-    ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
+
+    //4rd: execute unit action or wait if on debug mode
+    if (Constants.debugAi && unit.mind.debugMe) {
+      worldMap.hud.updateHud(worldMap, [unit]);
+      function nextTurn(sprite:FlxSprite) {
+        ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
+        FlxMouseEventManager.remove(worldMap.hud.continueBtn);
+      }
+      FlxMouseEventManager.add(worldMap.hud.continueBtn, null, nextTurn, null, null);
+    } else {
+      if (!Constants.debugAi) worldMap.hud.updateHud(worldMap, worldMap.heroes.members);
+      ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
+    }
+
     return true;
   }
+
 
   public function endMission():Bool {
     FlxG.switchState(new MissionReportState(worldMap.heroes.members));

@@ -14,8 +14,9 @@ import utils.MapMaker;
 import gameData.Character;
 import gameData.UserData;
 
-import intelligence.debug.TileWeight;
 import intelligence.tools.PositionTool;
+import intelligence.debug.TileWeight;
+import intelligence.debug.TileAnalisys;
 
 import mission.world.Unit;
 import mission.world.Collectable;
@@ -40,6 +41,7 @@ class WorldMap extends FlxTilemap {
 
   public var decorativeObjects:FlxTypedGroup<DecorativeObject>;
 
+  public var tileAnalisys:TileAnalisys;
   public var hud:Hud;
 
   public var homeTile:Array<Int> = [0, 0];
@@ -154,6 +156,7 @@ class WorldMap extends FlxTilemap {
     }
 
     hud = new Hud(this, this.heroes.members);
+    tileAnalisys = new TileAnalisys();
   }
 
   public function getPath(start:Array<Int>, destination:Array<Int>):Array<FlxPoint> {

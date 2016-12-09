@@ -1,9 +1,11 @@
 package mission.ui;
 
-import flixel.group.FlxSpriteGroup;
-import flixel.group.FlxGroup;
 import flixel.FlxSprite;
+import flixel.text.FlxText;
+import flixel.group.FlxGroup;
+import flixel.group.FlxSpriteGroup;
 import flixel.FlxG;
+import flixel.input.mouse.FlxMouseEventManager;
 
 import utils.Constants;
 
@@ -11,11 +13,12 @@ import mission.world.Unit;
 import mission.world.WorldMap;
 
 import mission.ui.CharHud;
-import mission.ui.DebugButton;
+import mission.ui.DebugMenu;
 
 class Hud extends FlxSpriteGroup {
 
   private var heroes:Map<Unit, CharHud>;
+  public var continueBtn:FlxSprite;
 
   public function new(worldMap:WorldMap, units:Array<Unit>) {
     super();
@@ -28,17 +31,41 @@ class Hud extends FlxSpriteGroup {
     bg.centerOrigin();
     add(bg);
 
-    var yy:Int = 50;
-    heroes = new Map<Unit, CharHud>();
-    for (unit in units) {
-      yy += addUnitHud(worldMap, unit, yy);
-    }
+    updateHud(worldMap, units);
 
-    var debugAiButton = new DebugButton(FlxG.width - 110, 10);
+    var debugAiButton = new DebugMenu(units, FlxG.width - 110, 10);
     add(debugAiButton);
   }
 
-  public function addUnitHud(worldMap:WorldMap, unit:Unit, yPos:Int) {
+  public function updateHud(worldMap:WorldMap, units:Array<Unit>) {
+    //clean info if have any
+    if (heroes != null) {
+      for (key in heroes.keys()) {
+        remove(heroes[key]);
+      }
+    }
+    heroes = new Map<Unit, CharHud>();
+
+    if(Constants.debugAi && units.length == 1) {
+
+      // debug hud
+      var hero = new CharHud(40, 50, units[0], worldMap);
+      heroes[units[0]] = hero;
+      add(hero);
+      this.continueBtn = hero.continueBtn;
+      
+    } else {
+
+      // normal hud
+      var yy:Int = 50;
+      for (unit in units) {
+        yy += addUnitHud(worldMap, unit, yy);
+      }
+
+    }
+  }
+
+  public function addUnitHud(worldMap:WorldMap, unit:Unit, yPos:Int):Int {
     var hero = new CharHud(40, yPos, unit, worldMap);
     heroes[unit] = hero;
     add(hero);
@@ -50,6 +77,6 @@ class Hud extends FlxSpriteGroup {
     if (unit.hp <= 0) {
       remove(heroes[unit]);
     }
-    heroes[unit].updateCharacterHud();
+    if (heroes[unit] != null) heroes[unit].updateCharacterHud();
   }
 }

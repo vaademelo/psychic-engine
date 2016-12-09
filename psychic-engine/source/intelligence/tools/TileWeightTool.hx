@@ -1,10 +1,12 @@
 package intelligence.tools;
 
+import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.util.typeLimit.OneOfTwo;
 
 import mission.world.WorldMap;
 
+import intelligence.HeroMind;
 import intelligence.tools.PositionTool;
 import intelligence.debug.TileWeight;
 
@@ -25,7 +27,7 @@ class TileWeightTool {
     return tilesWeights;
   }
 
-  public static function updateHeatMap(worldMap:WorldMap, tilesWeights:Map<String, Float>) {
+  public static function updateHeatMap(worldMap:WorldMap, mind:HeroMind, tilesWeights:Map<String, Float>) {
     var index = 0;
 
     if (Constants.debugAi) {
@@ -33,16 +35,22 @@ class TileWeightTool {
         var parsedTile = tile.substring(1, tile.length - 1).split(',');
         if (index < worldMap.heatMap.members.length) {
           worldMap.heatMap.members[index].revive();
-          worldMap.heatMap.members[index].updateTileWeight(Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
+          worldMap.heatMap.members[index].updateTileWeight(mind, Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
         } else {
-          var tileWeight = new TileWeight(Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
+          var tileWeight = new TileWeight(worldMap, mind, Std.string(round(tilesWeights[tile])), Std.parseInt(parsedTile[0]), Std.parseInt(parsedTile[1]));
           worldMap.heatMap.add(tileWeight);
         }
 
         index ++;
       }
     }
-    for (i in index...worldMap.heatMap.members.length) {
+    // for (i in index...worldMap.heatMap.members.length) {
+    //   worldMap.heatMap.members[i].kill();
+    // }
+  }
+
+  public static function cleanHeatMap(worldMap:WorldMap) {
+    for (i in 0...worldMap.heatMap.members.length) {
       worldMap.heatMap.members[i].kill();
     }
   }

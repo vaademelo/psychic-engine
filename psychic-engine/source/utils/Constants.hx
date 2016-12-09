@@ -117,7 +117,7 @@ class Constants {
   public static var MAX_VISION = 6;
   public static var MAX_ATACKRANGE = 1;
 
-  public static var debugAi:Bool = true;
+  public static var debugAi:Bool = false;
 
   public static function setup() {
     setupEmotion();
