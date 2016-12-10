@@ -126,7 +126,7 @@ class HeroMind implements Mind {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
     if (destination == null) return tilesWeights;
-    if (worldMap.isTheSameTile(destination, worldMap.homeTile) || (unit.character.goalChar != null)) {
+    if (worldMap.isTheSameTile(destination, WorldMap.homeTile) || (unit.character.goalChar != null)) {
       tilesWeights = weightsForDistance(worldMap);
     } else {
       var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
@@ -155,7 +155,7 @@ class HeroMind implements Mind {
   private function weightsForDistance(worldMap:WorldMap):Map<String, Float> {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
-    var wantToGoBackFactor = worldMap.isTheSameTile(destination, worldMap.homeTile) ? 3 : 1;
+    var wantToGoBackFactor = worldMap.isTheSameTile(destination, WorldMap.homeTile) ? 3 : 1;
     if (destination == null) return tilesWeights;
     var flag = false;
     trace('if it crashes...' + unit.character.goalTile);

@@ -18,7 +18,7 @@ class GoalTool {
     var shouldReturn = shouldReturnAnalisys(worldMap, unit);
 
     if (shouldReturn) {
-      unit.character.goalTile = worldMap.homeTile;
+      unit.character.goalTile = WorldMap.homeTile;
       unit.character.goalChar = null;
     } else {
       if(unit.character.goalChar != null) {
@@ -32,7 +32,7 @@ class GoalTool {
   }
 
   public static function shouldReturnAnalisys(worldMap:WorldMap, unit:Unit):Bool {
-    if (unit.character.goalTile != null && worldMap.isTheSameTile(unit.character.goalTile, worldMap.homeTile)) return true;
+    if (unit.character.goalTile != null && worldMap.isTheSameTile(unit.character.goalTile, WorldMap.homeTile)) return true;
     var goalCompletion = calculateGoalCompletion(worldMap, unit);
     unit.goalCompletionRate = goalCompletion;
     var lifeLeft:Float = unit.hp / unit.character.hpMax;

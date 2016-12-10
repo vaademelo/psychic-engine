@@ -33,8 +33,8 @@ class PositionTool {
   }
 
   public static function getZoneForTile(tile:Array<Int>):Array<Int> {
-    var i = Math.floor(tile[0]/Constants.ZONE_SIZE);
-    var j = Math.floor(tile[1]/Constants.ZONE_SIZE);
+    var i = Math.floor((tile[0] - WorldMap.homeTile[0])/Constants.ZONE_SIZE);
+    var j = Math.floor((tile[1] - WorldMap.homeTile[1])/Constants.ZONE_SIZE);
     return [i, j];
   }
 

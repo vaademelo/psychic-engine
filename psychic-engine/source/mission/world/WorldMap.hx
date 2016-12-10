@@ -44,7 +44,7 @@ class WorldMap extends FlxTilemap {
   public var tileAnalisys:TileAnalisys;
   public var hud:Hud;
 
-  public var homeTile:Array<Int> = [0, 0];
+  public static var homeTile:Array<Int> = [0, 0];
 
   public function new(tiles:Array<Array<Int>>, camera:Camera) {
     super();
@@ -144,11 +144,11 @@ class WorldMap extends FlxTilemap {
 
     var i = 0;
     UserData.loadUserData();
-    var startTile = getStartTile(tiles);
+    WorldMap.homeTile = getStartTile(tiles);
     for(char in UserData.heroes) {
       if (char.goalChar == null && char.goalTile == null) continue;
-      var line = startTile[0];
-      var collumn = startTile[1];
+      var line = WorldMap.homeTile[0];
+      var collumn = WorldMap.homeTile[1];
       var hero = new Unit(char, line, collumn);
       heroes.add(hero);
       this.setTile(collumn, line, 5);
@@ -174,7 +174,7 @@ class WorldMap extends FlxTilemap {
 	}
 
   public function setTileAsWalkable(i:Int, j:Int, walkable = true) {
-		var value = (walkable) ? 0 : isTheSameTile([i, j], this.homeTile) ? 2 : 5;
+		var value = (walkable) ? 0 : isTheSameTile([i, j], WorldMap.homeTile) ? 2 : 5;
 		this.setTile(j, i, value, false);
 	}
 
@@ -280,6 +280,15 @@ class WorldMap extends FlxTilemap {
       }
     }
     return [];
+  }
+
+  public function fixHeroesGoals() {
+    for (hero in heroes.members) {
+      if (hero.character.goalTile != null) {
+        hero.character.goalTile[0] += WorldMap.homeTile[0];
+        hero.character.goalTile[1] += WorldMap.homeTile[1];
+      }
+    }
   }
 
 }

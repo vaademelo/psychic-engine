@@ -59,6 +59,8 @@ class MissionState extends FlxState {
       }
     }
 
+    worldMap.fixHeroesGoals();
+
     startNewTurn();
   }
 

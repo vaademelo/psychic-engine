@@ -124,8 +124,8 @@ class ActionExecuter {
 
   public static function nextUnit():Bool {
     if(_unit.character.team == TeamSide.heroes &&
-       _worldMap.isTheSameTile(_unit.character.goalTile, _worldMap.homeTile) &&
-       _worldMap.isTheSameTile(_unit.getCoordinate(), _worldMap.homeTile)) {
+       _worldMap.isTheSameTile(_unit.character.goalTile, WorldMap.homeTile) &&
+       _worldMap.isTheSameTile(_unit.getCoordinate(), WorldMap.homeTile)) {
          _unit.gotBackSafelly = true;
          _unit.kill();
          if(_unit.emotionFX != null) _unit.emotionFX.kill();

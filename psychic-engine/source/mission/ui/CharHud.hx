@@ -178,7 +178,7 @@ class CharHud extends FlxSpriteGroup {
 
   private function getCharGoalText():String {
     if (unit.character.goalChar != null) return "protecting " + unit.character.goalChar.name;
-    if (unit.character.goalTile == worldMap.homeTile) return "going home";
+    if (unit.character.goalTile == WorldMap.homeTile) return "going home";
     var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
     var desiredZone:Array<Int> = PositionTool.getZoneForTile(unit.character.goalTile);
     if(worldMap.isTheSameTile(currentZone, desiredZone)) {
