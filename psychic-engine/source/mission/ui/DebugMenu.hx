@@ -9,16 +9,20 @@ import flixel.group.FlxSpriteGroup;
 import flixel.input.mouse.FlxMouseEventManager;
 
 import mission.world.Unit;
+import mission.world.WorldMap;
 import utils.Constants;
 
 class DebugMenu extends FlxSpriteGroup {
 
   private var button:FlxSprite;
 
+  private var worldMap:WorldMap;
+
   private var options:FlxSpriteGroup;
 
-  public function new(units:Array<Unit>, xx:Float, yy:Float) {
+  public function new(worldMap:WorldMap, units:Array<Unit>, xx:Float, yy:Float) {
     super(xx, yy);
+    this.worldMap = worldMap;
 
     var bg = new FlxSprite();
     bg.makeGraphic(100, 26, FlxColor.WHITE);
@@ -103,6 +107,7 @@ class DebugMenu extends FlxSpriteGroup {
   }
   function buttonOnMouseUp(sprite:FlxSprite) {
     Constants.debugAi = !Constants.debugAi;
+    if (!Constants.debugAi) worldMap.hud.updateHud(worldMap, worldMap.heroes.members);
     updateState(true);
     options.visible = Constants.debugAi;
   }

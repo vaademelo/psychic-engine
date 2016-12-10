@@ -33,7 +33,7 @@ class Hud extends FlxSpriteGroup {
 
     updateHud(worldMap, units);
 
-    var debugAiButton = new DebugMenu(units, FlxG.width - 110, 10);
+    var debugAiButton = new DebugMenu(worldMap, units, FlxG.width - 110, 10);
     add(debugAiButton);
 
     FlxMouseEventManager.add(bg, null, null, null, null, false);

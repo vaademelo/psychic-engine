@@ -157,7 +157,10 @@ class HeroMind implements Mind {
     var destination = unit.character.goalTile;
     var wantToGoBackFactor = worldMap.isTheSameTile(destination, worldMap.homeTile) ? 3 : 1;
     if (destination == null) return tilesWeights;
-    if (unit.character.goalChar != null) {
+    var flag = false;
+    trace('if it crashes...' + unit.character.goalTile);
+    if (!worldMap.isTileWalkable(destination[0], destination[1])) {
+      flag = true;
       worldMap.setTileAsWalkable(destination[0], destination[1], true);
     }
     var maxDistance = 1;
@@ -168,6 +171,7 @@ class HeroMind implements Mind {
         maxDistance = distance;
       }
     }
+    trace('target: ' + unit.character.goalTile + ' maxDistance:' + maxDistance);
     for (key in tilesWeights.keys()) {
       if (tilesWeights[key] < 0) {
         if (worldMap.getTileContentKind(tileStringToArray(key)) == TileContentKind.hero) {
@@ -179,9 +183,7 @@ class HeroMind implements Mind {
         tilesWeights[key] = (1 - tilesWeights[key]/maxDistance) * wantToGoBackFactor;
       }
     }
-    if (unit.character.goalChar != null) {
-      worldMap.setTileAsWalkable(destination[0], destination[1], false);
-    }
+    if (flag) worldMap.setTileAsWalkable(destination[0], destination[1], false);
 
     return  tilesWeights;
   }
@@ -292,15 +294,18 @@ class HeroMind implements Mind {
     analyzeWeights['protection'] = protectionWeights;
     protectionWeights = EmotionTool.applyEmotion(unit, 'protection', protectionWeights);
     if (unit.goalUnit != null) {
-      var friend = unit;
-      for (opponent in opponentsInRange) {
-        var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
+      for (friend in friendsInRange) {
+        if (friend != unit.goalUnit) continue;
+        for (opponent in opponentsInRange) {
+          var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
 
-        if (distanceFriendOpponent <= opponent.character.vision) {
-          var opponentTile = opponent.getCoordinate().toString();
-          var protectObjective = (unit.goalUnit == friend) ? 3 : 1;
-          var protectionValue = (1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent) * protectObjective;
-          protectionWeights[opponentTile] += - protectionValue + (protectionValue * EmotionTool.emotionFactor(unit, 'lootOnZone'));
+          if (distanceFriendOpponent <= opponent.character.vision) {
+            var opponentTile = opponent.getCoordinate().toString();
+            if (protectionWeights[opponentTile] == null) continue;
+            var protectObjective = (unit.goalUnit == friend) ? 3 : 1;
+            var protectionValue = (1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent) * protectObjective;
+            protectionWeights[opponentTile] += protectionValue * (EmotionTool.emotionFactor(unit, 'lootOnZone') - 1);
+          }
         }
       }
     }

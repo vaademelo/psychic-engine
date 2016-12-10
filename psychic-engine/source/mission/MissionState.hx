@@ -47,8 +47,8 @@ class MissionState extends FlxState {
     add(worldMap.effects);
     add(worldMap.emotions);
     add(worldMap.heatMap);
-    add(worldMap.hud);
     add(worldMap.tileAnalisys);
+    add(worldMap.hud);
     add(cam);
 
     for (hero in worldMap.heroes) {
@@ -98,7 +98,6 @@ class MissionState extends FlxState {
       }
       FlxMouseEventManager.add(worldMap.hud.continueBtn, null, nextTurn, null, null);
     } else {
-      if (!Constants.debugAi) worldMap.hud.updateHud(worldMap, worldMap.heroes.members);
       ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
     }
 

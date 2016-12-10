@@ -115,7 +115,6 @@ class CharHud extends FlxSpriteGroup {
 
     if (debug) {
       continueBtn = new FlxButton(xx + 70, yy, "Continue", null);
-      worldMap.cam.followUnit(unit);
       CharMindAnalysis = new CharMindAnalysis(xx + 15, yy + 30, cast(unit.mind, HeroMind));
     } else {
       follow = new FlxButton(xx + 70, yy, "Follow", OnClickButton);

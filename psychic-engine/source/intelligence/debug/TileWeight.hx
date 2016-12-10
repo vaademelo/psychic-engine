@@ -28,7 +28,7 @@ class TileWeight extends FlxSpriteGroup {
     this.y = (i + 1.0) * Constants.TILE_SIZE - (Constants.TILE_SIZE);
 
     var hoverArea = new FlxSprite();
-    hoverArea.makeGraphic(Constants.TILE_SIZE, Constants.TILE_SIZE, 0x01000000);
+    hoverArea.makeGraphic(Constants.TILE_SIZE, Constants.TILE_SIZE, 0x30FFFFFF);//0x01000000);
     add(hoverArea);
 
     label = new FlxText();
