@@ -32,9 +32,9 @@ class TileAnalisys extends FlxSpriteGroup {
       firstTime = false;
     }
     for (analysis in mind.analyzeWeights.keys()) {
-      var analysisValue:Float = getValueForThisTile(mind.analyzeWeights[analysis], i, j);
       var emotionValue:Float = EmotionTool.emotionFactor(mind.unit, analysis);
-      var finalValue:Float = round(analysisValue * emotionValue);
+      var finalValue:Float = getValueForThisTile(mind.analyzeWeights[analysis], i, j);
+      var analysisValue:Float = round(finalValue / emotionValue);
       analysisTexts[analysis].text = Std.string(analysisValue);
       emotionTexts[analysis].text = Std.string(emotionValue);
       finalTexts[analysis].text = Std.string(finalValue);

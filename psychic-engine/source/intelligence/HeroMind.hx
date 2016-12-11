@@ -159,29 +159,32 @@ class HeroMind implements Mind {
     var wantToGoBackFactor = worldMap.isTheSameTile(destination, WorldMap.homeTile) ? 3 : 1;
     if (destination == null) return tilesWeights;
     var flag = false;
-    trace('if it crashes...' + unit.character.goalTile);
     if (!worldMap.isTileWalkable(destination[0], destination[1])) {
       flag = true;
       worldMap.setTileAsWalkable(destination[0], destination[1], true);
     }
-    var maxDistance = 1;
+    var minDistance = 300;
+    var maxDistance = 0;
     for (key in tilesWeights.keys()) {
       var distance = PositionTool.getDistance(worldMap, tileStringToArray(key), destination);
       tilesWeights[key] = distance;
+      if (distance == -1) continue;
       if (distance > maxDistance) {
         maxDistance = distance;
       }
+      if (distance < minDistance) {
+        minDistance = distance;
+      }
     }
-    trace('target: ' + unit.character.goalTile + ' maxDistance:' + maxDistance);
     for (key in tilesWeights.keys()) {
-      if (tilesWeights[key] < 0) {
-        if (worldMap.getTileContentKind(tileStringToArray(key)) == TileContentKind.hero) {
-          tilesWeights[key] = 0;
-        } else {
-          tilesWeights.remove(key);
-        }
+      if (tilesWeights[key] == -1) {
+        tilesWeights[key] = 0;
+        continue;
+      }
+      if (maxDistance <= minDistance) {
+        tilesWeights[key] = 0.5;
       } else {
-        tilesWeights[key] = (1 - tilesWeights[key]/maxDistance) * wantToGoBackFactor;
+        tilesWeights[key] = (1 - ((tilesWeights[key] - minDistance)/(maxDistance - minDistance))) * wantToGoBackFactor;
       }
     }
     if (flag) worldMap.setTileAsWalkable(destination[0], destination[1], false);
