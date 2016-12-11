@@ -50,4 +50,8 @@ class PositionTool {
     return path.length - 1;
   }
 
+  public static function getDumbDistance(start:Array<Int>, destination:Array<Int>):Int {
+    return Math.round(Math.abs(start[0] - destination[0]) + Math.abs(start[1] - destination[1]));
+  }
+
 }

@@ -201,19 +201,16 @@ class HeroMind implements Mind {
       var opponentTile = opponent.getCoordinate().toString();
       var chanceOfWinning = BattleTool.chanceOfWinning(opponent, unit);
 
-      atackWeights[opponentTile] = chanceOfWinning;
+      atackWeights[opponentTile] = chanceOfWinning * 1.3;
 
-      if (chanceOfWinning < 0) {
-        var opponentTilesInRange = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
-
-        for (tile in opponentTilesInRange) {
-          if (PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
-          if (worldMap.getTileContentKind(tile) == TileContentKind.monster) continue;
-          if (dangerWeights[tile.toString()] == null) {
-            dangerWeights[tile.toString()] = chanceOfWinning;
-          } else {
-            dangerWeights[tile.toString()] += chanceOfWinning;
-          }
+      var opponentTilesInRange = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
+      for (tile in opponentTilesInRange) {
+        var distance = PositionTool.getDumbDistance(tile, unit.getCoordinate());
+        if (distance > unit.character.vision || worldMap.isTheSameTile(tile, opponent.getCoordinate())) continue;
+        if (dangerWeights[tile.toString()] == null) {
+          dangerWeights[tile.toString()] = (chanceOfWinning - 1)/3;
+        } else {
+          dangerWeights[tile.toString()] += (chanceOfWinning - 1)/3;
         }
       }
     }
@@ -265,12 +262,26 @@ class HeroMind implements Mind {
     var opponentTiles = new Array<Array<Int>>();
     for (friend in friendsInRange) {
       if (friend == unit) continue;
-      for (opponent in opponentsInRange) {
-        var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
 
-        if (distanceFriendOpponent <= opponent.character.vision) {
+      var friendshipFactor = (unit.character.relationList[friend.character] - .25) * 0.25;
+      var friendTilesInRange = PositionTool.getValidTilesInRange(worldMap, friend.getCoordinate(), friend.character.movement);
+
+      for (tile in friendTilesInRange) {
+        if (PositionTool.getDumbDistance(tile, unit.getCoordinate()) > unit.character.vision) continue;
+        if (friendshipWeights[tile.toString()] == null) {
+          friendshipWeights[tile.toString()] = friendshipFactor;
+        } else {
+          friendshipWeights[tile.toString()] += friendshipFactor;
+        }
+      }
+
+      for (opponent in opponentsInRange) {
+        var distanceFriendOpponent = PositionTool.getDumbDistance(opponent.getCoordinate(), friend.getCoordinate());
+
+        if (distanceFriendOpponent <= opponent.character.movement + opponent.character.atackRange) {
           var protectObjective = (unit.goalUnit == friend) ? 3 : 1;
-          var protectionValue = (1 + BattleTool.chanceOfWinning(opponent, friend) / distanceFriendOpponent) * protectObjective;
+          var objectivePlus = (unit.goalUnit == friend) ? friendshipFactor + 0.5 : friendshipFactor;
+          var protectionValue = ((objectivePlus + BattleTool.chanceOfWinning(opponent, unit) - BattleTool.chanceOfWinning(opponent, friend)) / 2) * protectObjective;
           var opponentTile = opponent.getCoordinate().toString();
           if (protectionWeights[opponentTile] == null) {
             protectionWeights[opponentTile] = protectionValue;
@@ -280,17 +291,6 @@ class HeroMind implements Mind {
         }
       }
 
-      var friendshipFactor = (unit.character.relationList[friend.character] - 3) * 0.2;
-      var friendTilesInRange = PositionTool.getValidTilesInRange(worldMap, friend.getCoordinate(), friend.character.movement);
-
-      for (tile in friendTilesInRange) {
-        if (PositionTool.getDistance(worldMap, tile, unit.getCoordinate()) > unit.character.vision) continue;
-        if (friendshipWeights[tile.toString()] == null) {
-          friendshipWeights[tile.toString()] = friendshipFactor;
-        } else {
-          friendshipWeights[tile.toString()] += friendshipFactor;
-        }
-      }
     }
 
     analyzeWeights['friendship'] = friendshipWeights;

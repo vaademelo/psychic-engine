@@ -97,6 +97,16 @@ class ActionExecuter {
       var targetUnit:Unit = cast(_targetUnit, Unit);
       return atackAction(targetUnit, nextUnit);
     } else {
+      var tilesInRange = PositionTool.getValidTilesInRange(_worldMap, _unit.getCoordinate(), _unit.character.atackRange);
+      for (tile in tilesInRange) {
+        if (tile == _unit.getCoordinate()) continue;
+        var tileUnit:Unit = _worldMap.getTileUnit(tile);
+        var opponentTeam = (_unit.character.team == TeamSide.heroes) ? TeamSide.monsters : TeamSide.heroes;
+        if (tileUnit != null && tileUnit.character.team == opponentTeam) {
+          _targetUnit = tileUnit;
+          return atackAction(tileUnit, nextUnit);
+        }
+      }
       return nextUnit();
     }
   }
