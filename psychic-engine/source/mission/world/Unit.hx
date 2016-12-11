@@ -1,5 +1,7 @@
 package mission.world;
 
+import Random;
+
 import mission.world.WorldMap;
 import mission.world.WorldObject;
 import utils.Constants;
@@ -31,6 +33,10 @@ class Unit extends WorldObject {
 
   public var goalUnit:Unit;
   public var goalCompletionRate:Float = 0;
+
+  public var accuracyPenalty:Float = 0;
+  public var critAccuracyPenalty:Float = 0;
+  public var visionPenalty:Int = 0;
 
   public function new(character:Character, i:Int, j:Int) {
     super(i,j);
@@ -68,7 +74,22 @@ class Unit extends WorldObject {
 
   public function applyInjuryEffect() {
     //TODO: Define injury effects
-    this.recoverHealthEveryXTurns ++; //TEMPORARY SOLUTION
+    var rnd = Random.int(0,3);
+    switch rnd {
+      case 0:
+        this.recoverHealthEveryXTurns ++;
+      case 1:
+        this.accuracyPenalty += .05;
+      case 2:
+        this.critAccuracyPenalty += .1;
+      case 3:
+        if (this.character.vision > this.visionPenalty + 1) {
+          this.visionPenalty ++;
+        } else {
+          this.recoverHealthEveryXTurns ++;
+        }
+    }
+
     injuriesCount ++;
   }
 
@@ -78,6 +99,10 @@ class Unit extends WorldObject {
 
   public function giveTreasure(collectable:Collectable) {
     this.treasureCollected.push(collectable);
+  }
+
+  public function getUnitVision() {
+    return this.character.vision - this.visionPenalty;
   }
 
 }

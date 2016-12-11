@@ -8,6 +8,7 @@ import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxCamera;
+import flixel.input.mouse.FlxMouseEventManager;
 
 import gameData.Character;
 
@@ -30,6 +31,10 @@ class CharHud extends FlxSpriteGroup {
   private var follow:FlxButton;
   private var hearts:FlxSpriteGroup;
   private var injuries:FlxSpriteGroup;
+
+  private var hurtMarker:FlxSpriteGroup;
+  private var hurtToggle:FlxSpriteGroup;
+  private var hurtImage:FlxSprite;
 
   private var goldLbl:FlxText;
   private var treasureLbl:FlxText;
@@ -60,35 +65,43 @@ class CharHud extends FlxSpriteGroup {
     action.color = FlxColor.GRAY;
 
     yy += Std.int(heroIcon.height) + 5;
-
+    var xxx = 0;
 
     hearts = new FlxSpriteGroup(xx, yy);
     var nHearts:Int = unit.character.hpMax;
     for (i in 0 ... nHearts) {
-      var heart:FlxSprite = new FlxSprite(i * 23, 0);
+      var heart:FlxSprite = new FlxSprite(xxx, 0);
       heart.loadGraphic("assets/images/hud/heart.png", true, 18, 18);
       heart.animation.add("full", [0]);
       heart.animation.add("empty", [1]);
       heart.animation.play("full");
       heart.animation.stop();
       hearts.add(heart);
+      xxx += 18;
     }
 
-    yy += Std.int(hearts.height) + 5;
-
-    /*injuries = new FlxSpriteGroup(xx, yy);
+    xxx += 5;
+    injuries = new FlxSpriteGroup(xx, yy);
     var nInjuries:Int = unit.character.injuryMax;
     for (i in 0 ... nInjuries) {
-      var injury:FlxSprite = new FlxSprite(i * 23, 0);
-      injury.loadGraphic("assets/images/hud/injury.png", true, 28, 18);
+      var injury:FlxSprite = new FlxSprite(xxx, 0);
+      injury.loadGraphic("assets/images/hud/injury.png", true, 18, 18);
       injury.animation.add("full", [0]);
       injury.animation.add("empty", [1]);
-      injury.animation.play("empty");
+      injury.animation.play("full");
       injury.animation.stop();
       injuries.add(injury);
+      xxx += 18;
     }
 
-    yy += Std.int(injuries.height) + 5;*/
+    hurtMarker = new FlxSpriteGroup(xx + xxx + 5, yy);
+    hurtImage = new FlxSprite(0, -1, "assets/images/hud/hurt.png");
+    hurtMarker.add(hurtImage);
+    hurtToggle = new FlxSpriteGroup(30, -5);
+    hurtMarker.add(hurtToggle);
+    hurtMarker.visible = false;
+
+    yy += Std.int(injuries.height) + 5;
 
     var gold = new FlxSprite(xx, yy, "assets/images/gold.png");
     resizeImage(gold, 20, 20);
@@ -126,7 +139,8 @@ class CharHud extends FlxSpriteGroup {
     add(name);
     add(action);
     add(hearts);
-    /*add(injuries);*/
+    add(injuries);
+    add(hurtMarker);
 
     add(gold);
     add(goldLbl);
@@ -167,16 +181,62 @@ class CharHud extends FlxSpriteGroup {
         hearts.members[i].animation.stop();
       }
     }
-    /*var nInjuries:Int = unit.character.injuryMax;
+    var nInjuries:Int = unit.character.injuryMax;
     for (i in 0 ... nInjuries) {
-      if(i >= unit.injury) {
-        injuries.members[i].animation.play("empty");
-        injuries.members[i].animation.stop();
-      } else {
+      if(nInjuries - i > unit.injury) {
         injuries.members[i].animation.play("full");
         injuries.members[i].animation.stop();
+      } else {
+        injuries.members[i].animation.play("empty");
+        injuries.members[i].animation.stop();
       }
-    }*/
+    }
+
+    if (unit.injuriesCount > 0) {
+      hurtToggle.clear();
+      var bg = new FlxSprite();
+      hurtToggle.add(bg);
+      var yy = 5;
+      if (unit.recoverHealthEveryXTurns > 2) {
+        var txt = new FlxText(5, yy);
+        txt.size = 10;
+        txt.text = 'Takes ' + Std.string(unit.recoverHealthEveryXTurns) + ' turns to recover a heart';
+        txt.color = FlxColor.BLACK;
+        hurtToggle.add(txt);
+        yy += 15;
+      }
+      if (unit.accuracyPenalty > 0) {
+        var txt = new FlxText(5, yy);
+        txt.size = 10;
+        txt.text = 'Has ' + Std.string(unit.accuracyPenalty * 100) + '% less chance to kit';
+        txt.color = FlxColor.BLACK;
+        hurtToggle.add(txt);
+        yy += 15;
+      }
+      if (unit.critAccuracyPenalty > 0) {
+        var txt = new FlxText(5, yy);
+        txt.size = 10;
+        txt.text = 'Has ' + Std.string(unit.critAccuracyPenalty * 100) + '% less chance to crit';
+        txt.color = FlxColor.BLACK;
+        hurtToggle.add(txt);
+        yy += 15;
+      }
+      if (unit.visionPenalty > 0) {
+        var txt = new FlxText(5, yy);
+        txt.size = 10;
+        txt.text = 'Has a vision of ' + Std.string(unit.getUnitVision());
+        txt.color = FlxColor.BLACK;
+        hurtToggle.add(txt);
+        yy += 15;
+      }
+
+      bg.makeGraphic(250, yy + 5, FlxColor.WHITE);
+
+      hurtMarker.visible = true;
+      hurtToggle.visible = false;
+      FlxMouseEventManager.remove(hurtImage);
+      FlxMouseEventManager.add(hurtImage, null, null, mouseOver, mouseOut);
+    }
   }
 
   private function getCharGoalText():String {
@@ -195,6 +255,14 @@ class CharHud extends FlxSpriteGroup {
     image.setGraphicSize(width, height);
     image.updateHitbox();
     image.centerOrigin();
+  }
+
+  function mouseOver(sprite:FlxSprite) {
+    hurtToggle.visible = true;
+  }
+
+  function mouseOut(sprite:FlxSprite) {
+    hurtToggle.visible = false;
   }
 
 }

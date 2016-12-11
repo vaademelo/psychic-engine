@@ -24,8 +24,10 @@ class BattleExecuter {
     var damage = 0;
 
     var randomValue = Random.float(0,1);
-    var hitChance = unit.character.hitChance[opponent.character.bodyKind];
-    var critChance = unit.character.critChance[opponent.character.bodyKind];
+    var hitChance = unit.character.hitChance[opponent.character.bodyKind] - unit.accuracyPenalty;
+    hitChance = Math.max(hitChance, 0);
+    var critChance = unit.character.critChance[opponent.character.bodyKind] - unit.critAccuracyPenalty;
+    critChance = Math.max(critChance, 0);
     if (randomValue <= hitChance) {
       damage = 1;
     } else if (randomValue <= hitChance + critChance) {
@@ -76,12 +78,12 @@ class BattleExecuter {
     var enemies = unit.character.team == TeamSide.heroes ? worldMap.monsters.members : worldMap.heroes.members;
 
     for (friend in friends) {
-      if(friend.character.vision >= PositionTool.getDistance(worldMap, unit.getCoordinate(), friend.getCoordinate())) {
+      if(friend.getUnitVision() >= PositionTool.getDistance(worldMap, unit.getCoordinate(), friend.getCoordinate())) {
         friend.mind.friendDiedLastTurn = true;
       }
     }
     for (enemy in enemies) {
-      if(enemy.character.vision >= PositionTool.getDistance(worldMap, unit.getCoordinate(), enemy.getCoordinate())) {
+      if(enemy.getUnitVision() >= PositionTool.getDistance(worldMap, unit.getCoordinate(), enemy.getCoordinate())) {
         enemy.mind.enemyDiedLastTurn = true;
       }
     }

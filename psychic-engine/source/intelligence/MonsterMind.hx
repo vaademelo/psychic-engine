@@ -38,7 +38,7 @@ class MonsterMind implements Mind {
 
   public function analyseAction(worldMap:WorldMap):Array<Int> {
     var opponents = (this.unit.character.team == TeamSide.heroes) ? worldMap.monsters : worldMap.heroes;
-    var opponentsInRange = PositionTool.getObjectsInRange(opponents, this.unit.getCoordinate(), this.unit.character.vision);
+    var opponentsInRange = PositionTool.getObjectsInRange(opponents, this.unit.getCoordinate(), this.unit.getUnitVision());
 
     this.missedLastAtack = false;
     this.criticalLastAtack = false;
@@ -58,7 +58,7 @@ class MonsterMind implements Mind {
   }
 
   public function chooseRandomTileToWalk(worldMap:WorldMap, unit:Unit):Array<Int> {
-    var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.character.vision);
+    var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.getUnitVision());
     var tile = Random.fromArray(validTiles);
     return tile;
   }

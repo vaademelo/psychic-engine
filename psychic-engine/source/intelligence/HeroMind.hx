@@ -47,11 +47,11 @@ class HeroMind implements Mind {
   }
 
   private function getObjectsInRange(worldMap:WorldMap):Void {
-    opponentsInRange = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
-    friendsInRange   = PositionTool.getObjectsInRange(worldMap.heroes, unit.getCoordinate(), unit.character.vision);
+    opponentsInRange = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.getUnitVision());
+    friendsInRange   = PositionTool.getObjectsInRange(worldMap.heroes, unit.getCoordinate(), unit.getUnitVision());
     friendsInRange.remove(this.unit);
-    goldsInRange     = PositionTool.getObjectsInRange(worldMap.golds, unit.getCoordinate(), unit.character.vision);
-    treasuresInRange = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
+    goldsInRange     = PositionTool.getObjectsInRange(worldMap.golds, unit.getCoordinate(), unit.getUnitVision());
+    treasuresInRange = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.getUnitVision());
   }
 
   public function updateStatus(worldMap:WorldMap):Void {
@@ -115,7 +115,7 @@ class HeroMind implements Mind {
   }
 
   public function createOptions(worldMap:WorldMap):Map<String, Float> {
-    var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.character.vision);
+    var validTiles:Array<Array<Int>> = PositionTool.getValidTilesInRange(worldMap, unit.getCoordinate(), unit.getUnitVision());
     var tilesWeights:Map<String, Float> = new Map<String, Float>();
     for (tile in validTiles) {
       tilesWeights.set(tile.toString(), 0);
@@ -206,7 +206,7 @@ class HeroMind implements Mind {
       var opponentTilesInRange = PositionTool.getValidTilesInRange(worldMap, opponent.getCoordinate(), opponent.character.movement + opponent.character.atackRange);
       for (tile in opponentTilesInRange) {
         var distance = PositionTool.getDumbDistance(tile, unit.getCoordinate());
-        if (distance > unit.character.vision || worldMap.isTheSameTile(tile, opponent.getCoordinate())) continue;
+        if (distance > unit.getUnitVision() || worldMap.isTheSameTile(tile, opponent.getCoordinate())) continue;
         if (dangerWeights[tile.toString()] == null) {
           dangerWeights[tile.toString()] = (chanceOfWinning - 1)/3;
         } else {
@@ -267,7 +267,7 @@ class HeroMind implements Mind {
       var friendTilesInRange = PositionTool.getValidTilesInRange(worldMap, friend.getCoordinate(), friend.character.movement);
 
       for (tile in friendTilesInRange) {
-        if (PositionTool.getDumbDistance(tile, unit.getCoordinate()) > unit.character.vision) continue;
+        if (PositionTool.getDumbDistance(tile, unit.getCoordinate()) > unit.getUnitVision()) continue;
         if (friendshipWeights[tile.toString()] == null) {
           friendshipWeights[tile.toString()] = friendshipFactor;
         } else {
@@ -303,7 +303,7 @@ class HeroMind implements Mind {
         for (opponent in opponentsInRange) {
           var distanceFriendOpponent = PositionTool.getDistance(worldMap, opponent.getCoordinate(), friend.getCoordinate());
 
-          if (distanceFriendOpponent <= opponent.character.vision) {
+          if (distanceFriendOpponent <= opponent.getUnitVision()) {
             var opponentTile = opponent.getCoordinate().toString();
             if (protectionWeights[opponentTile] == null) continue;
             var protectObjective = (unit.goalUnit == friend) ? 3 : 1;

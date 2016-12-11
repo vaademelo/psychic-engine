@@ -22,7 +22,11 @@ class BattleTool {
   }
 
   public static function hitRelevance(atacker:Unit, defender:Unit):Float {
-    var avarageDamage = atacker.character.hitChance[defender.character.bodyKind] + (2 * atacker.character.critChance[defender.character.bodyKind]);
+    var hitChance = atacker.character.hitChance[defender.character.bodyKind] - atacker.accuracyPenalty;
+    hitChance = Math.max(hitChance, 0);
+    var critChance = atacker.character.critChance[defender.character.bodyKind] - atacker.critAccuracyPenalty;
+    critChance = Math.max(critChance, 0);
+    var avarageDamage = hitChance + (2 * critChance);
 
     var hit = avarageDamage/defender.hp;
 
