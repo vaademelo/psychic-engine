@@ -17,6 +17,8 @@ class Camera extends FlxSprite {
   private var w:Int;
   private var h:Int;
 
+  private var followingUnit:Unit;
+
   public function new() {
     super();
     makeGraphic(1, 1, FlxColor.TRANSPARENT);
@@ -31,7 +33,6 @@ class Camera extends FlxSprite {
     FlxG.camera.follow(this, FlxCameraFollowStyle.LOCKON);
 
     var initialTile:Array<Int> = getStartTile(_map);
-    trace(initialTile);
     this.setPosition(initialTile[1] * Constants.TILE_SIZE, initialTile[0] * Constants.TILE_SIZE);
 
   }
@@ -39,6 +40,9 @@ class Camera extends FlxSprite {
   override public function update(elapsed:Float) {
     super.update(elapsed);
 
+    if (followingUnit != null && (FlxG.keys.pressed.UP || FlxG.keys.pressed.DOWN || FlxG.keys.pressed.LEFT || FlxG.keys.pressed.RIGHT)) {
+      resetCamera();
+    }
     if (FlxG.keys.pressed.UP) {
       this.y -= speed;
     }
@@ -67,9 +71,15 @@ class Camera extends FlxSprite {
 
   public function followUnit(unit:Unit):Void {
     FlxG.camera.follow(unit, FlxCameraFollowStyle.LOCKON, 1);
+    followingUnit = unit;
   }
 
   public function resetCamera():Void {
+    if (followingUnit != null) {
+      this.x = followingUnit.x;
+      this.y = followingUnit.y;
+      followingUnit = null;
+    }
     FlxG.camera.follow(this, FlxCameraFollowStyle.LOCKON);
   }
 

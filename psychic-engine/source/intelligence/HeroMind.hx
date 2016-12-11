@@ -49,6 +49,7 @@ class HeroMind implements Mind {
   private function getObjectsInRange(worldMap:WorldMap):Void {
     opponentsInRange = PositionTool.getObjectsInRange(worldMap.monsters, unit.getCoordinate(), unit.character.vision);
     friendsInRange   = PositionTool.getObjectsInRange(worldMap.heroes, unit.getCoordinate(), unit.character.vision);
+    friendsInRange.remove(this.unit);
     goldsInRange     = PositionTool.getObjectsInRange(worldMap.golds, unit.getCoordinate(), unit.character.vision);
     treasuresInRange = PositionTool.getObjectsInRange(worldMap.treasures, unit.getCoordinate(), unit.character.vision);
   }

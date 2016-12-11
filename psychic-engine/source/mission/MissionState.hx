@@ -30,6 +30,8 @@ class MissionState extends FlxState {
 
   public var turn:Int = 0;
 
+  public static var nextCallBack:FlxSprite->Void;
+
   override public function create():Void {
     super.create();
 
@@ -93,12 +95,12 @@ class MissionState extends FlxState {
     //4rd: execute unit action or wait if on debug mode
     if (Constants.debugAi && unit.mind.debugMe) {
       worldMap.hud.updateHud(worldMap, [unit]);
-      function nextTurn(sprite:FlxSprite) {
+      MissionState.nextCallBack = function (sprite:FlxSprite) {
         TileWeightTool.cleanHeatMap(worldMap);
         ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
         FlxMouseEventManager.remove(worldMap.hud.continueBtn);
       }
-      FlxMouseEventManager.add(worldMap.hud.continueBtn, null, nextTurn, null, null);
+      FlxMouseEventManager.add(worldMap.hud.continueBtn, null, MissionState.nextCallBack, null, null);
     } else {
       ActionExecuter.executeAction(worldMap, unit, action, unitAction, list);
     }

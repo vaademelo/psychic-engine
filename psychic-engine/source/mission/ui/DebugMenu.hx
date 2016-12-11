@@ -107,7 +107,10 @@ class DebugMenu extends FlxSpriteGroup {
   }
   function buttonOnMouseUp(sprite:FlxSprite) {
     Constants.debugAi = !Constants.debugAi;
-    if (!Constants.debugAi) worldMap.hud.updateHud(worldMap, worldMap.heroes.members);
+    if (!Constants.debugAi) {
+      MissionState.nextCallBack(null);
+      worldMap.hud.updateHud(worldMap, worldMap.heroes.members);
+    }
     updateState(true);
     options.visible = Constants.debugAi;
   }

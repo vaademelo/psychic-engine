@@ -61,6 +61,7 @@ class Hud extends FlxSpriteGroup {
       // normal hud
       var yy:Int = 50;
       for (unit in units) {
+        if (unit.hp <= 0) continue;
         yy += addUnitHud(worldMap, unit, yy);
       }
 

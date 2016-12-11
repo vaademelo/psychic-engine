@@ -116,6 +116,7 @@ class CharHud extends FlxSpriteGroup {
     if (debug) {
       continueBtn = new FlxButton(xx + 70, yy, "Continue", null);
       CharMindAnalysis = new CharMindAnalysis(xx + 15, yy + 30, cast(unit.mind, HeroMind));
+      worldMap.cam.followUnit(unit);
     } else {
       follow = new FlxButton(xx + 70, yy, "Follow", OnClickButton);
     }
@@ -140,6 +141,8 @@ class CharHud extends FlxSpriteGroup {
     } else {
       add(follow);
     }
+
+    updateCharacterHud();
   }
 
   function OnClickButton():Void {
