@@ -73,7 +73,6 @@ class Unit extends WorldObject {
   }
 
   public function applyInjuryEffect() {
-    //TODO: Define injury effects
     var rnd = Random.int(0,3);
     switch rnd {
       case 0:

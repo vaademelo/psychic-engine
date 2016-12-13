@@ -27,6 +27,7 @@ class MapMaker {
   }
 
   public static function createMap():Void {
+    //TODO: Resolve bug that crashes the game when trying to make a null zone
     _zones = new Array<Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>>();
     var usedZoneCoord:Array<Array<Int>> = new Array<Array<Int>>();
     var createdZones = new Array<Array<Array<Int>>>();

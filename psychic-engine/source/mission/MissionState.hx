@@ -35,6 +35,8 @@ class MissionState extends FlxState {
   override public function create():Void {
     super.create();
 
+    //TODO: Make the game possible to win
+
     var _map = MapMaker.getMap();
 
     cam = new Camera();

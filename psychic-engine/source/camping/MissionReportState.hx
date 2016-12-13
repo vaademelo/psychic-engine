@@ -9,6 +9,7 @@ import flixel.util.FlxColor;
 import flixel.group.FlxSpriteGroup;
 
 import utils.Constants;
+import utils.MapMaker;
 
 import camping.MissionMenuState;
 import camping.reportMenu.CharReport;
@@ -54,6 +55,17 @@ class MissionReportState extends FlxState {
   }
 
   private function clickContinue():Void {
+    for (unit in units) {
+      if (unit.gotBackSafelly) {
+        UserData.goldTotal += unit.goldCollected.length * 5;
+        for (treasure in unit.treasureCollected) {
+          UserData.treasures.push(treasure.treasure);
+        }
+      }
+    }
+
+    MapMaker.createMap();
+
     FlxG.switchState(new MissionMenuState());
   }
 

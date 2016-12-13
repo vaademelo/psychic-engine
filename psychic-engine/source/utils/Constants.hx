@@ -10,6 +10,33 @@ enum TreasureKind {
   item;
 }
 
+enum TreasureEffect {
+  recruitment;
+  training;
+  behaviour;
+  relation;
+}
+
+enum TreasureTrainingDetail {
+  life;
+  resistence;
+  speed;
+  consistency;
+  letal;
+  observation;
+}
+
+enum TreasureBehaviouDetail {
+  discipline;
+  luck;
+  party;
+  meditation;
+  combat;
+  selfPreservation;
+  selfAnalysis;
+  studingMonsters;
+}
+
 enum DecorativeObjectKind {
   column;
   exitDoor;

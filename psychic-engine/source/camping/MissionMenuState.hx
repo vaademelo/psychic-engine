@@ -40,7 +40,7 @@ class MissionMenuState extends FlxState {
 
     spritesHolder = new Array<OneOfTwo<ZoneHub, HeroDragButton>>();
 
-    UserData.goldGoal = 1;
+    UserData.goldGoal = 1; //TODO: Fix that!
 
     printButtons();
     printZones();
@@ -48,12 +48,21 @@ class MissionMenuState extends FlxState {
     printMoney();
   }
 
-  override public function update(elapsed:Float):Void {
-    super.update(elapsed);
+  public function calcUsedGold() {
+    var goldUsage = UserData.heroes.length * 2;
+    for (hero in UserData.heroes) {
+      if (hero.goalTile != null || hero.goalChar != null) {
+        goldUsage += 3;
+      }
+    }
+    return UserData.goldTotal - goldUsage;
   }
 
   private function clickPlay():Void {
-    FlxG.switchState(new MissionState());
+    if (calcUsedGold() >= 0) {
+      UserData.goldTotal = calcUsedGold();
+      FlxG.switchState(new MissionState());
+    }
   }
 
   private function clickReset():Void {

@@ -208,7 +208,7 @@ class CharHud extends FlxSpriteGroup {
       if (unit.accuracyPenalty > 0) {
         var txt = new FlxText(5, yy);
         txt.size = 10;
-        txt.text = 'Has ' + Std.string(unit.accuracyPenalty * 100) + '% less chance to kit';
+        txt.text = 'Has ' + Std.string(unit.accuracyPenalty * 100) + '% less chance to hit';
         txt.color = FlxColor.BLACK;
         hurtToggle.add(txt);
         yy += 15;
