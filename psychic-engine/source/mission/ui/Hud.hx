@@ -78,7 +78,7 @@ class Hud extends FlxSpriteGroup {
   public function updateUnitHud(unit:Unit) {
     if(unit.character.team == TeamSide.monsters) return;
     if (unit.hp <= 0) {
-      remove(heroes[unit]);
+      if (heroes[unit] != null) remove(heroes[unit]);
     }
     if (heroes[unit] != null) heroes[unit].updateCharacterHud();
   }

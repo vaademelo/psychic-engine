@@ -40,12 +40,10 @@ class MissionMenuState extends FlxState {
 
     spritesHolder = new Array<OneOfTwo<ZoneHub, HeroDragButton>>();
 
-    UserData.goldGoal = 1; //TODO: Fix that!
-
-    printButtons();
     printZones();
     printChars();
     printMoney();
+    printButtons();
   }
 
   public function calcUsedGold() {
@@ -55,6 +53,9 @@ class MissionMenuState extends FlxState {
         goldUsage += 3;
       }
     }
+
+    UserData.goldGoal = (UserData.heroes.length + 1) * 5;
+
     return UserData.goldTotal - goldUsage;
   }
 
@@ -89,6 +90,7 @@ class MissionMenuState extends FlxState {
     var yy = 180;
     UserData.loadUserData();
     for (char in UserData.heroes) {
+      char.resetGoals();
       var sprite = new HeroDiv(110, yy, char, spritesHolder);
       add(sprite);
       yy += 50;

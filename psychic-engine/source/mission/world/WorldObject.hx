@@ -9,6 +9,8 @@ class WorldObject extends FlxSprite {
   public var i:Int; //Line
   public var j:Int; //Collumn
 
+  public var lastPosition:Array<Int>;
+
   public function new(i:Int, j:Int) {
     super();
     this.setCoordinate(i,j);
@@ -36,7 +38,6 @@ class WorldObject extends FlxSprite {
     } else {
       this.x = (j + 0.5) * Constants.TILE_SIZE - this.width/2;
     }
-
   }
   public function setPos(x:Float, y:Float) {
     this.x = x;
@@ -47,5 +48,8 @@ class WorldObject extends FlxSprite {
   public function updateCoordinate() {
     this.i = Math.floor(this.y / Constants.TILE_SIZE);
     this.j = Math.floor(this.x / Constants.TILE_SIZE);
+  }
+  public function updateLastPosition() {
+    this.lastPosition = [this.i, this.j];
   }
 }

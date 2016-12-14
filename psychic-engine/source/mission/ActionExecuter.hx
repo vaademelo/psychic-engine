@@ -29,6 +29,7 @@ class ActionExecuter {
     _worldMap = worldMap;
     _atackedThisTurn = false;
     _targetUnit = null;
+    _unit.updateLastPosition();
 
     if (!worldMap.isTileValid(target[0],target[1])) return endAction();
 
@@ -93,7 +94,7 @@ class ActionExecuter {
       collectAction(collectableOnTile);
     }
 
-    if (_targetUnit != null) {
+    if (_targetUnit != null && PositionTool.getDistanceFromObject(_targetUnit, _unit.getCoordinate()) <= _unit.character.atackRange) {
       var targetUnit:Unit = cast(_targetUnit, Unit);
       return atackAction(targetUnit, nextUnit);
     } else {
@@ -135,7 +136,8 @@ class ActionExecuter {
   public static function nextUnit():Bool {
     if(_unit.character.team == TeamSide.heroes &&
        _worldMap.isTheSameTile(_unit.character.goalTile, WorldMap.homeTile) &&
-       _worldMap.isTheSameTile(_unit.getCoordinate(), WorldMap.homeTile)) {
+       _worldMap.isTheSameTile(_unit.getCoordinate(), WorldMap.homeTile) &&
+       _unit.lastPosition != null && !_worldMap.isTheSameTile(_unit.lastPosition, WorldMap.homeTile)) {
          _unit.gotBackSafelly = true;
          _unit.kill();
          if(_unit.emotionFX != null) _unit.emotionFX.kill();

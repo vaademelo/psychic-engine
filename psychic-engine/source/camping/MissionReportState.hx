@@ -59,8 +59,14 @@ class MissionReportState extends FlxState {
       if (unit.gotBackSafelly) {
         UserData.goldTotal += unit.goldCollected.length * 5;
         for (treasure in unit.treasureCollected) {
-          UserData.treasures.push(treasure.treasure);
+          if (treasure.treasure.effectType == TreasureEffect.recruitment) {
+            UserData.createNewHero();
+          } else {
+            UserData.treasures.push(treasure.treasure);
+          }
         }
+      } else {
+        UserData.heroes.remove(unit.character);
       }
     }
 

@@ -4,28 +4,23 @@ import flixel.group.FlxGroup;
 import flixel.util.typeLimit.OneOfTwo;
 
 import utils.Constants;
-import mission.world.Unit;
+import mission.world.WorldMap;
 
 import gameData.UserData;
 
 class LootTool {
 
-  /* f(x) = const   , x < goldGoal
-     f(x) = -nx + a , x > goldGoal
-       n = greed
-       a = goldWeight
-       x = numberOfCollectedgold
-  */
-  public static function needForgold(unit:Unit):Float {
-    var numberOfCollectedgold:Int = unit.goldCollected.length;
-    var goldWeight:Float = 1.0;
-    var greed:Float = 0.25; // The bigger, less greedy is the character
-
-    if (numberOfCollectedgold < UserData.goldGoal) {
-      return goldWeight;
+  public static function needForgold(worldMap:WorldMap):Float {
+    var numberOfCollectedgold:Int = UserData.goldTotal;
+    for (unit in worldMap.heroes.members) {
+      numberOfCollectedgold += unit.goldCollected.length;
     }
 
-    return (- (greed * numberOfCollectedgold) + goldWeight);
+    if (numberOfCollectedgold < UserData.goldGoal) {
+      return 1.3;
+    } else {
+      return 0.7;
+    }
 
   }
 }

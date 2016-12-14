@@ -51,7 +51,7 @@ class Character {
 
       } else {
         this.imageSource = "assets/images/bodies/h" + Std.string(bodyKind) + "0" + Random.int(1,8) + ".png";
-      }*/ 
+      }*/
 
       this.name = MyNameGenerator.generateName();
       this.personality = PersonalityTool.generateNewPersonality();
@@ -106,5 +106,17 @@ class Character {
       this.relationList[friend] = Random.int(1, 5);
     }
   }
+
+  public function resetGoals() {
+    this.goalTile = null;
+    this.goalChar = null;
+
+    for (friend in relationList.keys()) {
+      if (UserData.heroes.indexOf(friend) == -1) {
+        relationList.remove(friend);
+      }
+    }
+  }
+
 
 }

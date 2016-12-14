@@ -127,13 +127,13 @@ class HeroMind implements Mind {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
     if (destination == null) return tilesWeights;
-    if (worldMap.isTheSameTile(destination, WorldMap.homeTile) || (unit.character.goalChar != null)) {
+    if (unit.goalToReturnHome || (unit.character.goalChar != null)) {
       tilesWeights = weightsForDistance(worldMap);
     } else {
       var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
       var desiredZone:Array<Int> = PositionTool.getZoneForTile(destination);
       if(worldMap.isTheSameTile(currentZone, desiredZone)) {
-        tilesWeights = simpleWeights(worldMap);
+        tilesWeights = exploreZone(worldMap);
       } else {
         tilesWeights = weightsForDistance(worldMap);
       }
@@ -145,10 +145,17 @@ class HeroMind implements Mind {
     return tilesWeights;
   }
 
-  private function simpleWeights(worldMap:WorldMap):Map<String, Float> {
+  private function exploreZone(worldMap:WorldMap):Map<String, Float> {
     var tilesWeights = createOptions(worldMap);
+
+    var desiredZone = PositionTool.getZoneForTile(unit.character.goalTile);
     for (key in tilesWeights.keys()) {
-      tilesWeights[key] = 0.5;
+      var tileZone = PositionTool.getZoneForTile(tileStringToArray(key));
+      if (worldMap.isTheSameTile(tileZone, desiredZone)) {
+        tilesWeights[key] = 0.5;
+      } else {
+        tilesWeights[key] = 0;
+      }
     }
     return tilesWeights;
   }
@@ -156,7 +163,7 @@ class HeroMind implements Mind {
   private function weightsForDistance(worldMap:WorldMap):Map<String, Float> {
     var tilesWeights = createOptions(worldMap);
     var destination = unit.character.goalTile;
-    var wantToGoBackFactor = worldMap.isTheSameTile(destination, WorldMap.homeTile) ? 3 : 1;
+    var wantToGoBackFactor = (unit.goalToReturnHome) ? 3 : 1;
     if (destination == null) return tilesWeights;
     var flag = false;
     if (!worldMap.isTileWalkable(destination[0], destination[1])) {
@@ -237,21 +244,24 @@ class HeroMind implements Mind {
 
     var tilesWeights:Map<String, Float> = new Map<String, Float>();
 
-    var currentZone:Array<Int> = PositionTool.getZoneForTile(unit.getCoordinate());
     var desiredZone:Array<Int> = PositionTool.getZoneForTile(unit.character.goalTile);
-    var lootFactor = (worldMap.isTheSameTile(currentZone, desiredZone)) ? 3 : 1;
 
+    var currentZone:Array<Int>;
+    var lootFactor:Float;
     for(gold in goldsInRange) {
-      tilesWeights[cast(gold, Collectable).getCoordinate().toString()] = LootTool.needForgold(unit) * lootFactor;
+      currentZone = PositionTool.getZoneForTile(gold.getCoordinate());
+      lootFactor = (worldMap.isTheSameTile(currentZone, desiredZone) && !unit.goalToReturnHome) ? EmotionTool.emotionFactor(unit, 'lootOnZone') * 3 : 1;
+      tilesWeights[cast(gold, Collectable).getCoordinate().toString()] = LootTool.needForgold(worldMap) * lootFactor;
     }
 
     for(treasure in treasuresInRange) {
+      currentZone = PositionTool.getZoneForTile(treasure.getCoordinate());
+      lootFactor = (worldMap.isTheSameTile(currentZone, desiredZone) && !unit.goalToReturnHome) ? EmotionTool.emotionFactor(unit, 'lootOnZone') * 3 : 1;
       tilesWeights[cast(treasure, Collectable).getCoordinate().toString()] = 1 * lootFactor;
     }
 
     analyzeWeights['loot'] = tilesWeights;
     tilesWeights = EmotionTool.applyEmotion(unit, 'loot', tilesWeights);
-    if (worldMap.isTheSameTile(currentZone, desiredZone)) tilesWeights = EmotionTool.applyEmotion(unit, 'lootOnZone', tilesWeights);
 
     return tilesWeights;
   }

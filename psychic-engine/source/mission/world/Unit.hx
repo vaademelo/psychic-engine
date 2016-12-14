@@ -33,6 +33,7 @@ class Unit extends WorldObject {
 
   public var goalUnit:Unit;
   public var goalCompletionRate:Float = 0;
+  public var goalToReturnHome:Bool = false;
 
   public var accuracyPenalty:Float = 0;
   public var critAccuracyPenalty:Float = 0;
