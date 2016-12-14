@@ -48,13 +48,13 @@ class CharacterDetailsState extends FlxSubState {
     name.color = FlxColor.YELLOW;
     add(name);
 
-    status = new CharStatus(20, 50, character);
+    status = new CharStatus(20, 60, character);
     add(status);
 
-    relations = new FriendsDiv(600, 50, character);
+    relations = new FriendsDiv(580, 60, character);
     add(relations);
 
-    personality = new PersonalityDiv(300, 50, character);
+    personality = new PersonalityDiv(300, 60, character);
     add(personality);
   }
 

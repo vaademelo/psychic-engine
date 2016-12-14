@@ -1,43 +1,33 @@
 package camping.characterMenu;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
-import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup;
+import flixel.input.mouse.FlxMouseEventManager;
 
 import gameData.Character;
 
 import utils.Constants;
 
-class StatusDiv extends FlxGroup {
-
-  public var height:Float = 0;
-
-  public static function newNumberStatus(xx:Int, yy:Int, status:String, value:Int, maxValue:Int):StatusDiv {
-    var div = new StatusDiv();
-
-    var statusLabel = new FlxText(xx,yy);
-    statusLabel.text = status + ": " + value + "/" + maxValue;
-    statusLabel.size = 20;
-    statusLabel.color = FlxColor.WHITE;
-
-    div.add(statusLabel);
-    div.height = statusLabel.height;
-    return div;
-  }
+class StatusDiv extends FlxSpriteGroup {
 
   public static function newBodyTypeStatus(xx:Int, yy:Int, bodyKind:BodyKind):StatusDiv {
     var div = new StatusDiv();
 
-    var statusLabel = new FlxText(xx,yy);
-    statusLabel.text = "Body Type: " + Std.string(bodyKind);
-    statusLabel.size = 20;
-    statusLabel.color = FlxColor.WHITE;
+    var statusLabel = new FlxText(xx,yy + 3);
+    statusLabel.text = "Body:";
+    statusLabel.size = 12;
+    statusLabel.color = FlxColor.BROWN;
+
+    var image = new FlxSprite(xx + Std.int(statusLabel.width) + 2, yy, "assets/images/menu/" + Std.string(bodyKind) + ".png");
+    resizeImage(image, 0, 25);
 
     div.add(statusLabel);
-    div.height = statusLabel.height;
+    div.add(image);
     return div;
   }
 
@@ -46,28 +36,71 @@ class StatusDiv extends FlxGroup {
 
     var statusLabel = new FlxText(xx,yy);
     statusLabel.text = label;
-    statusLabel.size = 20;
-    statusLabel.color = FlxColor.WHITE;
+    statusLabel.size = 12;
+    statusLabel.color = FlxColor.BROWN;
 
-    var i = 0;
-    div.height = statusLabel.height;
+    yy += Std.int(statusLabel.height) + 4;
     for (body in Type.allEnums(BodyKind)) {
-      var image = new FlxSprite(xx + i * 50, yy + statusLabel.height + 10, "assets/images/menu/" + Std.string(body) + ".png");
-      var value = new FlxText(xx + i * 50,yy + statusLabel.height + 10 + image.height);
+      var image = new FlxSprite(xx, yy, "assets/images/menu/" + Std.string(body) + ".png");
+      resizeImage(image, 0, 25);
+      xx += Std.int(image.width) + 3;
+
+      var value = new FlxText(xx, yy + 3);
       value.text = Math.round(hitChance[body] * 100) + "%";
-      value.size = 15;
-      value.color = FlxColor.WHITE;
+      value.size = 12;
+      value.color = FlxColor.BROWN;
+      xx += Std.int(value.width) + 5;
 
       div.add(value);
       div.add(image);
-      if (i == 0) {
-        div.height += image.height + value.height + 10;
-      }
-      i++;
     }
 
     div.add(statusLabel);
     return div;
+  }
+
+  public static function newNumberWithIconStatus(xx:Int, yy:Int, status:String, value:Int):StatusDiv {
+    var div = new StatusDiv();
+
+    var image = new FlxSprite(xx, yy, "assets/images/menu/" + status + ".png");
+
+    var statusLabel = new FlxText(xx + image.height + 5, yy + 2);
+    statusLabel.text = Std.string(value);
+    statusLabel.size = 12;
+    statusLabel.color = FlxColor.BROWN;
+
+    div.add(image);
+    div.add(statusLabel);
+    div.height = statusLabel.height;
+
+    var tooltip = new FlxSpriteGroup(xx - 10, yy - 28);
+    var bg = new FlxSprite();
+
+    var label = new FlxText(4,4);
+    label.text = status;
+    label.size = 12;
+    label.color = FlxColor.BLACK;
+    bg.makeGraphic(Std.int(label.width) + 8, 24);
+    div.add(tooltip);
+    tooltip.add(bg);
+    tooltip.add(label);
+    tooltip.visible = false;
+
+    function onMouseOver(sprite:FlxSprite) {
+      tooltip.visible = true;
+    }
+    function onMouseOut(sprite:FlxSprite) {
+      tooltip.visible = false;
+    }
+    FlxMouseEventManager.add(div, null, null, onMouseOver, onMouseOut);
+
+    return div;
+  }
+
+  private static function resizeImage(image:FlxSprite, width:Int, height:Int) {
+    image.setGraphicSize(width, height);
+    image.updateHitbox();
+    image.centerOrigin();
   }
 
 }

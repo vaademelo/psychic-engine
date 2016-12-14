@@ -101,7 +101,7 @@ class CharHud extends FlxSpriteGroup {
     hurtMarker.add(hurtToggle);
     hurtMarker.visible = false;
 
-    yy += Std.int(injuries.height) + 5;
+    yy += Std.int(injuries.height);
 
     var gold = new FlxSprite(xx, yy, "assets/images/gold.png");
     resizeImage(gold, 20, 20);

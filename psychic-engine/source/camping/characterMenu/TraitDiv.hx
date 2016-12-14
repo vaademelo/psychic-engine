@@ -23,9 +23,9 @@ class TraitDiv extends FlxSpriteGroup {
     FlxMouseEventManager.add(this, null, null, onMouseOver, onMouseOut);
 
     var label = new FlxText();
-    label.size = 20;
+    label.size = 12;
     label.text = trait.name;
-    label.color = FlxColor.WHITE;
+    label.color = FlxColor.BROWN;
 
     var hoverArea = new FlxSprite();
     hoverArea.makeGraphic(Std.int(label.width), Std.int(label.height), 0x01000000);
