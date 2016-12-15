@@ -14,9 +14,10 @@ class Treasure {
   public var effectDetail:String;
   public var iconSource:String;
 
-  public function new() {
+  private var used:Bool = false;
 
-    var rnd = Random.int(1,6);//TODO: FIX THIS! 0 - 6
+  public function new(noRecruit:Bool = false) {
+    var rnd = (noRecruit) ? Random.int(1,6) : Random.int(0,6);
     switch rnd {
       case 0:
         this.effectType = TreasureEffect.recruitment;
@@ -34,6 +35,10 @@ class Treasure {
   }
 
   public function useTreasure(?char:Character, ?relationChar:Character) {
+    if (used) {
+      UserData.treasures.remove(this);
+      return;
+    }
     switch this.effectType {
       case TreasureEffect.recruitment:
         UserData.createNewHero();
@@ -80,9 +85,11 @@ class Treasure {
       case TreasureEffect.relation:
         if (char == null || relationChar == null) return;
         if (char.relationList[relationChar] >= 5) return;
-        char.relationList[relationChar] ++;
+        var rnd = Random.float(0,1);
+        if (rnd > 0.6) char.relationList[relationChar] ++;
     }
     UserData.treasures.remove(this);
+    used = true;
   }
 
   public function doBehaviourEffect(char:Character, more:Emotion, less:Emotion) {

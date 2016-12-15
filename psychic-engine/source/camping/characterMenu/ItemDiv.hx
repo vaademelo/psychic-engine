@@ -42,15 +42,12 @@ class ItemDiv extends FlxSpriteGroup {
     add(treasureLabel);
 
     if (treasure.effectType == TreasureEffect.relation) {
-      //TODO: Relation
       var drop = new FlxExtendedSprite(xx + Std.int(treasureLabel.width) + 5, yy, "assets/images/menu/dragBtn.png");
       drop.enableMouseDrag(true);
       var friends = cast(holder, FriendsDiv).friends;
       drop.mouseStopDragCallback = function (obj:FlxExtendedSprite, x:Int, y:Int):Bool {
-        trace("droped!");
         for (friend in friends.keys()) {
           if (obj.overlaps(friends[friend])) {
-            trace('second char!');
             secondChar = friend;
             return useTreasure();
           }
@@ -65,7 +62,7 @@ class ItemDiv extends FlxSpriteGroup {
   }
 
   public function useTreasure():Bool {
-    treasure.useTreasure(this.char);
+    treasure.useTreasure(this.char, this.secondChar);
     switch treasure.effectType {
       case TreasureEffect.recruitment:
         trace("This should never happen");

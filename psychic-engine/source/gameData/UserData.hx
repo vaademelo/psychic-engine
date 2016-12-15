@@ -13,11 +13,10 @@ class UserData {
   public static var treasures:Array<Treasure>;
 
   public static function loadUserData() {
-    //TODO: Temp Solution for testing
     if (treasures == null) {
       treasures = new Array<Treasure>();
-      for (i in 0...9) {
-        var treasure = new Treasure();
+      for (i in 0...3) {
+        var treasure = new Treasure(true);
         treasures.push(treasure);
       }
     }
