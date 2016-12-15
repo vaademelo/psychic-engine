@@ -36,6 +36,9 @@ class UserData {
   public static function createNewHero() {
     var char = new Character(TeamSide.heroes);
     heroes.push(char);
+    for (hero in heroes) {
+      hero.setRandomRelationShips(heroes);
+    }
   }
 
 }
