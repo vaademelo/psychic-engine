@@ -2,6 +2,8 @@ package mission;
 
 import Random;
 
+import flixel.FlxG;
+
 import mission.world.Unit;
 import mission.world.WorldMap;
 
@@ -30,8 +32,12 @@ class BattleExecuter {
     critChance = Math.max(critChance, 0);
     if (randomValue <= critChance) {
       damage = 2;
+      FlxG.camera.shake(0.03, 0.2);
     } else if (randomValue <= hitChance + critChance) {
       damage = 1;
+      FlxG.camera.shake(0.01, 0.2);
+    } else {
+      FlxG.camera.shake(0.005, 0.2);
     }
 
     return damage;
