@@ -5,6 +5,7 @@ import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import flixel.util.FlxColor;
 import flixel.input.mouse.FlxMouseEventManager;
 
 import utils.MapMaker;
@@ -110,7 +111,9 @@ class MissionState extends FlxState {
 
 
   public function endMission():Bool {
-    FlxG.switchState(new MissionReportState(worldMap.heroes.members));
+    FlxG.camera.fade(FlxColor.BLACK,.33, false, function() {
+      FlxG.switchState(new MissionReportState(worldMap.heroes.members));
+    });
     return true;
   }
 

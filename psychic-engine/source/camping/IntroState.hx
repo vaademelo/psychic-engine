@@ -13,14 +13,14 @@ class IntroState extends FlxState {
   override public function create():Void {
     super.create();
 
-    var bg = new FlxSprite(0, 0, "assets/images/menu/missionBG.png");
+    var bg = new FlxSprite(0, 0, "assets/images/title/intro_background.png");
     bg.setGraphicSize(FlxG.width, FlxG.height);
     bg.updateHitbox();
     bg.centerOrigin();
     add(bg);
 
-    var playBtn = new FlxButton(FlxG.width/2 + 185, 25, '', clickPlay);
-    playBtn.loadGraphic("assets/images/menu/playBtn.png", true, 33, 58);
+    var playBtn = new FlxButton(FlxG.width - 95, FlxG.height - 99, '', clickPlay);
+    playBtn.loadGraphic("assets/images/menu/botao.png", true, 75, 79);
 
     add(playBtn);
   }

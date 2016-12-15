@@ -19,8 +19,8 @@ class TitleState extends FlxState {
     bg.centerOrigin();
     add(bg);
 
-    var playBtn = new FlxButton(FlxG.width/2 + 185, 25, '', clickPlay);
-    playBtn.loadGraphic("assets/images/menu/playBtn.png", true, 33, 58);
+    var playBtn = new FlxButton(FlxG.width - 95, FlxG.height - 99, '', clickPlay);
+    playBtn.loadGraphic("assets/images/menu/botao.png", true, 75, 79);
 
     add(playBtn);
   }

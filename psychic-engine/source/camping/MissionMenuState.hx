@@ -70,6 +70,14 @@ class MissionMenuState extends FlxState {
 
   private function clickPlay():Void {
     if (calcUsedGold() >= 0) {
+      var hasAtLeastOneUnitGoing = false;
+      for (hero in UserData.heroes) {
+        if (hero.goalTile != null || hero.goalChar != null) {
+          hasAtLeastOneUnitGoing = true;
+          break;
+        }
+      }
+      if (!hasAtLeastOneUnitGoing) return;
       UserData.goldTotal = calcUsedGold();
       FlxG.camera.fade(FlxColor.BLACK,.33, false, function() {
         FlxG.switchState(new MissionState());
@@ -78,8 +86,8 @@ class MissionMenuState extends FlxState {
   }
 
   private function printButtons() {
-    _playBtn = new FlxButton(FlxG.width/2 + 185, 25, '', clickPlay);
-    _playBtn.loadGraphic("assets/images/menu/playBtn.png", true, 33, 58);
+    _playBtn = new FlxButton(FlxG.width - 95, FlxG.height - 99, '', clickPlay);
+    _playBtn.loadGraphic("assets/images/menu/botao.png", true, 75, 79);
 
     add(_playBtn);
   }
