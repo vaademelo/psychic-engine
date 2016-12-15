@@ -9,9 +9,13 @@ import flixel.util.FlxColor;
 
 import camping.TitleState;
 
+import gameData.UserData;
+
 class GameOverState extends FlxState {
   override public function create():Void {
     super.create();
+
+    UserData.resetUserData();
 
     var bg = new FlxSprite(0, 0, "assets/images/title/gameover.png");
     bg.setGraphicSize(FlxG.width, FlxG.height);
