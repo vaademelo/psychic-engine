@@ -16,6 +16,7 @@ import utils.Constants;
 import mission.MissionState;
 
 import camping.missionMenu.*;
+import camping.GameOverState;
 
 import gameData.UserData;
 
@@ -39,19 +40,24 @@ class MissionMenuState extends FlxState {
 
     spritesHolder = new Array<OneOfTwo<ZoneHub, HeroDragButton>>();
 
-    searchForNewHeroes();
+    loadMenuData();
     printZones();
     printChars();
     printMoney();
     printButtons();
   }
 
-  public function searchForNewHeroes() {
+  public function loadMenuData() {
     UserData.loadUserData();
     for (treasure in UserData.treasures) {
       if (treasure.effectType == TreasureEffect.recruitment) {
         treasure.useTreasure();
       }
+    }
+    if (UserData.goldTotal < 0 || UserData.heroes.length == 0) {
+      FlxG.camera.fade(FlxColor.BLACK,.33, false, function() {
+        FlxG.switchState(new GameOverState());
+      });
     }
   }
 
@@ -69,20 +75,18 @@ class MissionMenuState extends FlxState {
   }
 
   private function clickPlay():Void {
-    if (calcUsedGold() >= 0) {
-      var hasAtLeastOneUnitGoing = false;
-      for (hero in UserData.heroes) {
-        if (hero.goalTile != null || hero.goalChar != null) {
-          hasAtLeastOneUnitGoing = true;
-          break;
-        }
+    var hasAtLeastOneUnitGoing = false;
+    for (hero in UserData.heroes) {
+      if (hero.goalTile != null || hero.goalChar != null) {
+        hasAtLeastOneUnitGoing = true;
+        break;
       }
-      if (!hasAtLeastOneUnitGoing) return;
-      UserData.goldTotal = calcUsedGold();
-      FlxG.camera.fade(FlxColor.BLACK,.33, false, function() {
-        FlxG.switchState(new MissionState());
-      });
     }
+    if (!hasAtLeastOneUnitGoing) return;
+    UserData.goldTotal = calcUsedGold();
+    FlxG.camera.fade(FlxColor.BLACK,.33, false, function() {
+      FlxG.switchState(new MissionState());
+    });
   }
 
   private function printButtons() {

@@ -260,7 +260,7 @@ class MapMaker {
     var zoneDificulty = Math.floor(zoneDistanceFromOrigin(zoneCoord));
 
     ngold      = zoneDificulty * Random.int(2, 3);
-    nMonsters  = zoneDificulty * Random.int(1, 2);
+    nMonsters  = zoneDificulty * Random.int(1, 3);
     nWalls     = zoneDificulty * Random.int(1, 2);
     nTreasures = zoneDificulty * Random.int(0, 2);
 

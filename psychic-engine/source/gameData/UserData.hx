@@ -41,4 +41,12 @@ class UserData {
     }
   }
 
+  public static function resetUserData() {
+    treasures = null;
+    heroes = null;
+    goldTotal = null;
+    goldGoal = null;
+  }
+
+
 }
