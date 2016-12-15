@@ -35,14 +35,8 @@ class ItemDiv extends FlxSpriteGroup {
     xx = 0;
     yy = 0;
 
-    var treasureLabel = new FlxText(xx, yy);
-    treasureLabel.size = 12;
-    treasureLabel.text = treasure.effectDetail;
-    treasureLabel.color = FlxColor.BLACK;
-    add(treasureLabel);
-
     if (treasure.effectType == TreasureEffect.relation) {
-      var drop = new FlxExtendedSprite(xx + Std.int(treasureLabel.width) + 5, yy, "assets/images/menu/dragBtn.png");
+      var drop = new FlxExtendedSprite(xx, yy, "assets/images/menu/dragBtn.png");
       drop.enableMouseDrag(true);
       var friends = cast(holder, FriendsDiv).friends;
       drop.mouseStopDragCallback = function (obj:FlxExtendedSprite, x:Int, y:Int):Bool {
@@ -55,10 +49,21 @@ class ItemDiv extends FlxSpriteGroup {
         return true;
       }
       add(drop);
+      xx += Std.int(drop.width) + 5;
     } else {
-      var useButton = new FlxButton(xx + Std.int(treasureLabel.width) + 5, yy, 'Use', useTreasure);
+      var useButton = new FlxButton(xx, yy, '', useTreasure);
+      useButton.loadGraphic("assets/images/menu/useBtn.png", true, 33, 20);
       add(useButton);
+      xx += Std.int(useButton.width) + 5;
     }
+
+
+    var treasureLabel = new FlxText(xx, yy + 2);
+    treasureLabel.size = 12;
+    treasureLabel.text = treasure.effectDetail;
+    treasureLabel.color = FlxColor.BLACK;
+    add(treasureLabel);
+
   }
 
   public function useTreasure():Bool {
