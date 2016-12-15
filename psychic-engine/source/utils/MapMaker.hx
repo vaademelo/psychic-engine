@@ -1,7 +1,7 @@
 package utils;
 
 import Random;
-
+import Math;
 import flixel.util.typeLimit.OneOfTwo;
 
 import utils.Constants;
@@ -9,6 +9,7 @@ import gameData.UserData;
 
 class MapMaker {
 
+  private static var _numberOfZones:Int;
   private static var _zoneWidth:Int = Constants.ZONE_SIZE;
   private static var _zoneHeight:Int = Constants.ZONE_SIZE;
 
@@ -26,9 +27,10 @@ class MapMaker {
     return _zones;
   }
 
-  public static function createMap():Void {
-    //TODO: Resolve bug that crashes the game when trying to make a null zone
+  public static function createMap(?numberOfZones:Int = 6):Void {
+    _numberOfZones = numberOfZones;
     _zones = new Array<Map<ZoneInfo, OneOfTwo<Int, ZoneKind>>>();
+
     var usedZoneCoord:Array<Array<Int>> = new Array<Array<Int>>();
     var createdZones = new Array<Array<Array<Int>>>();
     var tiles:Array<Array<Int>> = new Array<Array<Int>>();
@@ -41,8 +43,10 @@ class MapMaker {
 
     for (i in 1...(nZones + 1)) {
       zoneCoord = nextZoneCoord(usedZoneCoord);
-      usedZoneCoord.push([zoneCoord[0], zoneCoord[1]]);
-      createdZones.push(createZone(Random.fromArray(kinds), zoneCoord, i));
+      if (zoneCoord.length > 0) {
+        usedZoneCoord.push([zoneCoord[0], zoneCoord[1]]);
+        createdZones.push(createZone(Random.fromArray(kinds), zoneCoord, i));
+      }
     }
 
     var limits:Map<String, Int> = zonesLimits(usedZoneCoord);
@@ -84,7 +88,7 @@ class MapMaker {
     topLeftInWall: 21
 
   */
-  private static  function createWalls(tiles:Array<Array<Int>>) {
+  private static function createWalls(tiles:Array<Array<Int>>) {
 
     for (i in 1...tiles.length-1) {
       for (j in 1...tiles[i].length-1) {
@@ -201,8 +205,6 @@ class MapMaker {
 
     var availableDirections = [];
 
-    trace("lastCoord: " + lastCoord);
-
     if (isCoordinateAvailable([lastCoord[0], lastCoord[1] - 1], usedZoneCoord)) {
       availableDirections.push(0);
     }
@@ -245,6 +247,9 @@ class MapMaker {
     }
     return true;
   }
+  private static function zoneDistanceFromOrigin(zoneCoord:Array<Int>):Float {
+    return Math.sqrt(zoneCoord[0]*zoneCoord[0] + zoneCoord[1]*zoneCoord[1]);
+  }
 
   private static function createZone(kind:ZoneKind, zoneCoord:Array<Int>, name:Int):Array<Array<Int>> {
     var ngold:Int = 0;
@@ -252,22 +257,12 @@ class MapMaker {
     var nMonsters:Int = 0;
     var nWalls:Int = 0;
 
-    switch (kind) {
-      case ZoneKind.starter:
-        ngold = Random.int(2, 3);
-        nMonsters = Random.int(1, 2);
-        nWalls = Random.int(0, 4);
-      case ZoneKind.normal:
-        ngold = Random.int(2, 4);
-        nTreasures = Random.int(0, 2);
-        nMonsters = Random.int(1, 5);
-        nWalls = Random.int(3, 6);
-      case ZoneKind.intense:
-        ngold = Random.int(3, 5);
-        nTreasures = Random.int(0, 4);
-        nMonsters = Random.int(5, 8);
-        nWalls = Random.int(0, 6);
-    }
+    var zoneDificulty = Math.floor(zoneDistanceFromOrigin(zoneCoord));
+
+    ngold      = zoneDificulty * Random.int(2, 3);
+    nMonsters  = zoneDificulty * Random.int(1, 2);
+    nWalls     = zoneDificulty * Random.int(1, 2);
+    nTreasures = zoneDificulty * Random.int(0, 2);
 
     var tiles = populateZone(ngold, nTreasures, nMonsters, nWalls);
 
