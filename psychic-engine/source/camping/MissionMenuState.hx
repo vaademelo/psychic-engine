@@ -22,7 +22,6 @@ import gameData.UserData;
 class MissionMenuState extends FlxState {
 
   private var _playBtn:FlxButton;
-  private var _resetBtn:FlxButton;
 
   public var goldDiv:GoldDiv;
 
@@ -72,28 +71,17 @@ class MissionMenuState extends FlxState {
   private function clickPlay():Void {
     if (calcUsedGold() >= 0) {
       UserData.goldTotal = calcUsedGold();
-      FlxG.switchState(new MissionState());
+      FlxG.camera.fade(FlxColor.BLACK,.33, false, function() {
+        FlxG.switchState(new MissionState());
+      });
     }
   }
 
-  private function clickReset():Void {
-    //TODO: reset character goals
-  }
-
   private function printButtons() {
-    _playBtn = new FlxButton(0, 0, "Start Mission", clickPlay);
-    _resetBtn = new FlxButton(0, 0, "Erase Planning", clickReset);
-
-    _playBtn.loadGraphic("assets/images/menu/button.png", true, 261, 46);
-    _resetBtn.loadGraphic("assets/images/menu/button.png", true, 261, 46);
-
-    _playBtn.x = FlxG.width/2 + 5;
-    _resetBtn.x = FlxG.width/2 - _resetBtn.width - 5;
-
-    _playBtn.y = _resetBtn.y = FlxG.height - 30 - _playBtn.height;
+    _playBtn = new FlxButton(FlxG.width/2 + 185, 25, '', clickPlay);
+    _playBtn.loadGraphic("assets/images/menu/playBtn.png", true, 33, 58);
 
     add(_playBtn);
-    add(_resetBtn);
   }
 
   private function printChars() {

@@ -4,7 +4,7 @@ import flixel.FlxGame;
 import openfl.Lib;
 import openfl.display.Sprite;
 
-import camping.MissionMenuState;
+import camping.TitleState;
 
 import utils.Constants;
 
@@ -16,6 +16,6 @@ class Main extends Sprite
 
 		Constants.setup();
 
-		addChild(new FlxGame(0, 0, MissionMenuState));
+		addChild(new FlxGame(0, 0, TitleState));
 	}
 }
