@@ -28,10 +28,10 @@ class BattleExecuter {
     hitChance = Math.max(hitChance, 0);
     var critChance = unit.character.critChance[opponent.character.bodyKind] - unit.critAccuracyPenalty;
     critChance = Math.max(critChance, 0);
-    if (randomValue <= hitChance) {
-      damage = 1;
-    } else if (randomValue <= hitChance + critChance) {
+    if (randomValue <= critChance) {
       damage = 2;
+    } else if (randomValue <= hitChance + critChance) {
+      damage = 1;
     }
 
     return damage;

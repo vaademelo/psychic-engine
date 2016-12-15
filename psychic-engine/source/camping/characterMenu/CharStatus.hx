@@ -11,8 +11,10 @@ import flixel.group.FlxSpriteGroup;
 import gameData.Character;
 
 import camping.characterMenu.StatusDiv;
+import camping.characterMenu.ItensDiv;
 
 import utils.Constants;
+
 
 class CharStatus extends FlxSpriteGroup {
 
@@ -28,9 +30,11 @@ class CharStatus extends FlxSpriteGroup {
 
   public function new(xx:Int, yy:Int, char:Character) {
     super(xx, yy);
-    xx = 30;
-    yy = 50;
-
+    updateHolder(char);
+  }
+  public function updateHolder(char:Character) {
+    var xx = 30;
+    var yy = 50;
     var bg = new FlxSprite(0, 0, "assets/images/hud/scroll.png");
     bg.setGraphicSize(268, FlxG.height - 20);
     bg.updateHitbox();
@@ -95,6 +99,9 @@ class CharStatus extends FlxSpriteGroup {
 
     yy = addAtackStats(hitLbl, xx, yy, "Hit Chance", char.hitChance);
     yy = addAtackStats(critLbl, xx, yy, "Crit Chance", char.critChance);
+
+    var itensDiv = new ItensDiv(xx, yy, char, TreasureEffect.training, this);
+    add(itensDiv);
   }
 
   public function addBodyKind(div:StatusDiv, xx:Int, yy:Int, kind:BodyKind):Int {

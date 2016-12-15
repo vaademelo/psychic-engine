@@ -11,6 +11,7 @@ import flixel.group.FlxSpriteGroup;
 import gameData.Character;
 
 import camping.characterMenu.TraitDiv;
+import camping.characterMenu.ItensDiv;
 
 import utils.Constants;
 
@@ -18,9 +19,12 @@ class PersonalityDiv extends FlxSpriteGroup {
 
   public function new(xx:Int, yy:Int, char:Character) {
     super(xx, yy);
+    updateHolder(char);
+  }
 
-    xx = 30;
-    yy = 50;
+  public function updateHolder(char:Character) {
+    var xx = 30;
+    var yy = 50;
 
     var bg = new FlxSprite(0, 0, "assets/images/hud/scroll.png");
     bg.setGraphicSize(268, FlxG.height - 20);
@@ -45,6 +49,8 @@ class PersonalityDiv extends FlxSpriteGroup {
       yy += 20;
     }
 
+    var itensDiv = new ItensDiv(xx, yy, char, TreasureEffect.behaviour, this);
+    add(itensDiv);
   }
 
 }

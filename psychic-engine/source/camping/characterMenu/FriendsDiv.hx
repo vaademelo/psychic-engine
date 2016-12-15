@@ -14,11 +14,16 @@ import utils.Constants;
 
 class FriendsDiv extends FlxSpriteGroup {
 
+  public var friends:Map<Character, FlxSpriteGroup>;
+
   public function new(xx:Int, yy:Int, char:Character) {
     super(xx, yy);
+    updateHolder(char);
+  }
 
-    xx = 30;
-    yy = 50;
+  public function updateHolder(char:Character) {
+    var xx = 30;
+    var yy = 50;
 
     var bg = new FlxSprite(0, 0, "assets/images/hud/scroll.png");
     bg.setGraphicSize(268, FlxG.height - 20);
@@ -37,24 +42,31 @@ class FriendsDiv extends FlxSpriteGroup {
 
     yy += Std.int(friendsTxt.height) + 8;
 
+    friends = new Map<Character, FlxSpriteGroup>();
     for (friend in char.relationList.keys()) {
-      var image = new FlxSprite(xx, yy, friend.imageSource);
-      var name = new FlxText(xx + image.width + 5, yy + 5);
+      var friendDiv = new FlxSpriteGroup(xx, yy);
+      var image = new FlxSprite(0, 0, friend.imageSource);
+      var name = new FlxText(image.width + 5, 5);
       name.size = 15;
       name.text = friend.name;
       name.color = FlxColor.BROWN;
 
+      friendDiv.add(image);
+      friendDiv.add(name);
       for(i in 1...6) {
-        var friendship = new FlxSprite(xx + image.width + ((i - 1) * 22) + 5, yy + name.height + 10, "assets/images/relation/"+i+".png");
+        var friendship = new FlxSprite(image.width + ((i - 1) * 22) + 5, name.height + 10, "assets/images/relation/"+i+".png");
         if (i > char.relationList[friend]) {
           friendship.color = FlxColor.BLACK;
         }
-        add(friendship);
+        friendDiv.add(friendship);
       }
-      add(image);
-      add(name);
+      add(friendDiv);
+      friends[friend] = friendDiv;
       yy += Std.int(image.height) + 8;
     }
+
+    var itensDiv = new ItensDiv(xx, yy, char, TreasureEffect.relation, this);
+    add(itensDiv);
 
   }
 
