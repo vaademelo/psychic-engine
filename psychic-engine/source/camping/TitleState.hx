@@ -13,7 +13,7 @@ class TitleState extends FlxState {
   override public function create():Void {
     super.create();
 
-    var bg = new FlxSprite(0, 0, "assets/images/menu/missionBG.png");
+    var bg = new FlxSprite(0, 0, "assets/images/title/cover_background.png");
     bg.setGraphicSize(FlxG.width, FlxG.height);
     bg.updateHitbox();
     bg.centerOrigin();
