@@ -34,6 +34,7 @@ class GoalTool {
 
   public static function shouldReturnAnalisys(worldMap:WorldMap, unit:Unit):Bool {
     if (unit.goalToReturnHome) return true;
+    if (worldMap.isTheSameTile(unit.getCoordinate(), WorldMap.homeTile)) return false;
     var goalCompletion = calculateGoalCompletion(worldMap, unit);
     unit.goalCompletionRate = goalCompletion;
     var lifeLeft:Float = unit.hp / unit.character.hpMax;

@@ -253,7 +253,7 @@ class WorldMap extends FlxTilemap {
     var ngold:Float = cast(currentZone[ZoneInfo.ngold], Int);
     var originalCollectablesInZoneCount:Float = nTreasures + ngold;
     if (originalCollectablesInZoneCount <= 0) {
-      return 1;
+      return 0;
     } else {
       return collectablesInZoneCount/originalCollectablesInZoneCount;
     }

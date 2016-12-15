@@ -29,10 +29,12 @@ class GameOverState extends FlxState {
 
     var missions = new FlxText(20, FlxG.height - 40, 200);
     missions.size = 10;
-    if (UserData.numberOfMissions == 1) {
+    if (UserData.numberOfMissions == 2) {
+      missions.text = 'died on the first mission';
+    } else if (UserData.numberOfMissions == 2) {
       missions.text = 'survived only one mission';
     } else {
-      missions.text = 'survived ' + Std.string(UserData.numberOfMissions) + ' consecutive missions';
+      missions.text = 'survived ' + Std.string(UserData.numberOfMissions - 1) + ' consecutive missions';
     }
     missions.color = FlxColor.WHITE;
     add(missions);
@@ -40,11 +42,13 @@ class GameOverState extends FlxState {
     var record = new FlxText(20, FlxG.height - 20, 200);
     record.size = 10;
 
-    if (UserData.numberOfMissions > Constants.GAME_MISSIONS_RECORD) {
-      Constants.GAME_MISSIONS_RECORD = UserData.numberOfMissions;
+    if (UserData.numberOfMissions - 1 > Constants.GAME_MISSIONS_RECORD) {
+      Constants.GAME_MISSIONS_RECORD = UserData.numberOfMissions - 1;
       record.text = 'IT\' A NEW RECORD!';
     } else {
-      if (Constants.GAME_MISSIONS_RECORD == 1) {
+      if (Constants.GAME_MISSIONS_RECORD == 0) {
+        missions.text = 'RECORD: died on the first mission';
+      } else if (Constants.GAME_MISSIONS_RECORD == 1) {
         record.text = 'RECORD: only one mission';
       } else {
         record.text = 'RECORD: ' + Std.string(Constants.GAME_MISSIONS_RECORD) + ' consecutive missions';
