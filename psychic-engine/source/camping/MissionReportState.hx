@@ -57,7 +57,7 @@ class MissionReportState extends FlxState {
   private function clickContinue():Void {
     for (unit in units) {
       if (unit.gotBackSafelly) {
-        UserData.goldTotal += unit.goldCollected.length * 3;
+        UserData.goldTotal += unit.goldCollected.length * 2;
         for (treasure in unit.treasureCollected) {
           UserData.treasures.push(treasure.treasure);
         }

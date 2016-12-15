@@ -48,21 +48,21 @@ class CharReport extends FlxSpriteGroup {
 
     var gold = new FlxSprite(xx, yy, "assets/images/gold.png");
     resizeImage(gold, 20, 20);
-    goldLbl = new FlxText(xx + 25, yy, 20);
+    goldLbl = new FlxText(xx + 25, yy, 30);
     goldLbl.size = 13;
     goldLbl.text = Std.string(unit.goldCollected.length);
     goldLbl.color = FlxColor.GRAY;
 
-    var treasure = new FlxSprite(xx + 50, yy, "assets/images/item.png");
+    var treasure = new FlxSprite(xx + 60, yy, "assets/images/item.png");
     resizeImage(treasure, 20, 20);
-    treasureLbl = new FlxText(xx + 75, yy, 20);
+    treasureLbl = new FlxText(xx + 85, yy, 30);
     treasureLbl.size = 13;
     treasureLbl.text = Std.string(unit.treasureCollected.length);
     treasureLbl.color = FlxColor.GRAY;
 
-    var kills = new FlxSprite(xx + 100, yy, "assets/images/hud/skull.png");
+    var kills = new FlxSprite(xx + 120, yy, "assets/images/hud/skull.png");
     resizeImage(kills, 20, 20);
-    killsLbl = new FlxText(xx + 125, yy, 20);
+    killsLbl = new FlxText(xx + 145, yy, 20);
     killsLbl.size = 13;
     killsLbl.text = Std.string(unit.kills);
     killsLbl.color = FlxColor.GRAY;

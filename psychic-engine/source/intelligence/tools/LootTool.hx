@@ -13,7 +13,7 @@ class LootTool {
   public static function needForgold(worldMap:WorldMap):Float {
     var numberOfCollectedgold:Int = UserData.goldTotal;
     for (unit in worldMap.heroes.members) {
-      numberOfCollectedgold += unit.goldCollected.length * 3;
+      numberOfCollectedgold += unit.goldCollected.length * 2;
     }
 
     if (numberOfCollectedgold < UserData.goldGoal) {

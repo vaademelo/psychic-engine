@@ -11,6 +11,7 @@ class UserData {
   public static var goldGoal:Int;
   public static var heroes:Array<Character>;
   public static var treasures:Array<Treasure>;
+  public static var numberOfMissions:Int = 0;
 
   public static function loadUserData() {
     if (treasures == null) {
@@ -46,6 +47,7 @@ class UserData {
     heroes = null;
     goldTotal = null;
     goldGoal = null;
+    numberOfMissions = 0;
   }
 
 

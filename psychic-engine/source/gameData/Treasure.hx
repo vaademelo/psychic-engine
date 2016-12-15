@@ -34,6 +34,21 @@ class Treasure {
 
   }
 
+  public function convertKind() {
+    var rnd = Random.int(1,9);
+    switch rnd {
+      case 1, 4, 7:
+        this.effectType = TreasureEffect.training;
+        this.effectDetail = Std.string(Random.fromArray(Type.allEnums(TreasureTrainingDetail)));
+      case 2, 5, 8:
+        this.effectType = TreasureEffect.behaviour;
+        this.effectDetail = Std.string(Random.fromArray(Type.allEnums(TreasureBehaviouDetail)));
+      case 3, 6, 9:
+        this.effectType = TreasureEffect.relation;
+        this.effectDetail = "Improve Friendship";
+    }
+  }
+
   public function useTreasure(?char:Character, ?relationChar:Character) {
     if (used) {
       UserData.treasures.remove(this);

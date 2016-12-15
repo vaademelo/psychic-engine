@@ -51,7 +51,11 @@ class MissionMenuState extends FlxState {
     UserData.loadUserData();
     for (treasure in UserData.treasures) {
       if (treasure.effectType == TreasureEffect.recruitment) {
-        treasure.useTreasure();
+        if (UserData.heroes.length >= 4) {
+          treasure.convertKind();
+        } else {
+          treasure.useTreasure();
+        }
       }
     }
     if (UserData.goldTotal < 0 || UserData.heroes.length == 0) {
@@ -59,6 +63,17 @@ class MissionMenuState extends FlxState {
         FlxG.switchState(new GameOverState());
       });
     }
+    UserData.numberOfMissions ++;
+    var missions = new FlxText(FlxG.width - 220, 30, 200);
+    missions.size = 10;
+    missions.alignment = FlxTextAlign.RIGHT;
+    if (UserData.numberOfMissions == 1) {
+      missions.text = 'first mission';
+    } else {
+      missions.text = Std.string(UserData.numberOfMissions) + ' consecutive missions';
+    }
+    missions.color = FlxColor.BLACK;
+    add(missions);
   }
 
   public function calcUsedGold() {

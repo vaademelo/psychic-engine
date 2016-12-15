@@ -9,6 +9,8 @@ import flixel.util.FlxColor;
 
 import camping.IntroState;
 
+import utils.Constants;
+
 class TitleState extends FlxState {
   override public function create():Void {
     super.create();
@@ -23,6 +25,20 @@ class TitleState extends FlxState {
     playBtn.loadGraphic("assets/images/menu/botao.png", true, 75, 79);
 
     add(playBtn);
+
+    if (Constants.GAME_MISSIONS_RECORD > 0) {
+      var record = new FlxText(20, FlxG.height - 20, 200);
+      record.size = 10;
+
+      if (Constants.GAME_MISSIONS_RECORD == 1) {
+        record.text = 'RECORD: only one mission';
+      } else {
+        record.text = 'RECORD: ' + Std.string(Constants.GAME_MISSIONS_RECORD) + ' consecutive missions';
+      }
+
+      record.color = FlxColor.WHITE;
+      add(record);
+    }
   }
 
   private function clickPlay():Void {
