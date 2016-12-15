@@ -64,6 +64,8 @@ class MissionState extends FlxState {
 
     worldMap.fixHeroesGoals();
 
+    FlxG.sound.playMusic("assets/sounds/mission_track.ogg");
+
     startNewTurn();
   }
 

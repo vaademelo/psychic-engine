@@ -36,10 +36,9 @@ class MissionReportState extends FlxState {
     bg.centerOrigin();
     add(bg);
 
-    _continueBtn = new FlxButton(0, 0, "Continue", clickContinue);
-    _continueBtn.loadGraphic("assets/images/menu/button.png", true, 261, 46);
-    _continueBtn.x = FlxG.width/2 - _continueBtn.width/2;
-    _continueBtn.y =  FlxG.height - 30 - _continueBtn.height;
+    var _continueBtn = new FlxButton(FlxG.width - 95, FlxG.height - 99, '', clickContinue);
+    _continueBtn.loadGraphic("assets/images/menu/botao.png", true, 75, 79);
+
     add(_continueBtn);
 
     var yPos = 130;
@@ -48,6 +47,8 @@ class MissionReportState extends FlxState {
       add(hero);
       yPos += Std.int(hero.height) + 10;
     }
+
+    FlxG.sound.playMusic("assets/sounds/menu_track.ogg");
   }
 
   override public function update(elapsed:Float):Void {

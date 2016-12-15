@@ -39,7 +39,9 @@ class TitleState extends FlxState {
       record.color = FlxColor.WHITE;
       add(record);
     }
-  }
+
+    FlxG.sound.playMusic("assets/sounds/menu_track.ogg");
+ }
 
   private function clickPlay():Void {
     FlxG.camera.fade(FlxColor.BLACK,.33, false, function() {
